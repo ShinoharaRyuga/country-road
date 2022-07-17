@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MapTileTest.unity
+    guid: 36e317fe6a01ad64eb56ce39c4f12b9a
   m_configObjects: {}
