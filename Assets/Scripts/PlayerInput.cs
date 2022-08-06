@@ -73,7 +73,8 @@ public class PlayerInput : MonoBehaviour
                 {
                     _startMapTile = hit.collider.gameObject.GetComponent<MapTile>();
                     _startPoint = _startMapTile.transform.position;
-                    //Debug.Log($"start {_startMapTile.name}");
+                    Debug.Log($"{_startMapTile.name} start {_startMapTile.StartConnectionTile}");
+                    Debug.Log($"{_startMapTile.name} end {_startMapTile.EndConnectionTile}");
                 }
             }
         }
