@@ -20,13 +20,13 @@ public class MapTile : MonoBehaviour
 
     void Start()
     {
-        for (var i = 0; i < transform.childCount; i++)  //各ポイントを取得し、リストを作成する
-        {
-            var roadPoint = transform.GetChild(i).gameObject.GetComponent<RoadPoint>();
-            var nextStatus = i % Enum.GetValues(typeof(PointStatus)).Length;
-            roadPoint.PointStatus = (PointStatus)nextStatus;
-            _tilePoints.Add(roadPoint);
-        }
+        //for (var i = 0; i < transform.childCount; i++)  //各ポイントを取得し、リストを作成する
+        //{
+        //    var roadPoint = transform.GetChild(i).gameObject.GetComponent<RoadPoint>();
+        //    var nextStatus = i % Enum.GetValues(typeof(PointStatus)).Length;
+        //    roadPoint.PointStatus = (PointStatus)nextStatus;
+        //    _tilePoints.Add(roadPoint);
+        //}
     }
 
     /// <summary>

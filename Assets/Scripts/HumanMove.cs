@@ -3,35 +3,34 @@ using UnityEngine;
 /// <summary>街の人を動かすクラス</summary>
 public class HumanMove : MonoBehaviour
 {
-    [SerializeField, Tooltip("移動速度")] float _move = 1f;
+    [SerializeField, Tooltip("移動速度")] float _moveSpeed = 1f;
     [SerializeField, Tooltip("位置到達と見なす距離")] float _goalDistance = 0.6f;
     [SerializeField, Tooltip("街の人が乗っているタイル")] MapTile _currentMapTile;
-    /// <summary>最後に触れたポイント </summary>
-    RoadPoint _lastRoadPoint = default;
+    /// <summary>最後に乗っていたタイル</summary>
+    MapTile _lastMapTile = default;
     /// <summary>タイルのポイント位置</summary>
     int _currentIndex = 1;
-    bool _isMoving = true;
+    bool _isMoving = false;
 
     Rigidbody _rb => GetComponent<Rigidbody>();
     public MapTile CurrentMapTile { get => _currentMapTile; set => _currentMapTile = value; }
+    public MapTile LastMapTile { get => _lastMapTile; set => _lastMapTile = value; }
     public bool IsMoving { get => _isMoving; set => _isMoving = value; }
-    public RoadPoint LastRoadPoint { get => _lastRoadPoint; set => _lastRoadPoint = value; }
 
     void Update()
     {
         var distance = 0f;
 
-        if (_isMoving && _currentMapTile)
+        if (Input.GetButtonDown("Jump"))
         {
-             if (_currentIndex < _currentMapTile.TilePoints.Count)
-            {
-                distance = Vector3.Distance(transform.position, _currentMapTile.TilePoints[_currentIndex].transform.position);  //ゴールまでの距離を計算する
-            }
+            SetMovePosition();
+            Debug.Log("目的地を設定");
+        }
 
-            if (Input.GetButtonDown("Jump"))
-            {
-                SetMovePosition();
-            }
+        if (_isMoving)
+        {
+            distance = Vector3.Distance(transform.position, _currentMapTile.TilePoints[_currentIndex].transform.position);  //ゴールまでの距離を計算する
+            _rb.velocity = transform.forward * _moveSpeed;
 
             if (distance <= _goalDistance)
             {
@@ -46,39 +45,35 @@ public class HumanMove : MonoBehaviour
                 {
                     Debug.Log("到達");
                     _currentIndex = 0;
-                    _currentMapTile = _currentMapTile.EndConnectionTile;
-                    Debug.Log(_currentMapTile);
-                    //  SetMovePosition();
+                    _isMoving = false;
                 }
             }
         }
 
         if (Input.GetKeyDown(KeyCode.N))
         {
-            Debug.Log(_currentMapTile);
+            Debug.Log($"current{_currentMapTile}");
+            Debug.Log($"last{_lastMapTile}");
         }
     }
 
-    public bool CheckPoints(RoadPoint targetPoint)
+    public void SetNextTile()
     {
-        foreach (var point in _currentMapTile.TilePoints)
+        if (_currentMapTile.EndConnectionTile != null)
         {
-            if (targetPoint == point)
-            {
-                return false;
-            }
+            _currentMapTile = _currentMapTile.EndConnectionTile;
+            _isMoving = true;
+            Debug.Log("ロード");
         }
-
-        return true;
     }
 
-    /// <summary>設定した位置に移動する</summary>
+    /// <summary>目的地を決める</summary>
     void SetMovePosition()
     {
         var dir = _currentMapTile.TilePoints[_currentIndex].transform.position - transform.position;
         transform.forward = dir;
         var quaternion = Quaternion.Euler(0, transform.localEulerAngles.y, 0);
         transform.rotation = quaternion;
-        _rb.velocity = transform.forward * _move;
+        _isMoving = true;
     }
 }

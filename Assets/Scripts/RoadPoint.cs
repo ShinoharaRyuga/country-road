@@ -10,25 +10,8 @@ public class RoadPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //ポイントに街の人が衝突した時の処理
-        if (other.gameObject.CompareTag("Human"))
-        {
-            var human = other.gameObject.GetComponent<HumanMove>();
-
-            if (MapTile != human.CurrentMapTile && human.CheckPoints(this))　//次のタイル進入
-            {
-                if (_pointStatus == PointStatus.End)  //進入したポイントがエンドポイントだったら処理する
-                {
-                    MapTile.Swap();
-                }
-
-                Debug.Log("次のタイルに進入しました");
-                Debug.Log($"呼んだ人{MapTile.gameObject.name}");
-            }
-        }
-
         //タイルが移動されて他のタイルの繋がりが出来た時の処理 繋がったタイル情報を親タイルで保持をする
-        if (other.gameObject.CompareTag("Point"))
+        if (other.gameObject.CompareTag("Connection"))
         {
             if (_pointStatus == PointStatus.Start)  //スタートポイントに繋がりが出来た時
             {
