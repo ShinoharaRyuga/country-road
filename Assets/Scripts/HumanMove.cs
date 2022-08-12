@@ -9,7 +9,7 @@ public class HumanMove : MonoBehaviour
     /// <summary>最後に乗っていたタイル</summary>
     MapTile _lastMapTile = default;
     /// <summary>タイルのポイント位置</summary>
-    int _currentIndex = 1;
+    int _currentIndex = 0;
     bool _isMoving = false;
 
     Rigidbody _rb => GetComponent<Rigidbody>();
@@ -21,32 +21,35 @@ public class HumanMove : MonoBehaviour
     {
         var distance = 0f;
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.B))
         {
             SetMovePosition();
-            Debug.Log("目的地を設定");
         }
 
         if (_isMoving)
         {
-            distance = Vector3.Distance(transform.position, _currentMapTile.TilePoints[_currentIndex].transform.position);  //ゴールまでの距離を計算する
-            _rb.velocity = transform.forward * _moveSpeed;
-
+            if (_currentIndex < _currentMapTile.TilePoints.Count)
+            {
+                distance = Vector3.Distance(transform.position, _currentMapTile.TilePoints[_currentIndex].transform.position);  //ゴールまでの距離を計算する
+            }
+           
             if (distance <= _goalDistance)
             {
-                _rb.velocity = Vector3.zero;
-                _currentIndex++;
-
-                if (_currentIndex < _currentMapTile.TilePoints.Count)
+               
+                if (_currentIndex < _currentMapTile.TilePoints.Count - 1)
                 {
+                    _currentIndex++;
                     SetMovePosition();
                 }
                 else
                 {
-                    Debug.Log("到達");
                     _currentIndex = 0;
-                    _isMoving = false;
+                    _rb.velocity = Vector3.zero;
                 }
+            }
+            else
+            {
+                _rb.velocity = transform.forward * _moveSpeed;
             }
         }
 
@@ -54,16 +57,44 @@ public class HumanMove : MonoBehaviour
         {
             Debug.Log($"current{_currentMapTile}");
             Debug.Log($"last{_lastMapTile}");
+            Debug.Log($"point{_currentMapTile.TilePoints[_currentIndex].name}");
         }
     }
 
-    public void SetNextTile()
+    public void SetNextTile(PointStatus status)
     {
-        if (_currentMapTile.EndConnectionTile != null)
+
+        Debug.Log("呼ばれた");
+
+        if (status == PointStatus.Start)
         {
-            _currentMapTile = _currentMapTile.EndConnectionTile;
-            _isMoving = true;
-            Debug.Log("ロード");
+            if (_currentMapTile.StartConnectionTile != null)
+            {
+                _currentMapTile = _currentMapTile.StartConnectionTile;
+                _isMoving = true;
+                Debug.Log("進行");
+            }
+            else
+            {
+                _isMoving = false;
+                _rb.velocity = Vector3.zero;
+                Debug.Log("Start止める");
+            }
+        }
+        else if (status == PointStatus.End)
+        {
+            if (_currentMapTile.EndConnectionTile != null)
+            {
+                _currentMapTile = _currentMapTile.EndConnectionTile;
+                _isMoving = true;
+                Debug.Log("進行");
+            }
+            else
+            {
+                _isMoving = false;
+                _rb.velocity = Vector3.zero;
+                Debug.Log("End止める");
+            }
         }
     }
 

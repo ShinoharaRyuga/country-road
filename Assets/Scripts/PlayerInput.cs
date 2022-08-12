@@ -72,8 +72,6 @@ public class PlayerInput : MonoBehaviour
                 {
                     _startMapTile = hit.collider.gameObject.GetComponent<MapTile>();
                     _startPoint = _startMapTile.transform.position;
-                    Debug.Log($"{_startMapTile.name} start {_startMapTile.StartConnectionTile}");
-                    Debug.Log($"{_startMapTile.name} end {_startMapTile.EndConnectionTile}");
                 }
             }
         }
@@ -90,7 +88,6 @@ public class PlayerInput : MonoBehaviour
                     {
                         _endMapTile = hit.collider.gameObject.GetComponent<MapTile>();
                         _endPoint = _endMapTile.transform.position;
-                       // Debug.Log($"end {_endMapTile.name}");
                     }
 
                 }
@@ -117,8 +114,9 @@ public class PlayerInput : MonoBehaviour
                 if (hit.collider.gameObject.CompareTag("Tile"))
                 {
                     var target = hit.collider.gameObject.GetComponent<MapTile>();
-                    Debug.Log($"{target.name} start {target.StartConnectionTile}");
-                    Debug.Log($"{target.name} end {target.EndConnectionTile}");
+                    Debug.Log($"{target.name}");
+                    Debug.Log($"start {target.StartConnectionTile}");
+                    Debug.Log($"end {target.EndConnectionTile}");
                 }
             }
         }

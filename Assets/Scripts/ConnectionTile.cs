@@ -1,10 +1,15 @@
 using UnityEngine;
 
+/// <summary>タイル同士を接続したり切り離したりするクラス </summary>
 public class ConnectionTile : MonoBehaviour
 {
     [SerializeField] ConnectionStatus _currentStatus = ConnectionStatus.None;
+    /// <summary>親タイル </summary>
     MapTile _parentMapTile => transform.parent.GetComponent<MapTile>();
 
+    /// <summary>
+    /// タイル同士を繋げる為の関数
+    /// </summary>
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Connection"))

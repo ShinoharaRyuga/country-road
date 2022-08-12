@@ -1,45 +1,34 @@
 using UnityEngine;
 
-/// <summary>タイルの子オブジェクトのポイントを管理するクラス </summary>
+/// <summary>タイルへの出入りを管理するクラス </summary>
 public class RoadPoint : MonoBehaviour
 {
-    [SerializeField, Tooltip("ポイントの状態")] PointStatus _pointStatus = PointStatus.None;
+    [SerializeField] PointStatus _currentStatus = PointStatus.None;
+    public PointStatus CurrentStatus { get => _currentStatus; set => _currentStatus = value; }
     /// <summary>親タイル </summary>
-    MapTile MapTile => transform.parent.GetComponent<MapTile>();
-    public PointStatus PointStatus { get => _pointStatus; set => _pointStatus = value; }
+    MapTile _parentMapTile => transform.parent.GetComponent<MapTile>();
 
     private void OnTriggerEnter(Collider other)
     {
-        //タイルが移動されて他のタイルの繋がりが出来た時の処理 繋がったタイル情報を親タイルで保持をする
-        if (other.gameObject.CompareTag("Connection"))
+        if (other.gameObject.CompareTag("Human") && _currentStatus != PointStatus.Middle)
         {
-            if (_pointStatus == PointStatus.Start)  //スタートポイントに繋がりが出来た時
+            var human = other.GetComponent<HumanMove>();
+
+            if (_parentMapTile.CheckHumans(human))
             {
-                MapTile.StartConnectionTile = other.transform.parent.GetComponent<MapTile>();
+                _parentMapTile.Humans.Add(human);
+                Debug.Log("追加");
             }
-            else if (_pointStatus == PointStatus.End)  //エンドポイントに繋がりが出来た時
+            else
             {
-                MapTile.EndConnectionTile = other.transform.parent.GetComponent<MapTile>();
+                human.SetNextTile(_currentStatus);
+                _parentMapTile.Humans.Remove(human);
+                Debug.Log("次タイル");
             }
         }
-    }
-
-    /// <summary>
-    /// タイルが移動されて他のタイルとの繋がりがなくなった場合の処理 
-    /// startとendに繋がっていたタイル情報を削除する
-    /// </summary>
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Point"))
+        else
         {
-            if (_pointStatus == PointStatus.Start)
-            {
-                MapTile.StartConnectionTile = null;
-            }
-            else if (_pointStatus == PointStatus.End)
-            {
-                MapTile.EndConnectionTile = null;
-            }
+            Debug.Log("hit");
         }
     }
 }

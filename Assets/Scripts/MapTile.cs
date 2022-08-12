@@ -5,6 +5,8 @@ using UnityEngine;
 /// <summary>タイルを管理するクラス </summary>
 public class MapTile : MonoBehaviour
 {
+    /// <summary>タイルに乗っている街の人リスト </summary>
+    List<HumanMove> _humans = new List<HumanMove>();
     /// <summary>タイルの中心と出入口の位置 </summary>
     List<RoadPoint> _tilePoints = new List<RoadPoint>();
     /// <summary>スタートポイントと繋がっているタイル </summary>
@@ -17,17 +19,32 @@ public class MapTile : MonoBehaviour
     public MapTile StartConnectionTile { get => _startConnectionTile; set => _startConnectionTile = value; }
     /// <summary>エンドポイントと繋がっているタイル </summary>
     public MapTile EndConnectionTile { get => _endConnectionTile; set => _endConnectionTile = value; }
+    public List<HumanMove> Humans { get => _humans; set => _humans = value; }
 
     void Start()
     {
-        //for (var i = 0; i < transform.childCount; i++)  //各ポイントを取得し、リストを作成する
-        //{
-        //    var roadPoint = transform.GetChild(i).gameObject.GetComponent<RoadPoint>();
-        //    var nextStatus = i % Enum.GetValues(typeof(PointStatus)).Length;
-        //    roadPoint.PointStatus = (PointStatus)nextStatus;
-        //    _tilePoints.Add(roadPoint);
-        //}
+        for (var i = 0; i < transform.childCount; i++)  //各ポイントを取得し、リストを作成する
+        {
+            if (transform.GetChild(i).TryGetComponent<RoadPoint>(out var roadPoint))
+            {
+                var nextStatus = i % Enum.GetValues(typeof(PointStatus)).Length;
+                roadPoint.CurrentStatus = (PointStatus)nextStatus;
+                _tilePoints.Add(roadPoint);
+            }
+        }
     }
+
+
+    public bool CheckHumans(HumanMove target)
+    {
+        if (_humans.Contains(target))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
 
     /// <summary>
     /// 街の人がエンドポイントから進入してきたら
