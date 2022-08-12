@@ -66,7 +66,6 @@ public class PlayerInput : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-          //  Debug.DrawRay(ray.origin, ray.direction * 10, Color.green, 5, false);
             if (Physics.Raycast(ray, out hit))
             {
                 if (hit.collider.gameObject.CompareTag("Tile") && _startMapTile == null)
@@ -105,6 +104,23 @@ public class PlayerInput : MonoBehaviour
 
             _startMapTile = null;
             _endMapTile = null;
+        }
+
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.gameObject.CompareTag("Tile"))
+                {
+                    var target = hit.collider.gameObject.GetComponent<MapTile>();
+                    Debug.Log($"{target.name} start {target.StartConnectionTile}");
+                    Debug.Log($"{target.name} end {target.EndConnectionTile}");
+                }
+            }
         }
     }
 }
