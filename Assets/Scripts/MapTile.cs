@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>タイルを管理するクラス </summary>
@@ -34,17 +35,11 @@ public class MapTile : MonoBehaviour
         }
     }
 
-
-    public bool CheckHumans(HumanMove target)
+    public PointStatus GetNearRoadPoint(Vector3 playerPosition)
     {
-        if (_humans.Contains(target))
-        {
-            return false;
-        }
-
-        return true;
+        var nearPoint = _tilePoints.OrderBy(x => Vector3.Distance(playerPosition, x.transform.position)).FirstOrDefault();
+        return nearPoint.CurrentStatus;
     }
-
 
     /// <summary>
     /// 街の人がエンドポイントから進入してきたら

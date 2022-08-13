@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -117,6 +118,8 @@ public class PlayerInput : MonoBehaviour
                     Debug.Log($"{target.name}");
                     Debug.Log($"start {target.StartConnectionTile}");
                     Debug.Log($"end {target.EndConnectionTile}");
+
+                    //target.TilePoints.ForEach(p => Debug.Log(p.CurrentStatus));
                 }
             }
         }
