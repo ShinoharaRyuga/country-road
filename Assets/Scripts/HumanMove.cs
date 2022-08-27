@@ -9,7 +9,7 @@ public class HumanMove : MonoBehaviour
     [SerializeField, Tooltip("街の人が乗っているタイル")] MapTile _currentMapTile;
     /// <summary>タイル進入時最初に衝突したポイントステータス </summary>
     PointStatus _enterPointStatus = PointStatus.None;
-
+    /// <summary>タイルから退出する時に衝突するポイント </summary>
     PointStatus _exitPointStatus = PointStatus.None;
     /// <summary>タイルのポイント位置</summary>
     int _currentIndex = 0;
@@ -25,20 +25,6 @@ public class HumanMove : MonoBehaviour
         {
             _rb.velocity = transform.forward * _moveSpeed;
         }
-
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            Debug.Log($"current{_currentMapTile}");
-            ///Debug.Log($"point{_currentMapTile.TilePoints[_currentIndex].name}");
-            //Debug.Log(_enterPointStatus);
-            //Debug.Log(_exitPointStatus);
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            StartCoroutine(SetDestination());
-            _isStart = true;
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,9 +32,9 @@ public class HumanMove : MonoBehaviour
         if (other.TryGetComponent(out RoadPoint roadPoint))
         {
             var hitTile = roadPoint.ParentMapTile;
+
             if (hitTile == _currentMapTile && _exitPointStatus == roadPoint.CurrentStatus)    //タイルの終了位置に到着
             {
-                Debug.Log("到着");
                 StartCoroutine(ArrivalEndPoint());
                 return;
             }
@@ -59,10 +45,7 @@ public class HumanMove : MonoBehaviour
                 SetExitPoint();
             }
 
-            if (_isStart)
-            {
-                StartCoroutine(SetDestination());
-            }
+            StartCoroutine(SetDestination());
         }
     }
 
@@ -91,83 +74,60 @@ public class HumanMove : MonoBehaviour
             {
                 _currentIndex++;
                 SetMoveDirection();
-                Debug.Log("入る　start");
-            }
-            else
-            {
-                _isMoving = false;
-                _rb.velocity = Vector3.zero;
             }
         }
-        else if(_enterPointStatus == PointStatus.End)
+        else if (_enterPointStatus == PointStatus.End)
         {
             if (0 < _currentIndex)
             {
                 _currentIndex--;
                 SetMoveDirection();
-                Debug.Log("入る");
-            }
-            else
-            {
-                _isMoving = false;
-                _rb.velocity = Vector3.zero;
             }
         }
     }
 
+    /// <summary>タイルから退出する時の処理 </summary>
     IEnumerator ArrivalEndPoint()
     {
         yield return new WaitForSeconds(0.5f);
         _isMoving = false;
         _rb.velocity = Vector3.zero;
-     
+
+        //タイルが繋がっていたら移動する
         if (_exitPointStatus == PointStatus.Start && _currentMapTile.StartConnectionTile != null)
         {
             _currentMapTile = _currentMapTile.StartConnectionTile;
-
-            var point = _currentMapTile.GetNearRoadPoint(transform.position);
-            Debug.Log(point);
-            if (point == PointStatus.Start)
-            {
-                _currentIndex = 0;
-                _enterPointStatus = PointStatus.Start;
-                SetExitPoint();
-                SetMoveDirection();
-            }
-            else if (point == PointStatus.End)
-            {
-                _currentIndex = _currentMapTile.TilePoints.Count - 1;
-                _enterPointStatus = PointStatus.End;
-                SetExitPoint();
-                SetMoveDirection();
-            }
-            
-            Debug.Log("Start");
+            SetEnterPoint();
         }
         else if (_exitPointStatus == PointStatus.End && _currentMapTile.EndConnectionTile != null)
         {
             _currentMapTile = _currentMapTile.EndConnectionTile;
-            var point = _currentMapTile.GetNearRoadPoint(transform.position);
-            Debug.Log(point);
-            if (point == PointStatus.Start)
-            {
-                _currentIndex = 0;
-                _enterPointStatus = PointStatus.Start;
-                SetExitPoint();
-                SetMoveDirection();
-            }
-            else if (point == PointStatus.End)
-            {
-                _currentIndex = _currentMapTile.TilePoints.Count - 1;
-                _enterPointStatus = PointStatus.End;
-                SetExitPoint();
-                SetMoveDirection();
-            }
-
-            Debug.Log("End");
+            SetEnterPoint();
         }
     }
 
+    /// <summary>進入ポイントを決める </summary>
+    void SetEnterPoint()
+    {
+        var point = _currentMapTile.GetNearRoadPoint(transform.position);
+
+        if (point == PointStatus.Start)
+        {
+            _currentIndex = 0;
+            _enterPointStatus = PointStatus.Start;
+        }
+        else if (point == PointStatus.End)
+        {
+            _currentIndex = _currentMapTile.TilePoints.Count - 1;
+            _enterPointStatus = PointStatus.End;
+        }
+
+        //移動処理
+        SetExitPoint();
+        SetMoveDirection();
+    }
+
+    /// <summary>移動処理 </summary>
     void SetMoveDirection()
     {
         var dir = _currentMapTile.TilePoints[_currentIndex].transform.position - transform.position;

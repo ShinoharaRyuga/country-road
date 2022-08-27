@@ -20,6 +20,17 @@ public class CreateMap : MonoBehaviour
        
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            var point = _mapTiles[0, 1].TilePoints[0];
+            var pos = new Vector3(point.transform.position.x, point.transform.position.y + 0.1f, point.transform.position.z);
+            var human = Instantiate(_humanPrefab, pos, Quaternion.identity);
+            human.CurrentMapTile = _mapTiles[0, 1];
+        }
+    }
+
     public void Create()
     {
         if (!_isFirst)
