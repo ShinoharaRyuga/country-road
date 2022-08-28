@@ -35,10 +35,29 @@ public class MapTile : MonoBehaviour
         }
     }
 
+    /// <summary> 最も近いポイントのステータスを返す </summary>
     public PointStatus GetNearRoadPoint(Vector3 playerPosition)
     {
         var nearPoint = _tilePoints.OrderBy(x => Vector3.Distance(playerPosition, x.transform.position)).FirstOrDefault();
         return nearPoint.CurrentStatus;
+    }
+
+    /// <summary>
+    /// タイルに進入して来た人がリストに入っているか調べて
+    /// 処理を行う
+    /// </summary>
+    public void CheckHumans(HumanMove human)
+    {
+        if (_humans.Contains(human))
+        {
+            _humans.Remove(human);
+            Debug.Log("削除");
+        }
+        else
+        {
+            _humans.Add(human);
+            Debug.Log("追加");
+        }
     }
 
     /// <summary>

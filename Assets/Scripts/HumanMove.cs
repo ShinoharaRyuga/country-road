@@ -14,7 +14,7 @@ public class HumanMove : MonoBehaviour
     /// <summary>タイルのポイント位置</summary>
     int _currentIndex = 0;
     bool _isMoving = false;
-    bool _isStart = false;
+
     Rigidbody _rb => GetComponent<Rigidbody>();
     public MapTile CurrentMapTile { get => _currentMapTile; set => _currentMapTile = value; }
     public bool IsMoving { get => _isMoving; set => _isMoving = value; }
@@ -24,6 +24,19 @@ public class HumanMove : MonoBehaviour
         if (_isMoving)
         {
             _rb.velocity = transform.forward * _moveSpeed;
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            Debug.Log(CurrentMapTile);
+            Debug.Log("スタート" + _currentMapTile.StartConnectionTile);
+            Debug.Log("エンド" + _currentMapTile.EndConnectionTile);
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            Debug.Log("移動");
+            ChackTileConnection();
         }
     }
 
@@ -93,7 +106,15 @@ public class HumanMove : MonoBehaviour
         _isMoving = false;
         _rb.velocity = Vector3.zero;
 
-        //タイルが繋がっていたら移動する
+        ChackTileConnection();
+    }
+
+    /// <summary>
+    /// タイルが繋がっているか調べて
+    /// 繋がってたら移動する
+    /// </summary>
+    void ChackTileConnection()
+    {
         if (_exitPointStatus == PointStatus.Start && _currentMapTile.StartConnectionTile != null)
         {
             _currentMapTile = _currentMapTile.StartConnectionTile;

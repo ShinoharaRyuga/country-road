@@ -10,7 +10,10 @@ public class RoadPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.TryGetComponent<HumanMove>(out var human) && _currentStatus != PointStatus.Middle)
+        {
+            ParentMapTile.CheckHumans(human);
+        }
     }
 }
 

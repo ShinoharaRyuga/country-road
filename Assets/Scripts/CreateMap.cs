@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>マップをランダムに生成するクラス </summary>
 public class CreateMap : MonoBehaviour
 {
     [SerializeField] int _rows = 3;
@@ -9,28 +10,29 @@ public class CreateMap : MonoBehaviour
     [SerializeField] HumanMove _humanPrefab = default;
 
     HumanMove _human = default;
+    /// <summary>向きを変更する為の配列</summary>
     int[] _rotationValues = new int[4] { 0, 90, 180, 270 };
     MapTile[,] _mapTiles = default;
     bool _isFirst = true;
+
     private void Start()
     {
         _mapTiles = new MapTile[_rows, _columns];
         Create();
         _isFirst = false;
-       
     }
 
-    private void Update()
+    /// <summary>街人を追加生成する </summary>
+    public void AddHuman()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            var point = _mapTiles[0, 1].TilePoints[0];
-            var pos = new Vector3(point.transform.position.x, point.transform.position.y + 0.1f, point.transform.position.z);
-            var human = Instantiate(_humanPrefab, pos, Quaternion.identity);
-            human.CurrentMapTile = _mapTiles[0, 1];
-        }
+        var point = _mapTiles[0, 1].TilePoints[0];
+        var pos = new Vector3(point.transform.position.x, point.transform.position.y + 0.1f, point.transform.position.z);
+        var human = Instantiate(_humanPrefab, pos, Quaternion.identity);
+        human.CurrentMapTile = _mapTiles[0, 1];
     }
 
+
+    /// <summary>マップを生成する </summary>
     public void Create()
     {
         if (!_isFirst)
@@ -72,6 +74,7 @@ public class CreateMap : MonoBehaviour
         StartCoroutine(HumanGenerator());
     }
 
+    /// <summary>マップ生成終了後に最初の街人を生成する </summary>
     IEnumerator HumanGenerator()
     {
         yield return new WaitForSeconds(0.1f);
