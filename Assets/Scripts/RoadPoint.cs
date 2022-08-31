@@ -12,7 +12,7 @@ public class RoadPoint : MonoBehaviour
     {
         if (other.TryGetComponent<HumanMove>(out var human) && _currentStatus != PointStatus.Middle)
         {
-            ParentMapTile.CheckHumans(human);
+            ParentMapTile.CheckHumans(human,_currentStatus);
         }
     }
 }

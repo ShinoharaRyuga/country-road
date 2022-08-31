@@ -62,6 +62,25 @@ public class HumanMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// タイルが繋がっているか調べて
+    /// 繋がってたら移動する
+    /// </summary>
+    public void ChackTileConnection()
+    {
+        if (_exitPointStatus == PointStatus.Start && _currentMapTile.StartConnectionTile != null)
+        {
+            _currentMapTile = _currentMapTile.StartConnectionTile;
+            SetEnterPoint();
+        }
+        else if (_exitPointStatus == PointStatus.End && _currentMapTile.EndConnectionTile != null)
+        {
+            _currentMapTile = _currentMapTile.EndConnectionTile;
+            SetEnterPoint();
+        }
+    }
+
+
     /// <summary>タイルから出る時に衝突するポイントステータスを設定する </summary>
     void SetExitPoint()
     {
@@ -109,24 +128,7 @@ public class HumanMove : MonoBehaviour
         ChackTileConnection();
     }
 
-    /// <summary>
-    /// タイルが繋がっているか調べて
-    /// 繋がってたら移動する
-    /// </summary>
-    void ChackTileConnection()
-    {
-        if (_exitPointStatus == PointStatus.Start && _currentMapTile.StartConnectionTile != null)
-        {
-            _currentMapTile = _currentMapTile.StartConnectionTile;
-            SetEnterPoint();
-        }
-        else if (_exitPointStatus == PointStatus.End && _currentMapTile.EndConnectionTile != null)
-        {
-            _currentMapTile = _currentMapTile.EndConnectionTile;
-            SetEnterPoint();
-        }
-    }
-
+   
     /// <summary>進入ポイントを決める </summary>
     void SetEnterPoint()
     {

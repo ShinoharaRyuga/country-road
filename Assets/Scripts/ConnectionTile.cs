@@ -5,7 +5,7 @@ public class ConnectionTile : MonoBehaviour
 {
     [SerializeField] ConnectionStatus _currentStatus = ConnectionStatus.None;
     /// <summary>親タイル </summary>
-    MapTile _parentMapTile => transform.parent.GetComponent<MapTile>();
+    public MapTile ParentMapTile => transform.parent.GetComponent<MapTile>();
 
     /// <summary>
     /// タイル同士を繋げる為の関数
@@ -16,11 +16,13 @@ public class ConnectionTile : MonoBehaviour
         {
             if (_currentStatus == ConnectionStatus.Start)
             {
-                _parentMapTile.StartConnectionTile = other.transform.parent.GetComponent<MapTile>();
+                ParentMapTile.StartConnectionTile = other.transform.parent.GetComponent<MapTile>();
+                ParentMapTile.AgainMove();
             }
             else if(_currentStatus == ConnectionStatus.End)
             {
-                _parentMapTile.EndConnectionTile = other.transform.parent.GetComponent<MapTile>();
+                ParentMapTile.EndConnectionTile = other.transform.parent.GetComponent<MapTile>();
+                ParentMapTile.AgainMove();
             }
         }
     }
@@ -35,11 +37,11 @@ public class ConnectionTile : MonoBehaviour
         {
             if (_currentStatus == ConnectionStatus.Start)
             {
-                _parentMapTile.StartConnectionTile = null;
+                ParentMapTile.StartConnectionTile = null;
             }
             else if (_currentStatus == ConnectionStatus.End)
             {
-                _parentMapTile.EndConnectionTile = null;
+                ParentMapTile.EndConnectionTile = null;
             }
         }
     }

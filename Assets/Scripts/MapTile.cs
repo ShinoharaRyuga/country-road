@@ -35,7 +35,7 @@ public class MapTile : MonoBehaviour
         }
     }
 
-    /// <summary> 最も近いポイントのステータスを返す </summary>
+    /// <summary> 最も近いポイントステータスを返す </summary>
     public PointStatus GetNearRoadPoint(Vector3 playerPosition)
     {
         var nearPoint = _tilePoints.OrderBy(x => Vector3.Distance(playerPosition, x.transform.position)).FirstOrDefault();
@@ -46,17 +46,43 @@ public class MapTile : MonoBehaviour
     /// タイルに進入して来た人がリストに入っているか調べて
     /// 処理を行う
     /// </summary>
-    public void CheckHumans(HumanMove human)
+    public void CheckHumans(HumanMove human, PointStatus status)
     {
-        if (_humans.Contains(human))
+        var nextTile = _startConnectionTile;
+
+        if (status == PointStatus.End)
+        {
+            nextTile = _endConnectionTile;
+        }
+
+        if (_humans.Contains(human) && nextTile != null)
         {
             _humans.Remove(human);
             Debug.Log("削除");
         }
-        else
+        else if (!_humans.Contains(human))
         {
             _humans.Add(human);
             Debug.Log("追加");
+        }
+    }
+
+    /// <summary>タイルでとどまっていた街人達を再び移動させる</summary>
+    public void AgainMove()
+    {
+        //削除時にInvalidOperationExceptionを出さないようにするため
+        var moveHumans = new List<HumanMove>();
+
+        foreach (var human in _humans)
+        {
+            human.ChackTileConnection();
+            moveHumans.Add(human);
+        }
+
+        //移動した街人を削除
+        foreach (var target in moveHumans)
+        {
+            _humans.Remove(target);
         }
     }
 

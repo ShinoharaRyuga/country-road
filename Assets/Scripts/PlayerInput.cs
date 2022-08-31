@@ -104,7 +104,7 @@ public class PlayerInput : MonoBehaviour
             _endMapTile = null;
         }
 
-
+        //デバッグ用
         if (Input.GetButtonDown("Fire2"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -115,9 +115,11 @@ public class PlayerInput : MonoBehaviour
                 if (hit.collider.gameObject.CompareTag("Tile"))
                 {
                     var target = hit.collider.gameObject.GetComponent<MapTile>();
-                    Debug.Log($"{target.name}");
-                    Debug.Log($"start {target.StartConnectionTile}");
-                    Debug.Log($"end {target.EndConnectionTile}");
+               
+                    Debug.Log(target.Humans.Count);
+                    //Debug.Log($"{target.name}");
+                    //Debug.Log($"start {target.StartConnectionTile}");
+                    //Debug.Log($"end {target.EndConnectionTile}");
 
                     //target.TilePoints.ForEach(p => Debug.Log(p.CurrentStatus));
                 }
