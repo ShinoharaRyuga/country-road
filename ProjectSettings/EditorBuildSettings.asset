@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MapTileTest.unity
-    guid: 36e317fe6a01ad64eb56ce39c4f12b9a
+    path: Assets/Scenes/MapTileConnection.unity
+    guid: 6b42d16b2da835f45ab8250eba225218
   m_configObjects: {}

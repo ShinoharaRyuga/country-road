@@ -52,6 +52,7 @@ MonoBehaviour:
   _moveSpeed: 1
   _goalDistance: 0.7
   _currentMapTile: {fileID: 0}
+  _debug: 1
 --- !u!33 &3011394105073149835
 MeshFilter:
   m_ObjectHideFlags: 0

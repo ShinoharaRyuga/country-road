@@ -7,9 +7,9 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     /// <summary>交換したいタイル </summary>
-    MapTile _startMapTile = default;
+    TileBase _startMapTile = default;
     /// <summary>交換先したいタイル </summary>
-    MapTile _endMapTile = default;
+    TileBase _endMapTile = default;
 
     Vector3 _startPoint = default;
     Vector3 _endPoint = default;
@@ -71,7 +71,7 @@ public class PlayerInput : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Tile") && _startMapTile == null)
                 {
-                    _startMapTile = hit.collider.gameObject.GetComponent<MapTile>();
+                    _startMapTile = hit.collider.gameObject.GetComponent<TileBase>();
                     _startPoint = _startMapTile.transform.position;
                 }
             }
@@ -85,9 +85,9 @@ public class PlayerInput : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Tile"))
                 {
-                    if (_startMapTile != hit.collider.gameObject.GetComponent<MapTile>())
+                    if (_startMapTile != hit.collider.gameObject.GetComponent<TileBase>())
                     {
-                        _endMapTile = hit.collider.gameObject.GetComponent<MapTile>();
+                        _endMapTile = hit.collider.gameObject.GetComponent<TileBase>();
                         _endPoint = _endMapTile.transform.position;
                     }
 
@@ -114,14 +114,15 @@ public class PlayerInput : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Tile"))
                 {
-                    var target = hit.collider.gameObject.GetComponent<MapTile>();
+                    var target = hit.collider.gameObject.GetComponent<TileBase>();
                
-                    Debug.Log(target.Humans.Count);
-                    //Debug.Log($"{target.name}");
-                    //Debug.Log($"start {target.StartConnectionTile}");
-                    //Debug.Log($"end {target.EndConnectionTile}");
+                    Debug.Log(target.name);
 
-                    //target.TilePoints.ForEach(p => Debug.Log(p.CurrentStatus));
+                    foreach (var tile in target.ConnectingTiles)
+                    {
+                        Debug.Log(tile.Key);
+                        Debug.Log(tile.Value);
+                    }
                 }
             }
         }

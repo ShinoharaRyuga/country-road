@@ -18,7 +18,7 @@ public class ConnectingTiles : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out ConnectingTiles tile))
         {
-            ParentTile.AddConnectedTile(this, tile.ParentTile);
+            ParentTile.AddConnectedTile(_currentStatus, tile.ParentTile);
         }
     }
 
@@ -29,7 +29,7 @@ public class ConnectingTiles : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out ConnectingTiles tile))
         {
-            ParentTile.AddConnectedTile(this, null);
+            ParentTile.AddConnectedTile(_currentStatus, null);
         }
     }
 }

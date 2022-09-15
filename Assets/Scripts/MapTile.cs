@@ -58,12 +58,10 @@ public class MapTile : MonoBehaviour
         if (_humans.Contains(human) && nextTile != null)
         {
             _humans.Remove(human);
-            Debug.Log("çÌèú");
         }
         else if (!_humans.Contains(human))
         {
             _humans.Add(human);
-            Debug.Log("í«â¡");
         }
     }
 
@@ -75,7 +73,7 @@ public class MapTile : MonoBehaviour
 
         foreach (var human in _humans)
         {
-            human.ChackTileConnection();
+         //   human.ChackTileConnection();
             moveHumans.Add(human);
         }
 

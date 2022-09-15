@@ -6,18 +6,19 @@ public class CreateMap : MonoBehaviour
 {
     [SerializeField] int _rows = 3;
     [SerializeField] int _columns = 3;
-    [SerializeField] MapTile[] _tiles = default;
+    [SerializeField] TileBase[] _tiles = default;
     [SerializeField] HumanMove _humanPrefab = default;
+    [SerializeField] bool _generateHuman = true;
 
     HumanMove _human = default;
     /// <summary>å¸Ç´ÇïœçXÇ∑ÇÈà◊ÇÃîzóÒ</summary>
     int[] _rotationValues = new int[4] { 0, 90, 180, 270 };
-    MapTile[,] _mapTiles = default;
+    TileBase[,] _mapTiles = default;
     bool _isFirst = true;
 
     private void Start()
     {
-        _mapTiles = new MapTile[_rows, _columns];
+        _mapTiles = new TileBase[_rows, _columns];
         Create();
         _isFirst = false;
     }
@@ -25,10 +26,12 @@ public class CreateMap : MonoBehaviour
     /// <summary>äXêlÇí«â¡ê∂ê¨Ç∑ÇÈ </summary>
     public void AddHuman()
     {
-        var point = _mapTiles[0, 1].TilePoints[0];
-        var pos = new Vector3(point.transform.position.x, point.transform.position.y + 0.1f, point.transform.position.z);
-        var human = Instantiate(_humanPrefab, pos, Quaternion.identity);
-        human.CurrentMapTile = _mapTiles[0, 1];
+        if (!_generateHuman) { return; }
+
+        //var point = _mapTiles[0, 1].TilePoints[0];
+        //var pos = new Vector3(point.transform.position.x, point.transform.position.y + 0.1f, point.transform.position.z);
+        //var human = Instantiate(_humanPrefab, pos, Quaternion.identity);
+        //human.CurrentMapTile = _mapTiles[0, 1];
     }
 
 
@@ -71,6 +74,7 @@ public class CreateMap : MonoBehaviour
             }
         }
 
+        if (!_generateHuman) { return; }
         StartCoroutine(HumanGenerator());
     }
 
@@ -84,9 +88,9 @@ public class CreateMap : MonoBehaviour
             Destroy(_human.gameObject);
         }
 
-        var point = _mapTiles[0, 1].TilePoints[0];
-        var pos = new Vector3(point.transform.position.x, point.transform.position.y + 0.1f, point.transform.position.z);
-        _human = Instantiate(_humanPrefab, pos, Quaternion.identity);
-        _human.CurrentMapTile = _mapTiles[0, 1];
+        //var point = _mapTiles[0, 1].TilePoints[0];
+        //var pos = new Vector3(point.transform.position.x, point.transform.position.y + 0.1f, point.transform.position.z);
+        //_human = Instantiate(_humanPrefab, pos, Quaternion.identity);
+        //_human.CurrentMapTile = _mapTiles[0, 1];
     }
 }

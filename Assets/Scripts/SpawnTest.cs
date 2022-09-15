@@ -18,7 +18,7 @@ public class SpawnTest : MonoBehaviour
             var index = Random.Range(0, 2);
             index = numbers[index];
             _human = Instantiate(_humanPrefab, _targetTile.TilePoints[index].transform.position, Quaternion.identity);
-            _human.CurrentMapTile = _targetTile;
+       //     _human.CurrentMapTile = _targetTile;
         }
     }
 }
