@@ -7,9 +7,14 @@ public class HumanMove : MonoBehaviour
     [SerializeField, Tooltip("移動速度")] float _moveSpeed = 1f;
     [SerializeField, Tooltip("現在乗っているタイル")] TileBase _currentTile;
     List<RoadPoint> _hitPoints = new List<RoadPoint>();
+    /// <summary>前に乗っていたタイル </summary>
+    TileBase _lastTile = default;
     int _hitCount = 0;
     bool _isMoving = false;
     Rigidbody _rb => GetComponent<Rigidbody>();
+
+    public TileBase CurrentTile { get => _currentTile; set => _currentTile = value; }
+    public TileBase LastTile { get => _lastTile; set => _lastTile = value; }
 
     private void Update()
     {
@@ -28,6 +33,12 @@ public class HumanMove : MonoBehaviour
     {
         if (other.TryGetComponent(out RoadPoint roadPoint))
         {
+            if (roadPoint.CurrentStatus == PointStatus.Goal)    //ゴールに到着したらその場止まる
+            {
+                MoveStop();
+                return;
+            }
+
             _hitCount++;
             _hitPoints.Add(roadPoint);
 
@@ -41,13 +52,13 @@ public class HumanMove : MonoBehaviour
 
                 if (nextTile != null)   //次のタイルが繋がっていれば進む
                 {
+                    _lastTile = _currentTile;
                     _currentTile = nextTile;
                     SetFirstPoint();
                 }
                 else
                 {
-                    _isMoving = false;
-                    _rb.velocity = Vector3.zero;
+                    MoveStop();
                 }
 
                 return;
@@ -57,6 +68,13 @@ public class HumanMove : MonoBehaviour
             var nextPoint = roadPoint.ParentMapTile.GetNextPoint(transform, _hitPoints);
             SetMoveDirection(nextPoint);
         }
+    }
+
+    /// <summary>街人を停止する </summary>
+    public void MoveStop()
+    {
+        _isMoving = false;
+        _rb.velocity = Vector3.zero;
     }
 
     /// <summary>次のポイントの方を向かせる </summary>

@@ -186,11 +186,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6760008230306377891}
+  - component: {fileID: 6091778155316898247}
   - component: {fileID: 7321074937445977132}
   - component: {fileID: 6711588571521171612}
   - component: {fileID: 5367457005811837558}
   - component: {fileID: 5469733148716869267}
-  - component: {fileID: 6091778155316898247}
   m_Layer: 0
   m_Name: CrossRoadTile
   m_TagString: Tile
@@ -222,6 +222,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6091778155316898247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2427033379638496832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc252ee4444fcb4f8eebcba090ebf06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currnetStatus: 5
 --- !u!33 &7321074937445977132
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -301,18 +314,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &6091778155316898247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2427033379638496832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc252ee4444fcb4f8eebcba090ebf06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2477509170582066873
 GameObject:
   m_ObjectHideFlags: 0

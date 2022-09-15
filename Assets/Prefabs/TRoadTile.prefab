@@ -304,11 +304,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2820350146990739281}
+  - component: {fileID: 613251758740028294}
   - component: {fileID: 2263644795538895838}
   - component: {fileID: 2871009648401268590}
   - component: {fileID: 3498931435075720580}
   - component: {fileID: 3538667668561779041}
-  - component: {fileID: 613251758740028294}
   m_Layer: 0
   m_Name: TRoadTile
   m_TagString: Tile
@@ -338,6 +338,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &613251758740028294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6583479599477567922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88d414381ffc0141ae92fe8dabb4eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currnetStatus: 4
 --- !u!33 &2263644795538895838
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -417,18 +430,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &613251758740028294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6583479599477567922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e88d414381ffc0141ae92fe8dabb4eca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7416982591830728634
 GameObject:
   m_ObjectHideFlags: 0

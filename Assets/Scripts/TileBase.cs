@@ -9,6 +9,7 @@ using UnityEngine;
 /// </summary>
 public class TileBase : MonoBehaviour
 {
+    [SerializeField] TileStatus _currnetStatus = TileStatus.None;
     /// <summary>タイルに乗っている街人のリスト </summary>
     List<HumanMove> _onHumans = new List<HumanMove>();
     /// <summary>街人を誘導するためポイントリスト </summary>
@@ -18,6 +19,7 @@ public class TileBase : MonoBehaviour
 
     public List<HumanMove> OnHumans { get => _onHumans; set => _onHumans = value; }
     public Dictionary<PointStatus, TileBase> ConnectingTiles { get => _connectingTiles; set => _connectingTiles = value; }
+    public TileStatus CurrnetStatus { get => _currnetStatus; set => _currnetStatus = value; }
 
     void Start()
     {
@@ -98,8 +100,21 @@ public enum PointStatus
     Fourth = 3,
     None = 4,
     Middle = 5,
+    Goal = 6,
 
     //あとで削除
     Start = 99,
     End = 98,
+}
+
+public enum TileStatus
+{
+    None = 0,
+    Straight = 1,
+    Side = 2,
+    Corner = 3,
+    TRoad = 4,
+    Cross = 5,
+    Start = 6,
+    Goal = 7,
 }
