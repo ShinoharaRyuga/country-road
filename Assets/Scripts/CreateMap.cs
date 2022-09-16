@@ -16,6 +16,9 @@ public class CreateMap : MonoBehaviour
     TileBase[,] _mapTiles = default;
     bool _isFirst = true;
 
+    public int Rows { get => _rows; set => _rows = value; }
+    public int Columns { get => _columns; set => _columns = value; }
+
     private void Start()
     {
         _mapTiles = new TileBase[_rows, _columns];

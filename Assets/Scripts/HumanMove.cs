@@ -12,12 +12,18 @@ public class HumanMove : MonoBehaviour
     int _hitCount = 0;
     bool _isMoving = false;
     Rigidbody _rb => GetComponent<Rigidbody>();
+    RouteSearch routeSearch => GetComponent<RouteSearch>();
 
     public TileBase CurrentTile { get => _currentTile; set => _currentTile = value; }
     public TileBase LastTile { get => _lastTile; set => _lastTile = value; }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            routeSearch.CheckRoute(_currentTile);
+        }
+
         if (_isMoving)
         {
             _rb.velocity = transform.forward * _moveSpeed;

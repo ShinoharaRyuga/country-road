@@ -8,6 +8,8 @@ TagManager:
   - Point
   - Human
   - Connection
+  - StartTile
+  - GoalTile
   layers:
   - Default
   - TransparentFX

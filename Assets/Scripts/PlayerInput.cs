@@ -94,10 +94,18 @@ public class PlayerInput : MonoBehaviour
                 }
             }
 
-            if (_startMapTile != null && _endMapTile != null)
+
+            if (_startMapTile != null && _endMapTile != null)   
             {
+                //É^ÉCÉãÇì¸ÇÍë÷Ç¶ÇÈ
                 _startMapTile.transform.position = _endPoint;
                 _endMapTile.transform.position = _startPoint;
+                
+                //à íuèÓïÒÇì¸ÇÍë÷Ç¶ÇÈ
+                var tmpStartRow = _startMapTile.Row;
+                var tmpStartCol = _startMapTile.Col;
+                _startMapTile.SetPoint(_endMapTile.Row, _endMapTile.Col);
+                _endMapTile.SetPoint(tmpStartRow, tmpStartCol);
             }
 
             _startMapTile = null;
@@ -117,12 +125,15 @@ public class PlayerInput : MonoBehaviour
                     var target = hit.collider.gameObject.GetComponent<TileBase>();
                
                     Debug.Log(target.name);
+                    Debug.Log($"Row {target.Row}");
+                    Debug.Log($"Col {target.Col}");
 
-                    foreach (var tile in target.ConnectingTiles)
-                    {
-                        Debug.Log(tile.Key);
-                        Debug.Log(tile.Value);
-                    }
+
+                    //foreach (var tile in target.ConnectingTiles)
+                    //{
+                    //    Debug.Log(tile.Key);
+                    //    Debug.Log(tile.Value);
+                    //}
                 }
             }
         }
