@@ -130,10 +130,10 @@ public class PlayerInput : MonoBehaviour
                     //Debug.Log($"Score {target.Score}");
 
 
-                    foreach (var tile in target.ConnectingTiles)
-                    {
-                        Debug.Log($"{tile.Key} {tile.Value}");
-                    }
+                    //foreach (var tile in target.ConnectingTiles)
+                    //{
+                    //    Debug.Log($"{tile.Key} {tile.Value}");
+                    //}
                 }
             }
         }

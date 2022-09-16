@@ -55,6 +55,12 @@ public class RouteSearch : MonoBehaviour
                         tile = Instantiate(_tiles[index], new Vector3(xPos, 0, zPos), Quaternion.identity);
                         tile.gameObject.name = $"{i} {k}";
                         tile.SetPoint(i, k);
+
+                        if (index == 2)
+                        {
+                            tile.transform.Rotate(0, 90, 0);
+                        }
+
                         break;
                     case 1:
                         tile = Instantiate(_startTile, new Vector3(xPos, 0, zPos), Quaternion.identity);
