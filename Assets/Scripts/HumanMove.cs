@@ -21,7 +21,7 @@ public class HumanMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            routeSearch.CheckRoute(_currentTile);
+          //  routeSearch.CheckRoute(_currentTile);
         }
 
         if (_isMoving)

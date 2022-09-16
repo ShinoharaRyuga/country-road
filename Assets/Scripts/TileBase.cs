@@ -10,7 +10,7 @@ using UnityEngine;
 public class TileBase : MonoBehaviour
 {
     [SerializeField] TileStatus _currnetStatus = TileStatus.None;
-
+    [SerializeField] AstarStatus _astarStatus = AstarStatus.Empty;
     /// <summary>タイルに乗っている街人のリスト </summary>
     List<HumanMove> _onHumans = new List<HumanMove>();
     /// <summary>街人を誘導するためポイントリスト </summary>
@@ -19,11 +19,18 @@ public class TileBase : MonoBehaviour
     Dictionary<PointStatus, TileBase> _connectingTiles = new Dictionary<PointStatus, TileBase>();
     int _row = 0;
     int _col = 0;
+    public int _realCost = 0;
+    public int _guessCost = 0;
+    public int _score = 0;
     public List<HumanMove> OnHumans { get => _onHumans; set => _onHumans = value; }
     public Dictionary<PointStatus, TileBase> ConnectingTiles { get => _connectingTiles; set => _connectingTiles = value; }
     public TileStatus CurrnetStatus { get => _currnetStatus; set => _currnetStatus = value; }
     public int Col { get => _col; }
     public int Row { get => _row; }
+    public int RealCost { get => _realCost; set => _realCost = value; }
+    public int GuessCost { get => _guessCost; set => _guessCost = value; }
+    public int Score { get => _score; set => _score = value; }
+    public AstarStatus AstarStatus { get => _astarStatus; set => _astarStatus = value; }
 
     void Start()
     {
@@ -95,10 +102,18 @@ public class TileBase : MonoBehaviour
         return null;
     }
 
+    /// <summary>位置情報を設定する </summary>
     public void SetPoint(int r, int c)
     {
         _row = r;
         _col = c;
+    }
+
+    public void SetCosts(int realCost, int guessCost)
+    {
+        _realCost = realCost;
+        _guessCost = guessCost;
+        _score = _realCost + guessCost;
     }
 }
 

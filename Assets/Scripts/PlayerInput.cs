@@ -125,15 +125,16 @@ public class PlayerInput : MonoBehaviour
                     var target = hit.collider.gameObject.GetComponent<TileBase>();
                
                     Debug.Log(target.name);
-                    Debug.Log($"Row {target.Row}");
-                    Debug.Log($"Col {target.Col}");
+                    //Debug.Log($"realCost {target.RealCost}");
+                    //Debug.Log($"GuessCost {target.GuessCost}");
+                    //Debug.Log($"Score {target.Score}");
 
 
-                    //foreach (var tile in target.ConnectingTiles)
-                    //{
-                    //    Debug.Log(tile.Key);
-                    //    Debug.Log(tile.Value);
-                    //}
+                    foreach (var tile in target.ConnectingTiles)
+                    {
+                        Debug.Log(tile.Key);
+                        Debug.Log(tile.Value);
+                    }
                 }
             }
         }
