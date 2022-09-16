@@ -21,6 +21,7 @@ public class ConnectingTiles : MonoBehaviour
             if (tile != ParentTile)
             {
                 ParentTile.AddConnectedTile(_currentStatus, tile.ParentTile);
+                ParentTile.StartHumanMove();
             }
         }
     }

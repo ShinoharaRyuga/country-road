@@ -109,6 +109,9 @@ public class TileBase : MonoBehaviour
         _col = c;
     }
 
+    /// <summary>経路探索で使用するコストを計算する </summary>
+    /// <param name="realCost">実コスト</param>
+    /// <param name="guessCost">推定コスト</param>
     public void SetCosts(int realCost, int guessCost)
     {
         _realCost = realCost;
@@ -116,6 +119,25 @@ public class TileBase : MonoBehaviour
         _score = _realCost + guessCost;
     }
 
+    /// <summary>街人が進入してきたらリストに追加する </summary>
+    public void AddHuman(HumanMove human)
+    {
+        if (!_onHumans.Contains(human))
+        {
+            _onHumans.Add(human);
+        }
+    }
+
+    /// <summary>街人が抜けたらリストから削除する </summary>
+    public void RemoveHuman(HumanMove human)
+    {
+        if (_onHumans.Contains(human))
+        {
+            _onHumans.Remove(human);
+        }
+    }
+
+    /// <summary>各コライダーをアクティブ状態にする</summary>
     public void ActiveCollider()
     {
         for (var i = 0; i < transform.childCount; i++)
@@ -126,6 +148,27 @@ public class TileBase : MonoBehaviour
             {
                 collider.enabled = true;
             }
+        }
+    }
+
+    /// <summary>
+    /// タイルに乗っていて移動をしていない街人を
+    /// 再び移動させる為の関数 
+    /// </summary>
+    public void StartHumanMove()
+    {
+        var movedHumans = new List<HumanMove>();
+
+        foreach (var human in _onHumans)
+        {
+            human.SetFirstPoint();
+            movedHumans.Add(human);
+        }
+
+        //移動した街人をリストから削除する
+        foreach (var movedHuman in movedHumans)
+        {
+            _onHumans.Remove(movedHuman);
         }
     }
 }

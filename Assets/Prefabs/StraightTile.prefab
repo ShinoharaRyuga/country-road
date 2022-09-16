@@ -152,10 +152,10 @@ GameObject:
   m_Layer: 0
   m_Name: MiddlePoint
   m_TagString: Untagged
-  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8122206206191715059
 Transform:
   m_ObjectHideFlags: 0
@@ -211,10 +211,10 @@ GameObject:
   m_Layer: 0
   m_Name: FirstPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4048493849448000319
 Transform:
   m_ObjectHideFlags: 0
@@ -388,10 +388,10 @@ GameObject:
   m_Layer: 0
   m_Name: SecondPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8758391680787361707
 Transform:
   m_ObjectHideFlags: 0

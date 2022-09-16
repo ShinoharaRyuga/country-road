@@ -12,6 +12,7 @@ public class HumanMove : MonoBehaviour
     int _hitCount = 0;
     bool _isMoving = false;
     Rigidbody _rb => GetComponent<Rigidbody>();
+    Animator _anime => GetComponent<Animator>();
     RouteSearch routeSearch => GetComponent<RouteSearch>();
 
     public TileBase CurrentTile { get => _currentTile; set => _currentTile = value; }
@@ -33,6 +34,8 @@ public class HumanMove : MonoBehaviour
         {
             SetFirstPoint();
         }
+
+        _anime.SetFloat("Speed", _rb.velocity.magnitude);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,9 +50,15 @@ public class HumanMove : MonoBehaviour
 
             _hitCount++;
             _hitPoints.Add(roadPoint);
+            Debug.Log($"count {_hitCount}");
 
-            ////現在のタイルから抜ける
-            if (_hitCount == 3)
+            if (_hitCount == 1) //次のタイルに進入
+            {
+                _currentTile.AddHuman(this);
+            }
+
+           
+            if (_hitCount == 3) //現在のタイルから抜ける
             {
                 _hitCount = 0;
                 _hitPoints.Clear();
@@ -58,6 +67,7 @@ public class HumanMove : MonoBehaviour
 
                 if (nextTile != null)   //次のタイルが繋がっていれば進む
                 {
+                    _currentTile.RemoveHuman(this);
                     _lastTile = _currentTile;
                     _currentTile = nextTile;
                     SetFirstPoint();
@@ -93,8 +103,8 @@ public class HumanMove : MonoBehaviour
         transform.rotation = quaternion;
     }
 
-    /// <summary>ゲーム開始時一番最初に向かうポイントを取得する </summary>
-    void SetFirstPoint()
+    /// <summary>街人の移動を開始させる為の関数 </summary>
+    public void SetFirstPoint()
     {
         var nextPoint = _currentTile.GetFirstPoint(transform);
         SetMoveDirection(nextPoint);

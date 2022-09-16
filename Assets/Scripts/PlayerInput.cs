@@ -134,6 +134,8 @@ public class PlayerInput : MonoBehaviour
                     //{
                     //    Debug.Log($"{tile.Key} {tile.Value}");
                     //}
+
+                    Debug.Log(target.OnHumans.Count);
                 }
             }
         }
