@@ -42,7 +42,7 @@ SphereCollider:
   m_GameObject: {fileID: 66455242563661298}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.01
   m_Center: {x: 0, y: 0, z: 0}
@@ -101,7 +101,7 @@ BoxCollider:
   m_GameObject: {fileID: 267843515676983570}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.3, y: 1, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0.65}
@@ -160,7 +160,7 @@ BoxCollider:
   m_GameObject: {fileID: 3979282564485696989}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.3, y: 1, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0.65}
@@ -219,7 +219,7 @@ BoxCollider:
   m_GameObject: {fileID: 4841249801356282486}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.3, y: 1, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0.65}
@@ -290,6 +290,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currnetStatus: 6
+  _astarStatus: 0
+  _realCost: 0
+  _guessCost: 0
+  _score: 0
 --- !u!33 &979724921072790420
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -411,7 +415,7 @@ BoxCollider:
   m_GameObject: {fileID: 5359531173482508545}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.3, y: 1, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0.65}

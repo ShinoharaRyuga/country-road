@@ -18,7 +18,10 @@ public class ConnectingTiles : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out ConnectingTiles tile))
         {
-            ParentTile.AddConnectedTile(_currentStatus, tile.ParentTile);
+            if (tile != ParentTile)
+            {
+                ParentTile.AddConnectedTile(_currentStatus, tile.ParentTile);
+            }
         }
     }
 

@@ -115,6 +115,19 @@ public class TileBase : MonoBehaviour
         _guessCost = guessCost;
         _score = _realCost + guessCost;
     }
+
+    public void ActiveCollider()
+    {
+        for (var i = 0; i < transform.childCount; i++)
+        {
+            var child = transform.GetChild(i);
+
+            if (child.gameObject.TryGetComponent(out Collider collider))
+            {
+                collider.enabled = true;
+            }
+        }
+    }
 }
 
 public enum PointStatus

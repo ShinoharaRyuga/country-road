@@ -11,6 +11,7 @@ public class RouteSearch : MonoBehaviour
     int _goalCol = 0;
     int _moveCost = 0;
     bool _isGoal = false;
+    bool _isFirst = true;
 
     List<TileBase> _openTiles = new List<TileBase>();
     List<TileBase> _goalWay = new List<TileBase>();
@@ -19,6 +20,8 @@ public class RouteSearch : MonoBehaviour
     TileBase _lastTile;
 
     TileBase _test;
+
+    TileBase[,] _tileBase;
 
     int[,] _mapData = new int[,]
     {
@@ -32,6 +35,8 @@ public class RouteSearch : MonoBehaviour
 
     private void Start()
     {
+        _tileBase = new TileBase[_mapData.GetLength(0), _mapData.GetLength(1)];
+
         var xPos = -5;
         var zPos = 0;
         for (var i = 0; i < _mapData.GetLength(0); i++)
@@ -41,35 +46,49 @@ public class RouteSearch : MonoBehaviour
             for (var k = 0; k < _mapData.GetLength(1); k++)
             {
                 var data = _mapData[i, k];
+                var tile = _tiles[0];
 
                 switch (data)
                 {
                     case 0:
                         var index = Random.Range(0, 5);
-                        var tile = Instantiate(_tiles[index], new Vector3(xPos, 0, zPos), Quaternion.identity);
+                        tile = Instantiate(_tiles[index], new Vector3(xPos, 0, zPos), Quaternion.identity);
                         tile.gameObject.name = $"{i} {k}";
                         tile.SetPoint(i, k);
                         break;
                     case 1:
-                        var startTile = Instantiate(_startTile, new Vector3(xPos, 0, zPos), Quaternion.identity);
-                        _currentTile = startTile;
+                        tile = Instantiate(_startTile, new Vector3(xPos, 0, zPos), Quaternion.identity);
+                        _currentTile = tile;
                         break;
                     case 2:
-                        var goalTile = Instantiate(_goalTile, new Vector3(xPos, 0, zPos), Quaternion.identity);
+                        tile = Instantiate(_goalTile, new Vector3(xPos, 0, zPos), Quaternion.identity);
                         _goalCol = k;
                         _goalRow = i;
                         break;
                 }
 
+                _tileBase[i, k] = tile;
                 xPos += 5;
             }
         }
+
     }
 
     private void Update()
     {
+        if (_isFirst)
+        {
+            foreach (var tile in _tileBase)
+            {
+                tile.ActiveCollider();
+            }
+
+            _isFirst = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.D))
         {
+            _goalWay.Add(_currentTile);
             OpenAroundTile(_currentTile, null);
         }
 
@@ -82,6 +101,11 @@ public class RouteSearch : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             Debug.Log(_test.name);
+        }
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            _goalWay.ForEach(t => Debug.Log(t.name));
         }
     }
 
@@ -160,6 +184,8 @@ public class RouteSearch : MonoBehaviour
 
     void OpenNextTile()
     {
+
+        //TODO実コストと推定コストで調べた方がよいかも
         if (_openTiles.Count <= 0) { return; }
 
         var nextTile = _openTiles[0];
