@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -6,35 +5,37 @@ using UnityEngine;
 /// </summary>
 public class PlayerInput : MonoBehaviour
 {
+    /// <summary>タイル入れ替えが終了と判断する距離 </summary>
+    const float ARRIVAL_DISTANCE = 0.05f;
+
+    [Tooltip("値が小さいほど速い")]
+    [SerializeField, Header("タイル入れ替え時の速度")] float _tileMoveSpeed = 2f;
     /// <summary>交換したいタイル </summary>
-    [SerializeField] TileBase _startMapTile = default;
+    TileBase _startMapTile = default;
     /// <summary>交換先のタイル </summary>
-    [SerializeField] TileBase _endMapTile = default;
+    TileBase _endMapTile = default;
     Vector3 _startPoint = default;
     Vector3 _endPoint = default;
-
-    // 位置座標
-    private Vector3 position;
-
-    GameObject go;
-    Vector3 _point;
+    Transform _centerTransform = default;
+    /// <summary>タイル入れ替え中かどうか </summary>
+    bool _isSwap = false;
     void Update()
     {
         //マウスで操作
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))   //交換したいタイルを決める
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.gameObject.CompareTag("Tile") && _startMapTile == null)
+                if (hit.collider.gameObject.CompareTag("Tile") && _startMapTile == null && !_isSwap)
                 {
                     _startMapTile = hit.collider.gameObject.GetComponent<TileBase>();
-                   // _startPoint = _startMapTile.transform.position;
+                    _startPoint = _startMapTile.transform.position;
                 }
             }
         }
-        else if (Input.GetButtonUp("Fire1"))
+        else if (Input.GetButtonUp("Fire1"))    //交換先のタイルを決める
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -43,21 +44,22 @@ public class PlayerInput : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Tile"))
                 {
-                    if (_startMapTile != hit.collider.gameObject.GetComponent<TileBase>())
+                    if (_startMapTile != hit.collider.gameObject.GetComponent<TileBase>() && !_isSwap)
                     {
                         _endMapTile = hit.collider.gameObject.GetComponent<TileBase>();
-                       // _endPoint = _endMapTile.transform.position;
+                        _endPoint = _endMapTile.transform.position;
                     }
                 }
             }
 
 
 
-            if (_startMapTile != null && _endMapTile != null)
+            if (_startMapTile != null && _endMapTile != null && !_isSwap)   //タイルを入れ替え
             {
-                //タイルを入れ替える
-                //_startMapTile.transform.position = _endPoint;
-                //  _endMapTile.transform.position = _startPoint;
+                _centerTransform = new GameObject().transform;
+                _centerTransform.position = (_startMapTile.transform.position + _endMapTile.transform.position) / 2;
+                _centerTransform.forward = _startPoint - _endPoint;
+                _isSwap = true;
 
                 //位置情報を入れ替える
                 var tmpStartRow = _startMapTile.Row;
@@ -65,58 +67,11 @@ public class PlayerInput : MonoBehaviour
                 _startMapTile.SetPoint(_endMapTile.Row, _endMapTile.Col);
                 _endMapTile.SetPoint(tmpStartRow, tmpStartCol);
             }
-
-            _startMapTile = null;
-            _endMapTile = null;
         }
 
-
-
-        if (go == null)
+        if (_isSwap)
         {
-            go = Instantiate(new GameObject(), (_startMapTile.transform.position + _endMapTile.transform.position) / 2, Quaternion.identity);
-            go.transform.forward = _startMapTile.transform.position - _endMapTile.transform.position;
-            _point = go.transform.position;
-            _startPoint = _startMapTile.transform.position;
-            _endPoint = _endMapTile.transform.position;
-        }
-        else
-        {
-            var distance = Vector3.Distance(_startMapTile.transform.position, _endPoint);
-            Debug.Log(distance);
-            if (0.05f <= distance)
-            {
-                var tr = _startMapTile.transform;
-                // 回転のクォータニオン作成
-                var angleAxis = Quaternion.AngleAxis(360 / 2 * Time.deltaTime, go.transform.right);
-                // 円運動の位置計算
-                var pos = tr.position;
-
-                pos -= _point;
-                pos = angleAxis * pos;
-                pos += _point;
-
-                tr.position = pos;
-
-
-            }
-
-            var distance1 = Vector3.Distance(_endMapTile.transform.position, _startPoint);
-            Debug.Log(distance1);
-            if (0.03f <= distance1)
-            {
-                var tr1 = _endMapTile.transform;
-                // 回転のクォータニオン作成
-                var angleAxis1 = Quaternion.AngleAxis(360 / 2 * Time.deltaTime, go.transform.right);
-                // 円運動の位置計算
-                var pos1 = tr1.position;
-
-                pos1 -= _point;
-                pos1 = angleAxis1 * pos1;
-                pos1 += _point;
-
-                tr1.position = pos1;
-            }
+            TileSwap();
         }
 
         //デバッグ用
@@ -145,6 +100,52 @@ public class PlayerInput : MonoBehaviour
                     Debug.Log(target.OnHumans.Count);
                 }
             }
+        }
+    }
+
+    /// <summary>タイルを入れ替える </summary>
+    void TileSwap()
+    {
+        var speed = 180 / _tileMoveSpeed;
+        var startDistance = Vector3.Distance(_startMapTile.transform.position, _endPoint);
+        var endDistance = Vector3.Distance(_endMapTile.transform.position, _startPoint);
+        var angleAxis = Quaternion.AngleAxis(speed * Time.deltaTime, _centerTransform.right);
+        var startTileFinish = false;
+        var endTileFinish = false;
+
+        if (ARRIVAL_DISTANCE <= startDistance)   //スタートタイル
+        {
+            var pos = _startMapTile.transform.position;
+            pos -= _centerTransform.position;
+            pos = angleAxis * pos;
+            pos += _centerTransform.position;
+            _startMapTile.transform.position = pos;
+        }
+        else
+        {
+            startTileFinish = true;
+        }
+
+        if (ARRIVAL_DISTANCE <= endDistance)    //エンドタイル
+        {
+            var pos = _endMapTile.transform.position;
+            pos -= _centerTransform.position;
+            pos = angleAxis * pos;
+            pos += _centerTransform.position;
+            _endMapTile.transform.position = pos;
+        }
+        else
+        {
+            endTileFinish = true;
+        }
+
+
+        if (startTileFinish && endTileFinish)
+        {
+            _isSwap = false;
+            _startMapTile = null;
+            _endMapTile = null;
+            Destroy(_centerTransform.gameObject);
         }
     }
 }
