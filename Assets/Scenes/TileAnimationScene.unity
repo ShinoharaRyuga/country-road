@@ -216,7 +216,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8938577412853321382, guid: e89c7c99c985479458c099b0853376f8, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8938577412853321382, guid: e89c7c99c985479458c099b0853376f8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -262,6 +262,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: None
       objectReference: {fileID: 0}
+    - target: {fileID: 9098496230121569855, guid: e89c7c99c985479458c099b0853376f8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e89c7c99c985479458c099b0853376f8, type: 3}
 --- !u!1001 &284912428
@@ -277,7 +281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4519952399914716035, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4519952399914716035, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
       propertyPath: m_LocalPosition.x
@@ -323,6 +327,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CornerTile
       objectReference: {fileID: 0}
+    - target: {fileID: 4519952399914716039, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6404054954050070545, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -341,17 +349,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
---- !u!114 &964478744 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6707836457158362225, guid: 4b43e1d60e408cf49942f93895964d4e, type: 3}
-  m_PrefabInstance: {fileID: 1867508472}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc3276e7b942b5449b1e4cb23b1e5d54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1035313629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -362,6 +359,10 @@ PrefabInstance:
     - target: {fileID: 1543882876437258546, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
       propertyPath: m_Name
       value: StraightTile (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543882876437258546, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1543882876437258550, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
       propertyPath: m_RootOrder
@@ -464,6 +465,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TRoadTile
       objectReference: {fileID: 0}
+    - target: {fileID: 6583479599477567922, guid: d719ffd6dcecc5a4e8cbeaeaccae4216, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d719ffd6dcecc5a4e8cbeaeaccae4216, type: 3}
 --- !u!1001 &1294182120
@@ -520,6 +525,10 @@ PrefabInstance:
     - target: {fileID: 8838808051548155428, guid: 4b43e1d60e408cf49942f93895964d4e, type: 3}
       propertyPath: m_Name
       value: SideTile (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8838808051548155428, guid: 4b43e1d60e408cf49942f93895964d4e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b43e1d60e408cf49942f93895964d4e, type: 3}
@@ -578,6 +587,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CornerTile (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4519952399914716039, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
 --- !u!1 &1517921384
@@ -624,9 +637,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c647770fd8ebc41a5a4f440c049ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startMapTile: {fileID: 964478744}
-  _endMapTile: {fileID: 1905085391}
-  _gameObject: {fileID: 4526964819412913332, guid: ca6fa84536ae91f48bd35524c33650b9, type: 3}
+  _startMapTile: {fileID: 2085389170}
+  _endMapTile: {fileID: 1567184772}
+--- !u!114 &1567184772 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3662057529869650791, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
+  m_PrefabInstance: {fileID: 1681215537}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3276e7b942b5449b1e4cb23b1e5d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1681215537
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -637,6 +660,10 @@ PrefabInstance:
     - target: {fileID: 1543882876437258546, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
       propertyPath: m_Name
       value: StraightTile (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543882876437258546, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1543882876437258550, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
       propertyPath: m_RootOrder
@@ -713,7 +740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8838808051548155424, guid: 4b43e1d60e408cf49942f93895964d4e, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8838808051548155424, guid: 4b43e1d60e408cf49942f93895964d4e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -759,19 +786,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: SideTile
       objectReference: {fileID: 0}
+    - target: {fileID: 8838808051548155428, guid: 4b43e1d60e408cf49942f93895964d4e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b43e1d60e408cf49942f93895964d4e, type: 3}
---- !u!114 &1905085391 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6707836457158362225, guid: 4b43e1d60e408cf49942f93895964d4e, type: 3}
-  m_PrefabInstance: {fileID: 1294182120}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc3276e7b942b5449b1e4cb23b1e5d54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2022910885
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,6 +905,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StraightTile
       objectReference: {fileID: 0}
+    - target: {fileID: 1543882876437258546, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1543882876437258550, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -943,3 +967,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
+--- !u!114 &2085389170 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2689608374618398890, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
+  m_PrefabInstance: {fileID: 284912428}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32dc4b915ba26ce41870e472d59bf99d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
