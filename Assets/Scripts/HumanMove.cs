@@ -50,8 +50,7 @@ public class HumanMove : MonoBehaviour
 
             _hitCount++;
             _hitPoints.Add(roadPoint);
-            Debug.Log($"count {_hitCount}");
-
+         
             if (_hitCount == 1) //Ÿ‚Ìƒ^ƒCƒ‹‚Éi“ü
             {
                 _currentTile.AddHuman(this);
