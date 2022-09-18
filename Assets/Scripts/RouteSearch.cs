@@ -6,6 +6,7 @@ public class RouteSearch : MonoBehaviour
     [SerializeField] TileBase[] _tiles = default;
     [SerializeField] TileBase _startTile = default;
     [SerializeField] TileBase _goalTile = default;
+    [SerializeField] TileBase[] _stageTiles = default;
 
     int _goalRow = 0;
     int _goalCol = 0;
@@ -23,68 +24,28 @@ public class RouteSearch : MonoBehaviour
 
     TileBase[,] _tileBase;
 
-    int[,] _mapData = new int[,]
-    {
-        {1, 0, 0 },
-        {0, 0, 0 },
-        {0, 0, 0 },
-        {0, 0, 0 },
-        {0, 0, 0 },
-        {0, 0, 2 },
-    };
-
     private void Start()
     {
-        _tileBase = new TileBase[_mapData.GetLength(0), _mapData.GetLength(1)];
+        _tileBase = new TileBase[6, 3];
+        var index = 0;
 
-        var xPos = -5;
-        var zPos = 0;
-        for (var i = 0; i < _mapData.GetLength(0); i++)
+        for (var i = 0; i < 6; i++)
         {
-            xPos = -5;
-            zPos += 5;
-            for (var k = 0; k < _mapData.GetLength(1); k++)
+            for (var k = 0; k < 3; k++)
             {
-                var data = _mapData[i, k];
-                var tile = _tiles[0];
-
-                switch (data)
-                {
-                    case 0:
-                        var index = Random.Range(0, 5);
-                        tile = Instantiate(_tiles[index], new Vector3(xPos, 0, zPos), Quaternion.identity);
-                        tile.gameObject.name = $"{i} {k}";
-                        tile.SetPoint(i, k);
-
-                        if (index == 2)
-                        {
-                            tile.transform.Rotate(0, 90, 0);
-                        }
-
-                        break;
-                    case 1:
-                        tile = Instantiate(_startTile, new Vector3(xPos, 0, zPos), Quaternion.identity);
-                        _currentTile = tile;
-                        break;
-                    case 2:
-                        tile = Instantiate(_goalTile, new Vector3(xPos, 0, zPos), Quaternion.identity);
-                        _goalCol = k;
-                        _goalRow = i;
-                        break;
-                }
-
-                _tileBase[i, k] = tile;
-                xPos += 5;
+                _tileBase[i, k] = _stageTiles[index];
+                index++;
             }
         }
 
+        _currentTile = _stageTiles[0];
     }
 
     private void Update()
     {
         if (_isFirst)
         {
-            foreach (var tile in _tileBase)
+            foreach (var tile in _stageTiles)
             {
                 tile.ActiveCollider();
             }

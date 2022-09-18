@@ -44,6 +44,7 @@ public class HumanMove : MonoBehaviour
         {
             if (roadPoint.CurrentStatus == PointStatus.Goal)    //ƒS[ƒ‹‚É“’…‚µ‚½‚ç‚»‚Ìê~‚Ü‚é
             {
+                Debug.Log("Goal");
                 MoveStop();
                 return;
             }
