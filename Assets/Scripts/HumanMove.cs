@@ -22,7 +22,7 @@ public class HumanMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-          //  routeSearch.CheckRoute(_currentTile);
+            //  routeSearch.CheckRoute(_currentTile);
         }
 
         if (_isMoving)
@@ -42,6 +42,8 @@ public class HumanMove : MonoBehaviour
     {
         if (other.TryGetComponent(out RoadPoint roadPoint))
         {
+            if (roadPoint.ParentMapTile.CurrnetStatus == TileStatus.Start) { return; }
+
             if (roadPoint.CurrentStatus == PointStatus.Goal)    //ゴールに到着したらその場止まる
             {
                 Debug.Log("Goal");
@@ -51,13 +53,13 @@ public class HumanMove : MonoBehaviour
 
             _hitCount++;
             _hitPoints.Add(roadPoint);
-         
+
             if (_hitCount == 1) //次のタイルに進入
             {
                 _currentTile.AddHuman(this);
             }
 
-           
+
             if (_hitCount == 3) //現在のタイルから抜ける
             {
                 _hitCount = 0;
