@@ -84,10 +84,20 @@ public class TileBase : MonoBehaviour
         return nextPoint.transform.position;
     }
 
-    public Vector3 GetNextPoint(TileBase nextTile)
+    public Vector3 GetNextPoint(TileBase nextTile, List<RoadPoint> hitPoints)
     {
+        var targetPoints = new List<RoadPoint>();
         var nextPoint = _roadPoints[0];
-        nextPoint = _roadPoints.OrderBy(p => Vector3.Distance(nextTile.transform.position, p.transform.position)).FirstOrDefault();
+
+        foreach (var point in _roadPoints)
+        {
+            if (!hitPoints.Contains(point))
+            {
+                targetPoints.Add(point);
+            }
+        }
+
+        nextPoint = targetPoints.OrderBy(p => Vector3.Distance(nextTile.transform.position, p.transform.position)).FirstOrDefault();
 
         return nextPoint.transform.position;
     }
@@ -114,18 +124,15 @@ public class TileBase : MonoBehaviour
         return null;
     }
 
-    public TileBase GetNextTile()
+    public TileBase GetNextTile(TileBase lastTile)
     {                                       
         var nextTile = _connectingTiles[0]; 
         var minGuessCost = 99;              
-        Debug.Log(_pathfinding.GoalRow);
-        Debug.Log(_pathfinding.GoalRow);
-
+    
         foreach (var tile in _connectingTiles)
         {
-            if (tile.Value != null)
+            if (tile.Value != null && tile.Value != lastTile)
             {
-               
                 var targetTile = tile.Value;
                 var targetGuessCost = targetTile.GetGuessCost(_pathfinding.GoalRow, _pathfinding.GoalCol);
 

@@ -2079,7 +2079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557202d7edb66ce4692d5f25ec3506d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dataTable: {fileID: 4900000, guid: 3c26e7107af15e44a8a7076cb84a7f80, type: 3}
+  _dataTable: {fileID: 4900000, guid: d98bafb0cbcbe344e84c07498f4b35ae, type: 3}
 --- !u!4 &2058585376
 Transform:
   m_ObjectHideFlags: 0

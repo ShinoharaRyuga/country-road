@@ -75,9 +75,8 @@ public class HumanMove : MonoBehaviour
                 }
                 else
                 {
-
-                    var nextTile = _currentTile.GetNextTile();
-                    var nextPoint = _currentTile.GetNextPoint(nextTile);
+                    var nextTile = _currentTile.GetNextTile(_lastTile);
+                    var nextPoint = _currentTile.GetNextPoint(nextTile, _hitPoints);
                     SetMoveDirection(nextPoint);
                 }
             }
@@ -95,6 +94,7 @@ public class HumanMove : MonoBehaviour
                     var nextPoint = nextTile.GetFirstPoint(transform);
                     SetMoveDirection(nextPoint);
                     _currentTile.RemoveHuman(this);
+                    _lastTile = _currentTile;
                 }
                 else
                 {
@@ -130,7 +130,7 @@ public class HumanMove : MonoBehaviour
     /// <summary>äXêlÇÃà⁄ìÆÇäJénÇ≥ÇπÇÈà◊ÇÃä÷êî </summary>
     public void SetFirstPoint()
     {
-        var nextTile = _currentTile.GetNextTile();
+        var nextTile = _currentTile.GetNextTile(_lastTile);
         Debug.Log(nextTile.name);
         var nextPoint = nextTile.GetFirstPoint(transform);
         SetMoveDirection(nextPoint);
