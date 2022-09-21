@@ -19,6 +19,8 @@ public class PlayerInput : MonoBehaviour
     Transform _centerTransform = default;
     /// <summary>タイル入れ替え中かどうか </summary>
     bool _isSwap = false;
+
+    Pathfinding _pathfinding => GetComponent<Pathfinding>();
     void Update()
     {
         //マウスで操作
@@ -62,10 +64,12 @@ public class PlayerInput : MonoBehaviour
                 _isSwap = true;
 
                 //位置情報を入れ替える
+                _pathfinding.SwapTile(_startMapTile, _endMapTile);
                 var tmpStartRow = _startMapTile.Row;
                 var tmpStartCol = _startMapTile.Col;
                 _startMapTile.SetPoint(_endMapTile.Row, _endMapTile.Col);
                 _endMapTile.SetPoint(tmpStartRow, tmpStartCol);
+              
             }
         }
 
@@ -90,14 +94,16 @@ public class PlayerInput : MonoBehaviour
                     //Debug.Log($"realCost {target.RealCost}");
                     //Debug.Log($"GuessCost {target.GuessCost}");
                     //Debug.Log($"Score {target.Score}");
+                    //Debug.Log(target.OnHumans.Count);
 
-
+                    Debug.Log($"Row {target.Row}");
+                    Debug.Log($"Col {target.Col}");
                     foreach (var tile in target.ConnectingTiles)
                     {
                         Debug.Log($"{tile.Key} {tile.Value}");
                     }
 
-                    Debug.Log(target.OnHumans.Count);
+               
                 }
             }
         }

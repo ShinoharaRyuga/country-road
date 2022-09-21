@@ -35,6 +35,11 @@ public class HumanMove : MonoBehaviour
             SetFirstPoint();
         }
 
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            Debug.Log(_currentTile);
+        } 
+
         _anime.SetFloat("Speed", _rb.velocity.magnitude);
     }
 
@@ -56,7 +61,25 @@ public class HumanMove : MonoBehaviour
 
             if (_hitCount == 1) //次のタイルに進入
             {
+                _currentTile = roadPoint.ParentMapTile;
                 _currentTile.AddHuman(this);
+            }
+
+            if (_hitCount == 2)
+            {
+                Debug.Log("hit2");
+                if (_currentTile.ConnectingTiles.Count <= 2)
+                {
+                    var nextPoint = _currentTile.GetNextPoint(transform, _hitPoints);
+                    SetMoveDirection(nextPoint);
+                }
+                else
+                {
+
+                    var nextTile = _currentTile.GetNextTile();
+                    var nextPoint = _currentTile.GetNextPoint(nextTile);
+                    SetMoveDirection(nextPoint);
+                }
             }
 
 
@@ -64,15 +87,14 @@ public class HumanMove : MonoBehaviour
             {
                 _hitCount = 0;
                 _hitPoints.Clear();
-
+               
                 var nextTile = roadPoint.ParentMapTile.GetNextTile(roadPoint.CurrentStatus);
-
+                
                 if (nextTile != null)   //次のタイルが繋がっていれば進む
                 {
+                    var nextPoint = nextTile.GetFirstPoint(transform);
+                    SetMoveDirection(nextPoint);
                     _currentTile.RemoveHuman(this);
-                    _lastTile = _currentTile;
-                    _currentTile = nextTile;
-                    SetFirstPoint();
                 }
                 else
                 {
@@ -83,8 +105,8 @@ public class HumanMove : MonoBehaviour
             }
 
             //次のポイントに進む
-            var nextPoint = roadPoint.ParentMapTile.GetNextPoint(transform, _hitPoints);
-            SetMoveDirection(nextPoint);
+            //var nextPoint = roadPoint.ParentMapTile.GetNextPoint(transform, _hitPoints);
+            //SetMoveDirection(nextPoint);
         }
     }
 
@@ -108,7 +130,9 @@ public class HumanMove : MonoBehaviour
     /// <summary>街人の移動を開始させる為の関数 </summary>
     public void SetFirstPoint()
     {
-        var nextPoint = _currentTile.GetFirstPoint(transform);
+        var nextTile = _currentTile.GetNextTile();
+        Debug.Log(nextTile.name);
+        var nextPoint = nextTile.GetFirstPoint(transform);
         SetMoveDirection(nextPoint);
         _isMoving = true;
     }

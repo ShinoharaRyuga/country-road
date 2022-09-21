@@ -760,7 +760,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 686577033}
-  - component: {fileID: 686577034}
   - component: {fileID: 686577035}
   m_Layer: 0
   m_Name: GameManager
@@ -784,19 +783,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &686577034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 686577032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6c647770fd8ebc41a5a4f440c049ba6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tileMoveSpeed: 2
 --- !u!114 &686577035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2072,6 +2058,8 @@ GameObject:
   - component: {fileID: 2058585376}
   - component: {fileID: 2058585377}
   - component: {fileID: 2058585375}
+  - component: {fileID: 2058585378}
+  - component: {fileID: 2058585379}
   m_Layer: 0
   m_Name: GetMapData
   m_TagString: Untagged
@@ -2091,7 +2079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557202d7edb66ce4692d5f25ec3506d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dataTable: {fileID: 4900000, guid: 4598f83f51f7cf3468e99ccef0d8c6c1, type: 3}
+  _dataTable: {fileID: 4900000, guid: 3c26e7107af15e44a8a7076cb84a7f80, type: 3}
 --- !u!4 &2058585376
 Transform:
   m_ObjectHideFlags: 0
@@ -2128,6 +2116,37 @@ MonoBehaviour:
   - {fileID: 6091778155316898247, guid: c897c924e11271740a4ad69c7290ea90, type: 3}
   - {fileID: 4362677107268669055, guid: 99b1d45302eb0224bac3edadfc167f01, type: 3}
   - {fileID: 8691179533424286364, guid: 00b3a284901292d4c947d9a28adb2cf9, type: 3}
+--- !u!114 &2058585378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058585374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c647770fd8ebc41a5a4f440c049ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tileMoveSpeed: 2
+--- !u!114 &2058585379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058585374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c44f84ae39e5e7d44b0bbe23111d1c7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _humanNumber: 1
+  _life: 0
+  _generateInterval: 0
+  _startTile: {fileID: 0}
+  _humanPrefab: {fileID: -5162675504550768095, guid: 91e16cc005fc1ee42b02559ba09f1f4d, type: 3}
+  _timerText: {fileID: 635794689}
 --- !u!1001 &2076050580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2311,7 +2330,7 @@ PrefabInstance:
       objectReference: {fileID: 635794689}
     - target: {fileID: 1184261421084662193, guid: 8bb489b7c1f471f43a701e8307eae531, type: 3}
       propertyPath: _humanNumber
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1184261421084662193, guid: 8bb489b7c1f471f43a701e8307eae531, type: 3}
       propertyPath: _generateInterval
@@ -2320,6 +2339,10 @@ PrefabInstance:
     - target: {fileID: 1184261421084662198, guid: 8bb489b7c1f471f43a701e8307eae531, type: 3}
       propertyPath: m_Name
       value: StageManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1184261421084662198, guid: 8bb489b7c1f471f43a701e8307eae531, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bb489b7c1f471f43a701e8307eae531, type: 3}

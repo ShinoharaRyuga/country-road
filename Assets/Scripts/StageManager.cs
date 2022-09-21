@@ -19,9 +19,11 @@ public class StageManager : MonoBehaviour
     bool _isGameStart = false;
     bool _isCountDownStart = false;
     float _timer = 0;
+
+    Pathfinding GetPathfinding => GetComponent<Pathfinding>();
     void Start()
     {
-        _spawnPoint = _startTile.transform.GetChild(0);
+       
         _timer = COUNTDOWN_TIME;
     }
 
@@ -34,6 +36,7 @@ public class StageManager : MonoBehaviour
 
             if (_timer < START_TIME)   //ゲームスタート
             {
+
                 Debug.Log("Start");
                 _isCountDownStart = false;
                 _isGameStart = true;
@@ -43,8 +46,10 @@ public class StageManager : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.S))
         {
+            _startTile = GetPathfinding.StartTile;
+            _spawnPoint = _startTile.transform.GetChild(0);
             _isCountDownStart = true;
         }
     }
@@ -57,6 +62,7 @@ public class StageManager : MonoBehaviour
         while (true)
         {
             var human = Instantiate(_humanPrefab, _spawnPoint.position, Quaternion.identity);
+            human.CurrentTile = _startTile;
             human.transform.forward = _spawnPoint.forward;
 
             if (_humanNumber <= count)

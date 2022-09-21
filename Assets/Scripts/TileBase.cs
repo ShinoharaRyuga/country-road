@@ -17,6 +17,8 @@ public class TileBase : MonoBehaviour
     List<RoadPoint> _roadPoints = new List<RoadPoint>();
     /// <summary>繋がっているタイル </summary>
     Dictionary<PointStatus, TileBase> _connectingTiles = new Dictionary<PointStatus, TileBase>();
+
+    Pathfinding _pathfinding;
     int _row = 0;
     int _col = 0;
     public int _realCost = 0;
@@ -31,6 +33,7 @@ public class TileBase : MonoBehaviour
     public int GuessCost { get => _guessCost; set => _guessCost = value; }
     public int Score { get => _score; set => _score = value; }
     public AstarStatus AstarStatus { get => _astarStatus; set => _astarStatus = value; }
+    public Pathfinding PathfindingClass { get => _pathfinding; set => _pathfinding = value; }
 
     void Start()
     {
@@ -81,6 +84,15 @@ public class TileBase : MonoBehaviour
         return nextPoint.transform.position;
     }
 
+    public Vector3 GetNextPoint(TileBase nextTile)
+    {
+        var nextPoint = _roadPoints[0];
+        nextPoint = _roadPoints.OrderBy(p => Vector3.Distance(nextTile.transform.position, p.transform.position)).FirstOrDefault();
+
+        return nextPoint.transform.position;
+    }
+
+
     /// <summary>ゲーム開始時一番最初に向かうポイントを取得する </summary>
     public Vector3 GetFirstPoint(Transform player)
     {
@@ -100,6 +112,41 @@ public class TileBase : MonoBehaviour
         }
 
         return null;
+    }
+
+    public TileBase GetNextTile()
+    {                                       
+        var nextTile = _connectingTiles[0]; 
+        var minGuessCost = 99;              
+        Debug.Log(_pathfinding.GoalRow);
+        Debug.Log(_pathfinding.GoalRow);
+
+        foreach (var tile in _connectingTiles)
+        {
+            if (tile.Value != null)
+            {
+               
+                var targetTile = tile.Value;
+                var targetGuessCost = targetTile.GetGuessCost(_pathfinding.GoalRow, _pathfinding.GoalCol);
+
+                if (targetGuessCost < minGuessCost)
+                {
+                    nextTile = targetTile;
+                    minGuessCost = targetGuessCost;
+                }
+            }
+        }
+
+        Debug.Log(nextTile.transform.position);
+        return nextTile;
+    }
+
+    int GetGuessCost(int goalRow, int goalCol)
+    {
+        var disR = goalRow - _row;
+        var disC = goalCol - _col;
+
+        return disR + disC;
     }
 
     /// <summary>位置情報を設定する </summary>
