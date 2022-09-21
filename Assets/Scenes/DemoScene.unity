@@ -189,6 +189,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CornerTile (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4519952399914716039, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
 --- !u!114 &135557909 stripped
@@ -223,6 +227,10 @@ PrefabInstance:
     - target: {fileID: 2914831321292862102, guid: 54a85680bda95e14692e2f6a116c6546, type: 3}
       propertyPath: m_Name
       value: None
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914831321292862102, guid: 54a85680bda95e14692e2f6a116c6546, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3043273867004232207, guid: 54a85680bda95e14692e2f6a116c6546, type: 3}
       propertyPath: m_RootOrder
@@ -281,6 +289,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: school
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 281f82fcf4326a14b93a95275cc06e7b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 281f82fcf4326a14b93a95275cc06e7b, type: 3}
       propertyPath: m_RootOrder
       value: 24
@@ -299,7 +311,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 281f82fcf4326a14b93a95275cc06e7b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.25
+      value: 12.25
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 281f82fcf4326a14b93a95275cc06e7b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -733,6 +745,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CornerTile
       objectReference: {fileID: 0}
+    - target: {fileID: 4519952399914716039, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
 --- !u!1 &686577032
@@ -788,7 +804,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 686577032}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34fab92bf42d9094780dc8dd4334ad83, type: 3}
   m_Name: 
@@ -870,6 +886,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CornerTile (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4519952399914716039, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
 --- !u!1001 &708304181
@@ -882,6 +902,10 @@ PrefabInstance:
     - target: {fileID: 1543882876437258546, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
       propertyPath: m_Name
       value: StraightTile (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543882876437258546, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1543882876437258550, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
       propertyPath: m_RootOrder
@@ -970,6 +994,10 @@ PrefabInstance:
     - target: {fileID: 1543882876437258546, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
       propertyPath: m_Name
       value: StraightTile (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543882876437258546, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1543882876437258550, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
       propertyPath: m_RootOrder
@@ -1072,6 +1100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CornerTile (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4519952399914716039, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
 --- !u!1001 &908681412
@@ -1128,6 +1160,10 @@ PrefabInstance:
     - target: {fileID: 3321373187773650561, guid: 2cddc2b33b48af5448e672f736058fba, type: 3}
       propertyPath: m_Name
       value: None Trees (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321373187773650561, guid: 2cddc2b33b48af5448e672f736058fba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cddc2b33b48af5448e672f736058fba, type: 3}
@@ -1214,6 +1250,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartTile
       objectReference: {fileID: 0}
+    - target: {fileID: 5309618332423547384, guid: 99b1d45302eb0224bac3edadfc167f01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99b1d45302eb0224bac3edadfc167f01, type: 3}
 --- !u!114 &1054171591 stripped
@@ -1291,6 +1331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: house_2_v_4
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 317622fd20823ce4eb770c3705f16d6b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 317622fd20823ce4eb770c3705f16d6b, type: 3}
       propertyPath: m_RootOrder
       value: 25
@@ -1309,7 +1353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 317622fd20823ce4eb770c3705f16d6b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 317622fd20823ce4eb770c3705f16d6b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1441,6 +1485,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CornerTile (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4519952399914716039, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
 --- !u!114 &1470703056 stripped
@@ -1509,6 +1557,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CornerTile (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4519952399914716039, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
 --- !u!114 &1487588851 stripped
@@ -1543,6 +1595,10 @@ PrefabInstance:
     - target: {fileID: 1543882876437258546, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
       propertyPath: m_Name
       value: StraightTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543882876437258546, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1543882876437258550, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
       propertyPath: m_RootOrder
@@ -1769,6 +1825,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: None (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2914831321292862102, guid: 54a85680bda95e14692e2f6a116c6546, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3043273867004232207, guid: 54a85680bda95e14692e2f6a116c6546, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1903,6 +1963,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TRoadTile
       objectReference: {fileID: 0}
+    - target: {fileID: 6583479599477567922, guid: d719ffd6dcecc5a4e8cbeaeaccae4216, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d719ffd6dcecc5a4e8cbeaeaccae4216, type: 3}
 --- !u!1 &2015668177
@@ -1946,6 +2010,10 @@ PrefabInstance:
     - target: {fileID: 988997205633137947, guid: 00b3a284901292d4c947d9a28adb2cf9, type: 3}
       propertyPath: m_Name
       value: GoalTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 988997205633137947, guid: 00b3a284901292d4c947d9a28adb2cf9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8198607285495481336, guid: 00b3a284901292d4c947d9a28adb2cf9, type: 3}
       propertyPath: m_RootOrder
@@ -1993,6 +2061,73 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00b3a284901292d4c947d9a28adb2cf9, type: 3}
+--- !u!1 &2058585374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2058585376}
+  - component: {fileID: 2058585377}
+  - component: {fileID: 2058585375}
+  m_Layer: 0
+  m_Name: GetMapData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2058585375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058585374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 557202d7edb66ce4692d5f25ec3506d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dataTable: {fileID: 4900000, guid: 4598f83f51f7cf3468e99ccef0d8c6c1, type: 3}
+--- !u!4 &2058585376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058585374}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 29
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2058585377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058585374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e267940e5a2ba47bfeffb6957f3f4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tiles:
+  - {fileID: 8659359599962314722, guid: 54a85680bda95e14692e2f6a116c6546, type: 3}
+  - {fileID: 3662057529869650791, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
+  - {fileID: 6707836457158362225, guid: 4b43e1d60e408cf49942f93895964d4e, type: 3}
+  - {fileID: 2689608374618398890, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
+  - {fileID: 613251758740028294, guid: d719ffd6dcecc5a4e8cbeaeaccae4216, type: 3}
+  - {fileID: 6091778155316898247, guid: c897c924e11271740a4ad69c7290ea90, type: 3}
+  - {fileID: 4362677107268669055, guid: 99b1d45302eb0224bac3edadfc167f01, type: 3}
+  - {fileID: 8691179533424286364, guid: 00b3a284901292d4c947d9a28adb2cf9, type: 3}
 --- !u!1001 &2076050580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2047,6 +2182,10 @@ PrefabInstance:
     - target: {fileID: 9098496230121569855, guid: e89c7c99c985479458c099b0853376f8, type: 3}
       propertyPath: m_Name
       value: None Bench
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098496230121569855, guid: e89c7c99c985479458c099b0853376f8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e89c7c99c985479458c099b0853376f8, type: 3}
@@ -2104,6 +2243,10 @@ PrefabInstance:
     - target: {fileID: 4519952399914716039, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
       propertyPath: m_Name
       value: CornerTile (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4519952399914716039, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
@@ -2245,6 +2388,10 @@ PrefabInstance:
     - target: {fileID: 3321373187773650561, guid: 2cddc2b33b48af5448e672f736058fba, type: 3}
       propertyPath: m_Name
       value: None Trees
+      objectReference: {fileID: 0}
+    - target: {fileID: 3321373187773650561, guid: 2cddc2b33b48af5448e672f736058fba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cddc2b33b48af5448e672f736058fba, type: 3}
