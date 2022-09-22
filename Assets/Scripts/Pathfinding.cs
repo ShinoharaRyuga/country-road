@@ -1,11 +1,16 @@
-using System;
-using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>マップ作成と経路探索を行うクラス </summary>
 public class Pathfinding : MonoBehaviour
 {
+    /// <summary>タイルの大きさ </summary>
     const int TILE_SCALE = 5;
+    /// <summary>次タイルを生成するまで時間 </summary>
+    const float NEXT_TILE_WAIT = 0.3f;
+
+    const float COUNTDOWN_START_TIME = 3f;
 
     [SerializeField] TileBase[] _tiles;
     int _row = 0;
@@ -13,44 +18,15 @@ public class Pathfinding : MonoBehaviour
     int _goalRow = 0;
     int _goalCol = 0;
     int _moveCost = 0;
-    bool _isFirst = true;
-
     TileBase[,] _mapTiles = default;
     TileBase _startTile = default;
     TileBase _goalTile = default;
     List<TileBase> _openTiles = new List<TileBase>();
 
+    StageManager _manager => GetComponent<StageManager>();  
     public int GoalRow { get => _goalRow; }
     public int GoalCol { get => _goalCol; }
     public TileBase StartTile { get => _startTile; set => _startTile = value; }
-
-    private void Update()
-    {
-        if (_isFirst)
-        {
-            foreach (var tile in _mapTiles)
-            {
-                tile.ActiveCollider();
-            }
-
-            _isFirst = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            for (var c = 0; c < _col; c++)
-            {
-                var str = "";
-                for (var r = 0; r < _row; r++)
-                {
-                    var status = (int)_mapTiles[r, c].CurrnetStatus;
-                    str += status.ToString();
-                }
-
-                Debug.Log(str);
-            }
-        }
-    }
 
     /// <summary>マップの大きさを設定する </summary>
     public void SetMapSize(int row, int col)
@@ -73,50 +49,7 @@ public class Pathfinding : MonoBehaviour
     /// <summary>マップを作成する </summary>
     public void CreateMap(List<TileData> tileDataList)
     {
-        _mapTiles = new TileBase[_row, _col];
-
-        var index = 0;
-        var xPos = 0;
-        var zPos = _col * TILE_SCALE;
-
-        for (var c = 0; c < _col; c++)
-        {
-            zPos -= TILE_SCALE;
-            xPos = 0;
-
-            for (var r = 0; r < _row; r++)
-            {
-                var tileData = tileDataList[index];
-                var tileIndex = (int)tileData.TileStatus;
-                var tile = _tiles[0];
-
-                if (tileData.TileStatus != TileStatus.Side)
-                {
-                    tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, 0, zPos), Quaternion.Euler(0, tileData.RotationValue, 0));
-                }
-                else
-                {
-                    tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, 0, zPos), Quaternion.Euler(0, 90, 0));
-                }
-
-                if (tileData.TileStatus == TileStatus.Start)
-                {
-                    _startTile = tile;
-                }
-                else if (tileData.TileStatus == TileStatus.Goal)
-                {
-                    _goalTile = tile;
-                    _goalCol = c;
-                    _goalRow = r;
-                }
-
-                tile.PathfindingClass = this;
-                tile.SetPoint(r, c);
-                index++;
-                xPos += TILE_SCALE;
-                _mapTiles[r, c] = tile;
-            }
-        }
+        StartCoroutine(Create(tileDataList));
     }
 
     void OpenAroundTile(TileBase currentTile)
@@ -177,12 +110,69 @@ public class Pathfinding : MonoBehaviour
         }
     }
 
+    /// <summary>ゴールタイルまで距離(推定コスト)を計算する </summary>
+    /// <returns>推定コスト</returns>
     int GetGuessCost(int r, int c)
     {
         var disR = _goalTile.Row - r;
         var disC = _goalTile.Col - c;
 
         return disR + disC;
+    }
+
+    /// <summary>一定間隔でタイルを指定の位置に生成する </summary>
+    /// <param name="tileDataList">マップ配置のデータ</param>
+    IEnumerator Create(List<TileData> tileDataList)
+    {
+        _mapTiles = new TileBase[_row, _col];
+
+        var index = 0;
+        var xPos = 0;
+        var zPos = _col * TILE_SCALE;
+
+        for (var c = 0; c < _col; c++)
+        {
+            zPos -= TILE_SCALE;
+            xPos = 0;
+
+            for (var r = 0; r < _row; r++)
+            {
+                var tileData = tileDataList[index];
+                var tileIndex = (int)tileData.TileStatus;
+                var tile = _tiles[0];
+
+                if (tileData.TileStatus != TileStatus.Side)
+                {
+                    tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, 30, zPos), Quaternion.Euler(0, tileData.RotationValue, 0));
+                }
+                else
+                {
+                    tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, 30, zPos), Quaternion.Euler(0, 90, 0));
+                }
+
+                if (tileData.TileStatus == TileStatus.Start)
+                {
+                    _startTile = tile;
+                }
+                else if (tileData.TileStatus == TileStatus.Goal)
+                {
+                    _goalTile = tile;
+                    _goalCol = c;
+                    _goalRow = r;
+                }
+
+                tile.PathfindingClass = this;
+                tile.SetPoint(r, c);
+                index++;
+                xPos += TILE_SCALE;
+                _mapTiles[r, c] = tile;
+
+                yield return new WaitForSeconds(NEXT_TILE_WAIT);
+            }
+        }
+
+        yield return new WaitForSeconds(COUNTDOWN_START_TIME);
+        _manager.GameStart();
     }
 }
 

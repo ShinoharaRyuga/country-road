@@ -48,11 +48,6 @@ public class StageManager : MonoBehaviour
 
     private void Update()
     {
-        if (!_isGameStart)
-        {
-            GameStart();
-        }
-
         if (_isCountDownStart)
         {
             _timer -= Time.deltaTime;
@@ -107,7 +102,7 @@ public class StageManager : MonoBehaviour
         _timerText.gameObject.SetActive(false);
     }
 
-    void GameStart()
+    public void GameStart()
     {
         _startTile = GetPathfinding.StartTile;
         _spawnPoint = _startTile.transform.GetChild(0);

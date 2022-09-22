@@ -95,9 +95,8 @@ public class PlayerInput : MonoBehaviour
                     //Debug.Log($"GuessCost {target.GuessCost}");
                     //Debug.Log($"Score {target.Score}");
                     //Debug.Log(target.OnHumans.Count);
-
-                    Debug.Log($"Row {target.Row}");
-                    Debug.Log($"Col {target.Col}");
+                    //Debug.Log($"Row {target.Row}");
+                    //Debug.Log($"Col {target.Col}");
                     foreach (var tile in target.ConnectingTiles)
                     {
                         Debug.Log($"{tile.Key} {tile.Value}");
@@ -146,7 +145,7 @@ public class PlayerInput : MonoBehaviour
         }
 
 
-        if (startTileFinish && endTileFinish)
+        if (startTileFinish && endTileFinish)   //óºï˚ÇÃÉ^ÉCÉãÇÃì¸ÇÍë÷Ç¶ÇÈèIóπ
         {
             _isSwap = false;
             _startMapTile = null;

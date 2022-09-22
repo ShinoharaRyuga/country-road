@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>リザルト関連の処理を行うクラス </summary>
 public class ResultManager : MonoBehaviour
 {
     [SerializeField] Sprite _starSprite = default;

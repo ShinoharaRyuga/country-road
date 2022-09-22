@@ -42,7 +42,7 @@ SphereCollider:
   m_GameObject: {fileID: 1375537012818689913}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.01
   m_Center: {x: 0, y: 0, z: -0.1}
@@ -101,7 +101,7 @@ SphereCollider:
   m_GameObject: {fileID: 2026004593299284040}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
@@ -160,7 +160,7 @@ SphereCollider:
   m_GameObject: {fileID: 2422921932528351974}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.01
   m_Center: {x: 0, y: 0, z: 0.1}
@@ -364,7 +364,7 @@ BoxCollider:
   m_GameObject: {fileID: 2477509170582066873}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.3, y: 1, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0.65}
@@ -423,7 +423,7 @@ BoxCollider:
   m_GameObject: {fileID: 3111586335385333198}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.3, y: 1, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0.65}
@@ -482,7 +482,7 @@ BoxCollider:
   m_GameObject: {fileID: 6861304584976788069}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.3, y: 1, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0.65}
@@ -541,7 +541,7 @@ SphereCollider:
   m_GameObject: {fileID: 7120525494738167784}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.01
   m_Center: {x: 0.1, y: 0, z: 0}
@@ -600,7 +600,7 @@ SphereCollider:
   m_GameObject: {fileID: 7500567444321362675}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.01
   m_Center: {x: -0.1, y: 0, z: 0}
@@ -659,7 +659,7 @@ BoxCollider:
   m_GameObject: {fileID: 7761551537340294826}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.3, y: 1, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0.65}

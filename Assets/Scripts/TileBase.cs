@@ -1,5 +1,5 @@
-using System;
 using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +9,8 @@ using UnityEngine;
 /// </summary>
 public class TileBase : MonoBehaviour
 {
+    const float FIRST_MOVE_SPEED = 30f;
+
     [SerializeField] TileStatus _currnetStatus = TileStatus.None;
     [SerializeField] AstarStatus _astarStatus = AstarStatus.Empty;
     /// <summary>タイルに乗っている街人のリスト </summary>
@@ -37,6 +39,8 @@ public class TileBase : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(StartMove());
+
         //各出入りと繋がっているタイルを結びつける
         for (var i = 0; i < transform.childCount; i++)
         {
@@ -222,6 +226,28 @@ public class TileBase : MonoBehaviour
         foreach (var movedHuman in movedHumans)
         {
             _onHumans.Remove(movedHuman);
+        }
+    }
+
+    IEnumerator StartMove()
+    {
+        var startPosition = transform.position;
+        var endPosition = new Vector3(transform.position.x, 0, transform.position.z);
+        var distance = Vector3.Distance(startPosition, endPosition);
+        var time = 0f;
+        while (true)
+        {
+            time += Time.deltaTime;
+            var present_Location = (time * FIRST_MOVE_SPEED) / distance;
+
+            transform.position = Vector3.Lerp(startPosition, endPosition, present_Location);
+
+            if (transform.position == endPosition)
+            {
+                break;
+            }
+
+            yield return null;
         }
     }
 }
