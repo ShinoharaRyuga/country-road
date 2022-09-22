@@ -12,23 +12,47 @@ public class StageManager : MonoBehaviour
     [SerializeField, Header("登場人数")] int _humanNumber = 0;
     [SerializeField, Header("ライフ")] int _life = 0;
     [SerializeField, Header("生成間隔")] float _generateInterval = 0;
-    [SerializeField] TileBase _startTile = default;
+    [SerializeField] ResultManager _resultManager = default; 
     [SerializeField] HumanMove _humanPrefab = default;
     [SerializeField] TMP_Text _timerText = default;
     Transform _spawnPoint = default;
+    TileBase _startTile = default;
+    /// <summary>ステージ上にいる街人数 </summary>
+    int _currentHumanNumber = 0;
+    /// <summary>現在のライフ </summary>
+    int _currentLife = 0;
     bool _isGameStart = false;
     bool _isCountDownStart = false;
+    /// <summary>ステージクリア </summary>
+    bool _isStageClear = false;
+    /// <summary>三つ目の星獲得条件</summary>
+    bool thirdCondition = false;
     float _timer = 0;
 
+
+
     Pathfinding GetPathfinding => GetComponent<Pathfinding>();
+
+    public int CurrentHumanNumber { get => _currentHumanNumber; set => _currentHumanNumber = value; }
+
+    public bool IsPerfect => _currentLife == _life;
+
+    public bool IsStageClear { get => _isStageClear; }
+
     void Start()
     {
-       
+        _currentHumanNumber = _humanNumber;
+        _currentLife = _life;
         _timer = COUNTDOWN_TIME;
     }
 
     private void Update()
     {
+        if (!_isGameStart)
+        {
+            GameStart();
+        }
+
         if (_isCountDownStart)
         {
             _timer -= Time.deltaTime;
@@ -36,22 +60,23 @@ public class StageManager : MonoBehaviour
 
             if (_timer < START_TIME)   //ゲームスタート
             {
-
-                Debug.Log("Start");
                 _isCountDownStart = false;
                 _isGameStart = true;
-                _timerText.text = "Start!";
+                _timerText.text = "START!";
                 StartCoroutine(HumanGenerator());
                 StartCoroutine(ChangeTimerTextActive());
             }
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            _startTile = GetPathfinding.StartTile;
-            _spawnPoint = _startTile.transform.GetChild(0);
-            _isCountDownStart = true;
-        }
+    public void StageClear()
+    {
+        _isStageClear = true;
+        _timerText.text = "CLEAR!!";
+        _timerText.gameObject.SetActive(true);
+        var resultCanvas =  Instantiate(_resultManager);
+        var array = new bool[] { _isStageClear, IsPerfect, thirdCondition };
+        resultCanvas.SetResult(array);
     }
 
     /// <summary>一定時間ごとに街人を生成する </summary>
@@ -80,5 +105,12 @@ public class StageManager : MonoBehaviour
     {
         yield return new WaitForSeconds(TIMER_TEXT_ACTIVE_TIME);
         _timerText.gameObject.SetActive(false);
+    }
+
+    void GameStart()
+    {
+        _startTile = GetPathfinding.StartTile;
+        _spawnPoint = _startTile.transform.GetChild(0);
+        _isCountDownStart = true;
     }
 }

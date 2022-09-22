@@ -144,7 +144,6 @@ public class TileBase : MonoBehaviour
             }
         }
 
-        Debug.Log(nextTile.transform.position);
         return nextTile;
     }
 

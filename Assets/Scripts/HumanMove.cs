@@ -1,9 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>街の人を動かすクラス</summary>
 public class HumanMove : MonoBehaviour
 {
+    const float FIRST_WAIT_TIME = 0.5f;
+
     [SerializeField, Tooltip("移動速度")] float _moveSpeed = 1f;
     [SerializeField, Tooltip("現在乗っているタイル")] TileBase _currentTile;
     List<RoadPoint> _hitPoints = new List<RoadPoint>();
@@ -13,32 +16,20 @@ public class HumanMove : MonoBehaviour
     bool _isMoving = false;
     Rigidbody _rb => GetComponent<Rigidbody>();
     Animator _anime => GetComponent<Animator>();
-    RouteSearch routeSearch => GetComponent<RouteSearch>();
 
     public TileBase CurrentTile { get => _currentTile; set => _currentTile = value; }
-    public TileBase LastTile { get => _lastTile; set => _lastTile = value; }
+
+    private void Start()
+    {
+        StartCoroutine(FirstMove());
+    }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            //  routeSearch.CheckRoute(_currentTile);
-        }
-
         if (_isMoving)
         {
             _rb.velocity = transform.forward * _moveSpeed;
         }
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            SetFirstPoint();
-        }
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            Debug.Log(_currentTile);
-        } 
 
         _anime.SetFloat("Speed", _rb.velocity.magnitude);
     }
@@ -48,13 +39,6 @@ public class HumanMove : MonoBehaviour
         if (other.TryGetComponent(out RoadPoint roadPoint))
         {
             if (roadPoint.ParentMapTile.CurrnetStatus == TileStatus.Start) { return; }
-
-            if (roadPoint.CurrentStatus == PointStatus.Goal)    //ゴールに到着したらその場止まる
-            {
-                Debug.Log("Goal");
-                MoveStop();
-                return;
-            }
 
             _hitCount++;
             _hitPoints.Add(roadPoint);
@@ -67,7 +51,6 @@ public class HumanMove : MonoBehaviour
 
             if (_hitCount == 2)
             {
-                Debug.Log("hit2");
                 if (_currentTile.ConnectingTiles.Count <= 2)
                 {
                     var nextPoint = _currentTile.GetNextPoint(transform, _hitPoints);
@@ -104,9 +87,6 @@ public class HumanMove : MonoBehaviour
                 return;
             }
 
-            //次のポイントに進む
-            //var nextPoint = roadPoint.ParentMapTile.GetNextPoint(transform, _hitPoints);
-            //SetMoveDirection(nextPoint);
         }
     }
 
@@ -131,9 +111,14 @@ public class HumanMove : MonoBehaviour
     public void SetFirstPoint()
     {
         var nextTile = _currentTile.GetNextTile(_lastTile);
-        Debug.Log(nextTile.name);
         var nextPoint = nextTile.GetFirstPoint(transform);
         SetMoveDirection(nextPoint);
         _isMoving = true;
+    }
+
+    IEnumerator FirstMove()
+    {
+        yield return new WaitForSeconds(FIRST_WAIT_TIME);
+        SetFirstPoint();
     }
 }
