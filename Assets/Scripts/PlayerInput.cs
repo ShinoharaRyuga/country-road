@@ -21,6 +21,7 @@ public class PlayerInput : MonoBehaviour
     bool _isSwap = false;
 
     Pathfinding _pathfinding => GetComponent<Pathfinding>();
+    StageManager _manager => GetComponent<StageManager>();
     void Update()
     {
         //マウスで操作
@@ -54,10 +55,9 @@ public class PlayerInput : MonoBehaviour
                 }
             }
 
-
-
             if (_startMapTile != null && _endMapTile != null && !_isSwap)   //タイルを入れ替え
             {
+                _manager.AddMoveCount();
                 _centerTransform = new GameObject().transform;
                 _centerTransform.position = (_startMapTile.transform.position + _endMapTile.transform.position) / 2;
                 _centerTransform.forward = _startPoint - _endPoint;

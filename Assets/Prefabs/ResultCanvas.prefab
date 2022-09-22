@@ -318,6 +318,7 @@ MonoBehaviour:
   - {fileID: 1626883026913159887}
   - {fileID: 1626883027270235813}
   - {fileID: 1626883027707755361}
+  _thirdConditionText: {fileID: 1626883027450470716}
 --- !u!1 &1626883026517163394
 GameObject:
   m_ObjectHideFlags: 0

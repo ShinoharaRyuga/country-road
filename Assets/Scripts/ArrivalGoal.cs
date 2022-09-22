@@ -20,7 +20,6 @@ public class ArrivalGoal : MonoBehaviour
             if (_manager.CurrentHumanNumber == 0)   //ゲームクリア
             {
                 _manager.StageClear();
-                Debug.Log("ステージクリア");
             }
         }
     }
