@@ -9,10 +9,11 @@ public class Pathfinding : MonoBehaviour
     const int TILE_SCALE = 5;
     /// <summary>次タイルを生成するまで時間 </summary>
     const float NEXT_TILE_WAIT = 0.3f;
-
+    const float FIRST_POSITION_Y = 30;
     const float COUNTDOWN_START_TIME = 3f;
 
     [SerializeField] TileBase[] _tiles;
+    [SerializeField] TileBase[] _noneTiles;
     int _row = 0;
     int _col = 0;
     int _goalRow = 0;
@@ -141,13 +142,18 @@ public class Pathfinding : MonoBehaviour
                 var tileIndex = (int)tileData.TileStatus;
                 var tile = _tiles[0];
 
-                if (tileData.TileStatus != TileStatus.Side)
+                switch (tileData.TileStatus)    //タイルを作成
                 {
-                    tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, 30, zPos), Quaternion.Euler(0, tileData.RotationValue, 0));
-                }
-                else
-                {
-                    tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, 30, zPos), Quaternion.Euler(0, 90, 0));
+                    case TileStatus.None:
+                        var rand = Random.Range(0, _noneTiles.Length);
+                        tile = Instantiate(_noneTiles[rand], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.identity);
+                        break;
+                    case TileStatus.Side:
+                        tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.Euler(0, 90, 0));
+                        break;
+                    default:
+                        tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.Euler(0, tileData.RotationValue, 0));
+                        break;
                 }
 
                 if (tileData.TileStatus == TileStatus.Start)

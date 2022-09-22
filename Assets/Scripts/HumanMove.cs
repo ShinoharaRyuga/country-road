@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>街の人を動かすクラス</summary>
 public class HumanMove : MonoBehaviour
 {
+    /// <summary>一番最初に動き出すまでの時間 </summary>
     const float FIRST_WAIT_TIME = 0.5f;
 
     [SerializeField, Tooltip("移動速度")] float _moveSpeed = 1f;
@@ -16,7 +17,6 @@ public class HumanMove : MonoBehaviour
     bool _isMoving = false;
     Rigidbody _rb => GetComponent<Rigidbody>();
     Animator _anime => GetComponent<Animator>();
-
     public TileBase CurrentTile { get => _currentTile; set => _currentTile = value; }
 
     private void Start()
@@ -116,6 +116,7 @@ public class HumanMove : MonoBehaviour
         _isMoving = true;
     }
 
+    /// <summary>一番最初に動きださせる関数 </summary>
     IEnumerator FirstMove()
     {
         yield return new WaitForSeconds(FIRST_WAIT_TIME);

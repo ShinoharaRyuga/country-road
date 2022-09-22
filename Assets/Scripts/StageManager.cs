@@ -29,14 +29,9 @@ public class StageManager : MonoBehaviour
     bool thirdCondition = false;
     float _timer = 0;
 
-
-
     Pathfinding GetPathfinding => GetComponent<Pathfinding>();
-
     public int CurrentHumanNumber { get => _currentHumanNumber; set => _currentHumanNumber = value; }
-
     public bool IsPerfect => _currentLife == _life;
-
     public bool IsStageClear { get => _isStageClear; }
 
     void Start()
@@ -102,6 +97,7 @@ public class StageManager : MonoBehaviour
         _timerText.gameObject.SetActive(false);
     }
 
+    /// <summary>ゲームをスタートさせる</summary>
     public void GameStart()
     {
         _startTile = GetPathfinding.StartTile;
