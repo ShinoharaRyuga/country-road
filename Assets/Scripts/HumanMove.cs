@@ -10,6 +10,7 @@ public class HumanMove : MonoBehaviour
 
     [SerializeField, Tooltip("移動速度")] float _moveSpeed = 1f;
     [SerializeField, Tooltip("現在乗っているタイル")] TileBase _currentTile;
+    [SerializeField, Tooltip("目的地(ゴール)")] Destination _currentDestination = Destination.None;
     List<RoadPoint> _hitPoints = new List<RoadPoint>();
     /// <summary>前に乗っていたタイル </summary>
     TileBase _lastTile = default;
@@ -18,6 +19,8 @@ public class HumanMove : MonoBehaviour
     Rigidbody _rb => GetComponent<Rigidbody>();
     Animator _anime => GetComponent<Animator>();
     public TileBase CurrentTile { get => _currentTile; set => _currentTile = value; }
+    /// <summary>目的地 </summary>
+    public Destination CurrentDestination { get => _currentDestination; set => _currentDestination = value; }
 
     private void Start()
     {
@@ -122,4 +125,11 @@ public class HumanMove : MonoBehaviour
         yield return new WaitForSeconds(FIRST_WAIT_TIME);
         SetFirstPoint();
     }
+}
+
+public enum Destination
+{
+    None,
+    School,
+    Library,
 }
