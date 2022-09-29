@@ -16,11 +16,15 @@ public class HumanMove : MonoBehaviour
     TileBase _lastTile = default;
     int _hitCount = 0;
     bool _isMoving = false;
+    TileBase _startTile = default;
+    TileBase _goalTile = default;
     Rigidbody _rb => GetComponent<Rigidbody>();
     Animator _anime => GetComponent<Animator>();
     public TileBase CurrentTile { get => _currentTile; set => _currentTile = value; }
     /// <summary>–Ú“I’n </summary>
     public Destination CurrentDestination { get => _currentDestination; set => _currentDestination = value; }
+    public TileBase StartTile { get => _startTile; set => _startTile = value; }
+    public TileBase GoalTile { get => _goalTile; set => _goalTile = value; }
 
     private void Start()
     {
