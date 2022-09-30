@@ -1,13 +1,22 @@
+using System.IO;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
+
 
 public class TileCreatorWindow : EditorWindow
 {
     GameObject _targetTile = default;
     Vector3 _buildingPosition = default;
     GameObject _test = default;
+    private Vector2 _dataScrollPosition;
+    private Vector2 _parameterScrollPosition;
+
+    string _targerPath = "Assets/BuildingPrefabs";
+    List<GameObject> _assetList = new List<GameObject>();
+
 
     [MenuItem("Window/TileCreator")]
     static void Open()
@@ -47,5 +56,31 @@ public class TileCreatorWindow : EditorWindow
         {
             PrefabUtility.SaveAsPrefabAsset(_targetTile, "Assets/Test.prefab");
         }
+
+        if (GUILayout.Button("オブジェクト読み込み"))
+        {
+            var filePathArray = Directory.GetFiles("Assets/BuildingPrefabs", "*", SearchOption.AllDirectories);
+
+            foreach (var filePath in filePathArray)
+            {
+                var Extension = Path.GetExtension(filePath);
+                
+                if (Extension == ".prefab")
+                {
+                    var asset = AssetDatabase.LoadAssetAtPath<GameObject>(filePath);
+                    _assetList.Add(asset);
+                }
+            }
+
+            Debug.Log("読み込み");
+
+            foreach (var asset in _assetList)
+            {
+                Debug.Log(asset.name);
+            }
+
+            _assetList.Clear();
+        }
     }
 }
+
