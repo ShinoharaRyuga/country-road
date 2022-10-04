@@ -70,7 +70,7 @@ public class TileCreatorWindow : EditorWindow
                             Debug.Log("タイルが存在しません\nタイルを生成してください");
                             return;
                         }
-                        Debug.Log(_selectBuilding.name);
+                        Debug.Log("プレハブを作成しました");
 
                         var prefabName = $"{SAVE_FOLDER_PATH}{_selectBuilding}.prefab";
                         PrefabUtility.SaveAsPrefabAsset(_targetTile, prefabName);

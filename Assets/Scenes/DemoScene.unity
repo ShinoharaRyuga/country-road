@@ -2503,6 +2503,14 @@ PrefabInstance:
       propertyPath: _resultManager
       value: 
       objectReference: {fileID: 8684459789667953336, guid: 08ac23c7a6b859349a5e038c5af5c4f2, type: 3}
+    - target: {fileID: 2724653108084307301, guid: 8bb489b7c1f471f43a701e8307eae531, type: 3}
+      propertyPath: _swapTime
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2724653108084307301, guid: 8bb489b7c1f471f43a701e8307eae531, type: 3}
+      propertyPath: _swapHeight
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2724653108084307302, guid: 8bb489b7c1f471f43a701e8307eae531, type: 3}
       propertyPath: _tiles.Array.data[7]
       value: 
