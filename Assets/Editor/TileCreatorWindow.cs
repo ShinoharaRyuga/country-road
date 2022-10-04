@@ -6,19 +6,29 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
 
+/// <summary>タイルを生成するウィンドウのクラス </summary>
 public class TileCreatorWindow : EditorWindow
 {
+    /// <summary>タイルの保存先のパス </summary>
+    const string SAVE_FOLDER_PATH = "Assets/Prefabs/Tiles/";
+    const string LOAD_FOLDER_PATH = "Assets/BuildingPrefabs/";
+
     GameObject _targetTile = default;
     GameObject _selectBuilding = default;
+    /// <summary>建物オブジェクトの生成位置 </summary>
+    Vector3 _buildingPoint = default;
+    /// <summary>タイルのtransform </summary>
+    Vector3 _buildingPosition = Vector3.zero;
+    Vector3 _buildingRotation = Vector3.zero;
+    Vector3 _buildingScale = Vector3.zero;
 
+    /// <summary>GUILayout用 </summary>
     Vector2 _dataScrollPosition;
     Vector2 _parameterScrollPosition;
     Vector2 _tileScrollPosition;
-    Vector3 _buildingPosition = default;
-
-    string _targerPath = "Assets/BuildingPrefabs";
-    List<GameObject> _assetList = new List<GameObject>();
-
+   
+    /// <summary>読み込んだプレハブのリスト</summary>
+    List<GameObject> _prefabList = new List<GameObject>();
 
     [MenuItem("Window/TileCreator")]
     static void Open()
@@ -50,7 +60,7 @@ public class TileCreatorWindow : EditorWindow
                     {
                         var tileBasePrefab = Resources.Load<GameObject>("TileBase");
                         _targetTile = PrefabUtility.InstantiatePrefab(tileBasePrefab) as GameObject;
-                        _buildingPosition = _targetTile.transform.GetChild(0).position;
+                        _buildingPoint = _targetTile.transform.GetChild(0).position;
                     }
 
                     if (GUILayout.Button("Prefabを生成"))
@@ -62,12 +72,13 @@ public class TileCreatorWindow : EditorWindow
                         }
                         Debug.Log(_selectBuilding.name);
 
-                        // PrefabUtility.SaveAsPrefabAsset(_targetTile, "Assets/Test.prefab");
+                        var prefabName = $"{SAVE_FOLDER_PATH}{_selectBuilding}.prefab";
+                        PrefabUtility.SaveAsPrefabAsset(_targetTile, prefabName);
                     }
 
-                    if (GUILayout.Button("オブジェクト読み込み"))
+                    if (GUILayout.Button("プレハブ読み込み"))
                     {
-                        var filePathArray = Directory.GetFiles("Assets/BuildingPrefabs", "*", SearchOption.AllDirectories);
+                        var filePathArray = Directory.GetFiles(LOAD_FOLDER_PATH, "*", SearchOption.AllDirectories);
 
                         foreach (var filePath in filePathArray)
                         {
@@ -77,20 +88,57 @@ public class TileCreatorWindow : EditorWindow
                             {
                                 var asset = AssetDatabase.LoadAssetAtPath<GameObject>(filePath);
 
-                                if (!_assetList.Contains(asset))
+                                if (!_prefabList.Contains(asset))
                                 {
-                                    _assetList.Add(asset);
+                                    _prefabList.Add(asset);
                                 }
                             }
                         }
 
                         Debug.Log("読み込み");
 
-                        foreach (var asset in _assetList)
+                        foreach (var asset in _prefabList)
                         {
                             Debug.Log(asset.name);
                         }
                     }
+
+                    GUILayout.EndHorizontal();   
+                }
+
+                GUILayout.BeginHorizontal();    //Position
+                {
+                    _buildingPosition = EditorGUILayout.Vector3Field("Position", _buildingPosition);
+
+                    if (GUILayout.Button("値を適用") && _selectBuilding != null)
+                    {
+                        _selectBuilding.transform.position = _buildingPosition;
+                    }
+                   
+                    GUILayout.EndHorizontal();
+                }
+
+                GUILayout.BeginHorizontal();    //Rotation
+                {
+                    _buildingRotation = EditorGUILayout.Vector3Field("Rotation", _buildingRotation);
+
+                    if (GUILayout.Button("値を適用") && _selectBuilding != null)
+                    {
+                        _selectBuilding.transform.rotation = Quaternion.Euler(_buildingRotation);
+                    }
+                    
+                    GUILayout.EndHorizontal();
+                }
+
+                GUILayout.BeginHorizontal();    //Scale
+                {
+                    _buildingScale = EditorGUILayout.Vector3Field("Scale", _buildingScale);
+
+                    if (GUILayout.Button("値を適用") && _selectBuilding != null)
+                    {
+                        _selectBuilding.transform.localScale = _buildingScale;
+                    }
+   
                     GUILayout.EndHorizontal();
                 }
             }
@@ -101,7 +149,7 @@ public class TileCreatorWindow : EditorWindow
                 SetupAssets();
                 GUILayout.EndVertical();
             }
-           GUILayout.EndHorizontal();
+            GUILayout.EndHorizontal();
         }
     }
 
@@ -113,7 +161,7 @@ public class TileCreatorWindow : EditorWindow
             _dataScrollPosition = scroll.scrollPosition;
             GUILayout.Label("建物");
 
-            foreach (var target in _assetList)
+            foreach (var target in _prefabList)
             {
                 if (GUILayout.Button(target.name))
                 {
@@ -122,7 +170,6 @@ public class TileCreatorWindow : EditorWindow
             }
         }
     }
-
     /// <summary>指定されたオブジェクトを生成する</summary>
     /// <param name="target"></param>
     void CreateBuilding(GameObject target)
@@ -140,7 +187,12 @@ public class TileCreatorWindow : EditorWindow
 
         _selectBuilding = PrefabUtility.InstantiatePrefab(target) as GameObject;
         _selectBuilding.transform.SetParent(_targetTile.transform);
-        _selectBuilding.transform.position = new Vector3(_buildingPosition.x, 0.5f, _buildingPosition.z);
+        _selectBuilding.transform.position = new Vector3(_buildingPoint.x, 0.5f, _buildingPoint.z);
+
+        //値をセット
+        _buildingPosition = _selectBuilding.transform.position;
+        _buildingRotation = _selectBuilding.transform.localEulerAngles;
+        _buildingRotation = _selectBuilding.transform.localScale;
     }
 }
 
