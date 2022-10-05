@@ -10,7 +10,7 @@ using UnityEngine;
 public class TileBase : MonoBehaviour
 {
     /// <summary>マップ作成時の移動速度 </summary>
-    const float FIRST_MOVE_SPEED = 30f;
+    const float FIRST_MOVE_SPEED = 50f;
 
     [SerializeField] TileStatus _currnetStatus = TileStatus.None;
     [SerializeField] AstarStatus _astarStatus = AstarStatus.Empty;
@@ -40,8 +40,6 @@ public class TileBase : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(StartMove());
-
         //各出入りと繋がっているタイルを結びつける
         for (var i = 0; i < transform.childCount; i++)
         {
@@ -230,7 +228,9 @@ public class TileBase : MonoBehaviour
         }
     }
 
-    IEnumerator StartMove()
+    /// <summary>マップ作成時の移動処理 </summary>
+    /// <returns></returns>
+    public IEnumerator StartMove()
     {
         var startPosition = transform.position;
         var endPosition = new Vector3(transform.position.x, 0, transform.position.z);

@@ -130,6 +130,7 @@ public class Pathfinding : MonoBehaviour
         var index = 0;
         var xPos = 0;
         var zPos = _col * TILE_SCALE;
+        var generateTiles = new TileBase[tileDataList.Count];
 
         for (var c = 0; c < _col; c++)
         {
@@ -158,22 +159,49 @@ public class Pathfinding : MonoBehaviour
 
                 if (tileData.TileStatus == TileStatus.Start)
                 {
+                    tile.transform.position = new Vector3(xPos, 0, zPos);
                     _startTile = tile;
                 }
                 else if (tileData.TileStatus == TileStatus.Goal)
                 {
+                    tile.transform.position = new Vector3(xPos, 0, zPos);
                     _goalTile = tile;
                     _goalCol = c;
                     _goalRow = r;
                 }
 
+                generateTiles[index] = tile;
                 tile.PathfindingClass = this;
                 tile.SetPoint(r, c);
                 index++;
                 xPos += TILE_SCALE;
                 _mapTiles[r, c] = tile;
+                
+                yield return new WaitForSeconds(0);
+            }
+        }
 
-                yield return new WaitForSeconds(NEXT_TILE_WAIT);
+        StartCoroutine(FallTileRamdom(generateTiles));
+    }
+
+    /// <summary>
+    /// タイルをランダムに落としていく
+    /// ステージ定位置に移動させる
+    /// </summary>
+    /// <param name="tileBases">生成されたタイル</param>
+    IEnumerator  FallTileRamdom(TileBase[] tileBases)
+    {
+        var selectedNumbers = new List<int>();
+        for (var i = 0; i < tileBases.Length;)
+        {
+            var rand = Random.Range(0, _mapTiles.Length);
+
+            if (!selectedNumbers.Contains(rand))
+            {
+                StartCoroutine(tileBases[rand].StartMove());
+                selectedNumbers.Add(rand);
+                i++;
+                yield return new WaitForSeconds(NEXT_TILE_WAIT); 
             }
         }
 
