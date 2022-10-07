@@ -1,99 +1,112 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>マップをランダムに生成するクラス </summary>
+/// <summary>マップ生成関連処理を行うクラス </summary>
 public class CreateMap : MonoBehaviour
 {
-    [SerializeField] int _rows = 3;
-    [SerializeField] int _columns = 3;
-    [SerializeField] TileBase[] _tiles = default;
-    [SerializeField] HumanMove _humanPrefab = default;
-    [SerializeField] bool _generateHuman = true;
-
-    HumanMove _human = default;
-    /// <summary>向きを変更する為の配列</summary>
-    int[] _rotationValues = new int[4] { 0, 90, 180, 270 };
+    /// <summary>タイルの大きさ </summary>
+    const int TILE_SCALE = 5;
+    /// <summary>次タイルを生成するまで時間 </summary>
+    const float NEXT_TILE_WAIT = 0.3f;
+    /// <summary>タイル生成時のY位置 </summary>
+    const float FIRST_POSITION_Y = 30;
+    /// <summary>ゲーム開始カウントダウンが始まるまでの時間 </summary>
+    const float COUNTDOWN_START_TIME = 3f;
+   
+    [SerializeField] TileBase[] _tiles;
+    [SerializeField] TileBase[] _noneTiles;
     TileBase[,] _mapTiles = default;
-    bool _isFirst = true;
+    TileBase _startTile = default;
+    TileBase _goalTile = default;
+    int _row = 0;
+    int _col = 0;
 
-    public int Rows { get => _rows; set => _rows = value; }
-    public int Columns { get => _columns; set => _columns = value; }
+    public int Row { get => _row; set => _row = value; }
+    public int Col { get => _col; set => _col = value; }
 
-    private void Start()
+    StageManager _manager => GetComponent<StageManager>();
+
+    /// <summary>マップ配置のリストを受け取りマップを生成する </summary>
+    /// <param name="tileDataList">マップ配置リスト</param>
+    public void MapCreate(List<TileData> tileDataList)
     {
-        _mapTiles = new TileBase[_rows, _columns];
-        Create();
-        _isFirst = false;
-    }
+        _mapTiles = new TileBase[_row, _col];
+        
+        var index = 0;
+        var xPos = 0;
+        var zPos = _col * TILE_SCALE;
+        var generateTiles = new TileBase[tileDataList.Count];
 
-    /// <summary>街人を追加生成する </summary>
-    public void AddHuman()
-    {
-        if (!_generateHuman) { return; }
-
-        //var point = _mapTiles[0, 1].TilePoints[0];
-        //var pos = new Vector3(point.transform.position.x, point.transform.position.y + 0.1f, point.transform.position.z);
-        //var human = Instantiate(_humanPrefab, pos, Quaternion.identity);
-        //human.CurrentMapTile = _mapTiles[0, 1];
-    }
-
-
-    /// <summary>マップを生成する </summary>
-    public void Create()
-    {
-        if (!_isFirst)
+        for (var c = 0; c < _col; c++)
         {
-            for (var i = 0; i < _rows; i++)
+            zPos -= TILE_SCALE;
+            xPos = 0;
+
+            for (var r = 0; r < _row; r++)
             {
-                for (var k = 0; k < _columns; k++)
+                var tileData = tileDataList[index];
+                var tileIndex = (int)tileData.TileStatus;
+                var tile = _tiles[0];
+
+                switch (tileData.TileStatus)    //タイルを作成
                 {
-                    Destroy(_mapTiles[i, k].gameObject);
+                    case TileStatus.None:
+                        var rand = Random.Range(0, _noneTiles.Length);
+                        tile = Instantiate(_noneTiles[rand], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.identity);
+                        break;
+                    case TileStatus.Side:
+                        tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.Euler(0, 90, 0));
+                        break;
+                    default:
+                        tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.Euler(0, tileData.RotationValue, 0));
+                        break;
                 }
+
+                if (tileData.TileStatus == TileStatus.Start)
+                {
+                    tile.transform.position = new Vector3(xPos, 0, zPos);
+                    _startTile = tile;
+                }
+                else if (tileData.TileStatus == TileStatus.Goal)
+                {
+                    tile.transform.position = new Vector3(xPos, 0, zPos);
+                    _goalTile = tile;
+                }
+
+                generateTiles[index] = tile;
+                tile.SetPoint(r, c);
+                index++;
+                xPos += TILE_SCALE;
+                _mapTiles[r, c] = tile;
             }
         }
 
-        var xPos = -5;
-        var zPos = 0;
-        for (var i = 0; i < _rows; i++)
+        StartCoroutine(FallTileRamdom(generateTiles));
+    }
+
+    /// <summary>
+    /// タイルをランダムに落としていく
+    /// ステージ定位置に移動させる
+    /// </summary>
+    /// <param name="tileBases">生成されたタイル</param>
+    IEnumerator FallTileRamdom(TileBase[] tileBases)
+    {
+        var selectedNumbers = new List<int>();
+        for (var i = 0; i < tileBases.Length;)
         {
-            xPos = -5;
-            zPos += 5;
-            for (var k = 0; k < _columns; k++)
+            var rand = Random.Range(0, tileBases.Length);
+
+            if (!selectedNumbers.Contains(rand))
             {
-                if (i == 0 && k == 1)
-                {
-                    _mapTiles[i, k] = Instantiate(_tiles[1], new Vector3(xPos, 0, zPos), Quaternion.Euler(0, _rotationValues[0], 0));
-                    _mapTiles[i, k].gameObject.name = $"{i} {k}";
-                    xPos += 5;
-                    continue;
-                }
-
-
-                var index = Random.Range(0, _tiles.Length);
-                var rotationIndex = Random.Range(0, _rotationValues.Length);
-                _mapTiles[i, k] = Instantiate(_tiles[index], new Vector3(xPos, 0, zPos), Quaternion.Euler(0, _rotationValues[rotationIndex], 0));
-                _mapTiles[i, k].gameObject.name = $"{i} {k}";
-                xPos += 5;
+                StartCoroutine(tileBases[rand].StartMove());
+                selectedNumbers.Add(rand);
+                i++;
+                yield return new WaitForSeconds(NEXT_TILE_WAIT);
             }
         }
 
-        if (!_generateHuman) { return; }
-        StartCoroutine(HumanGenerator());
-    }
-
-    /// <summary>マップ生成終了後に最初の街人を生成する </summary>
-    IEnumerator HumanGenerator()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        if (_human != null)
-        {
-            Destroy(_human.gameObject);
-        }
-
-        //var point = _mapTiles[0, 1].TilePoints[0];
-        //var pos = new Vector3(point.transform.position.x, point.transform.position.y + 0.1f, point.transform.position.z);
-        //_human = Instantiate(_humanPrefab, pos, Quaternion.identity);
-        //_human.CurrentMapTile = _mapTiles[0, 1];
+        yield return new WaitForSeconds(COUNTDOWN_START_TIME);
+        _manager.GameStart();
     }
 }

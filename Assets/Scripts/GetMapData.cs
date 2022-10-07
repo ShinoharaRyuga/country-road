@@ -7,7 +7,7 @@ public class GetMapData : MonoBehaviour
 {
     [SerializeField, Header("CSVƒtƒ@ƒCƒ‹")] TextAsset _dataTable = default;
     List<TileData> _tileDataList = new List<TileData>();
-    Pathfinding _pathfinding => GetComponent<Pathfinding>();
+    CreateMap _createMap => GetComponent<CreateMap>();
 
     private void Awake()
     {
@@ -16,14 +16,15 @@ public class GetMapData : MonoBehaviour
 
     private void Start()
     {
-        _pathfinding.CreateMap(_tileDataList);
+        _createMap.MapCreate(_tileDataList);
     }
 
     void BuildTileData()
     {
         System.IO.StringReader sr = new System.IO.StringReader(_dataTable.text);
         var mapSize = sr.ReadLine().Split(',');
-        _pathfinding.SetMapSize(int.Parse(mapSize[0]), int.Parse(mapSize[1]));
+        _createMap.Row = int.Parse(mapSize[0]);
+        _createMap.Col = int.Parse(mapSize[1]);
 
         while (true)
         {
