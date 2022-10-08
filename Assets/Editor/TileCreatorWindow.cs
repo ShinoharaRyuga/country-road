@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 
 /// <summary>タイルを生成するウィンドウのクラス </summary>
@@ -163,13 +164,25 @@ public class TileCreatorWindow : EditorWindow
 
             foreach (var target in _prefabList)
             {
+                Button newElement = new Button();
+                newElement.style.flexGrow = 1;
+                rootVisualElement.Add(newElement);
+
                 if (GUILayout.Button(target.name))
                 {
                     CreateBuilding(target);
                 }
+
+                rootVisualElement.RegisterCallback<MouseOverEvent>(MouseOver, TrickleDown.TrickleDown);
             }
         }
     }
+
+    void MouseOver(MouseOverEvent evt)
+    {
+        Debug.Log("hit");
+    }
+
     /// <summary>指定されたオブジェクトを生成する</summary>
     /// <param name="target"></param>
     void CreateBuilding(GameObject target)
