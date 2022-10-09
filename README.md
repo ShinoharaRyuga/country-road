@@ -7,7 +7,7 @@
 # ゲーム内容
 街人を目的地に導く為に、**道を繋げるゲーム**<br>
 プレイヤーは**道となっているタイルを入れ替えて**街人をゴールまで誘導する<br>
-[プレイ動画](https://youtu.be/7jd0uPfz-GY)
+[プレイ動画](https://youtu.be/iv1v9m3eOIo)
 
 # 面白さ
 目的地が増えたり、移動速度が速い街人が出てきたりする<br>
@@ -19,4 +19,4 @@ Visual Studio 2022<br>
 Sourcetree<br>
 
 # 現状
-[現状](https://youtu.be/7jd0uPfz-GY)
+[現状](https://youtu.be/iv1v9m3eOIo)
