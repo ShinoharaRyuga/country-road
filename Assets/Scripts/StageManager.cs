@@ -34,7 +34,7 @@ public class StageManager : MonoBehaviour
     bool _thirdCondition = false;
     float _timer = 0;
 
-    Pathfinding GetPathfinding => GetComponent<Pathfinding>();
+    CreateMap _createMap => GetComponent<CreateMap>();
     public int CurrentHumanNumber { get => _currentHumanNumber; set => _currentHumanNumber = value; }
     public bool IsPerfect => _currentLife == _life;
     public bool IsStageClear { get => _isStageClear; }
@@ -114,7 +114,7 @@ public class StageManager : MonoBehaviour
     /// <summary>ゲームをスタートさせる</summary>
     public void GameStart()
     {
-        _startTile = GetPathfinding.StartTile;
+        _startTile = _createMap.StartTile;
         _spawnPoint = _startTile.transform.GetChild(0);
         _isCountDownStart = true;
     }

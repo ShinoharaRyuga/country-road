@@ -16,7 +16,6 @@ public class CreateMap : MonoBehaviour
    
     [SerializeField] TileBase[] _tiles;
     [SerializeField] TileBase[] _noneTiles;
-    TileBase[,] _mapTiles = default;
     TileBase _startTile = default;
     TileBase _goalTile = default;
     int _row = 0;
@@ -24,15 +23,17 @@ public class CreateMap : MonoBehaviour
 
     public int Row { get => _row; set => _row = value; }
     public int Col { get => _col; set => _col = value; }
+    public TileBase StartTile { get => _startTile; set => _startTile = value; }
+    public TileBase GoalTile { get => _goalTile; set => _goalTile = value; }
 
     StageManager _manager => GetComponent<StageManager>();
+    Pathfinding _pathfinding => GetComponent<Pathfinding>();
 
     /// <summary>マップ配置のリストを受け取りマップを生成する </summary>
     /// <param name="tileDataList">マップ配置リスト</param>
     public void MapCreate(List<TileData> tileDataList)
     {
-        _mapTiles = new TileBase[_row, _col];
-        
+        _pathfinding.MapTiles = new TileBase[_row, _col];
         var index = 0;
         var xPos = 0;
         var zPos = _col * TILE_SCALE;
@@ -72,13 +73,16 @@ public class CreateMap : MonoBehaviour
                 {
                     tile.transform.position = new Vector3(xPos, 0, zPos);
                     _goalTile = tile;
+                    _pathfinding.GoalCol = c;
+                    _pathfinding.GoalRow = r;
                 }
 
                 generateTiles[index] = tile;
+                tile.PathfindingClass = _pathfinding;
                 tile.SetPoint(r, c);
                 index++;
                 xPos += TILE_SCALE;
-                _mapTiles[r, c] = tile;
+                _pathfinding.MapTiles[r, c] = tile;
             }
         }
 

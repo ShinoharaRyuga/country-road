@@ -16,11 +16,12 @@ public class Pathfinding : MonoBehaviour
     List<TileBase> _openTiles = new List<TileBase>();
 
     StageManager _manager => GetComponent<StageManager>();  
-    public int GoalRow { get => _goalRow; }
-    public int GoalCol { get => _goalCol; }
+    public int GoalRow { get => _goalRow; set => _goalRow = value; }
+    public int GoalCol { get => _goalCol; set => _goalCol = value; }
     public TileBase StartTile { get => _startTile; set => _startTile = value; }
+    public TileBase[,] MapTiles { get => _mapTiles; set => _mapTiles = value; }
 
-    
+
     /// <summary>”z—ñ“à‚Ìƒ^ƒCƒ‹‚ð“ü‚ê‘Ö‚¦‚é </summary>
     public void SwapTile(TileBase start, TileBase end)
     {

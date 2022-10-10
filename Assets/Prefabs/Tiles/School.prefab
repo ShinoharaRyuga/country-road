@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4132649140365423471}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3608979848657565014
 BoxCollider:
@@ -91,7 +91,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4132649140365423471}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &743443380977442233
 SphereCollider:
@@ -223,8 +223,8 @@ Transform:
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8197806195013311472}
   - {fileID: 2697081226185320270}
+  - {fileID: 8197806195013311472}
   - {fileID: 6199537971803393630}
   - {fileID: 6848339925123991966}
   - {fileID: 8419865278100745916}
