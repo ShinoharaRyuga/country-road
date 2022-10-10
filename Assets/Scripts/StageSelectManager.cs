@@ -9,45 +9,9 @@ public class StageSelectManager : MonoBehaviour
     /// <summary>各ステージ情報のリスト </summary>
     public List<StageInfo> StageInfos { get => _stageInfos; set => _stageInfos = value; }
 
-    private void Update()
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            var stageInfo = StageInfos[0];
-
-            Debug.Log(stageInfo._stageName);
-            foreach (var name in stageInfo._destinationsName)
-            {
-                Debug.Log(name);
-            }
-            Debug.Log(stageInfo._life);
-            Debug.Log(stageInfo._peopleCount);
-            Debug.Log(stageInfo._stageTile);
-
-            foreach (var condition in stageInfo.getStarConditions)
-            {
-                Debug.Log(condition);
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            var stageInfo = StageInfos[1];
-
-            Debug.Log(stageInfo._stageName);
-            foreach (var name in stageInfo._destinationsName)
-            {
-                Debug.Log(name);
-            }
-            Debug.Log(stageInfo._life);
-            Debug.Log(stageInfo._peopleCount);
-            Debug.Log(stageInfo._stageTile);
-
-            foreach (var condition in stageInfo.getStarConditions)
-            {
-                Debug.Log(condition);
-            }
-        }
+        GameData.GetTiles();
     }
 }
 
