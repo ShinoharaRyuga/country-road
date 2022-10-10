@@ -19,6 +19,7 @@ public class GetMapData : MonoBehaviour
         _createMap.MapCreate(_tileDataList);
     }
 
+    /// <summary>読み込んだファイルを元にデータを作成する </summary>
     void BuildTileData()
     {
         System.IO.StringReader sr = new System.IO.StringReader(_dataTable.text);
@@ -41,6 +42,7 @@ public class GetMapData : MonoBehaviour
         }
     }
 
+    /// <summary>受け取ったデータを元にTileDataの構造体を作成する </summary>
     void CreateTileData(string[] target)
     {
         for (var i = 0; i < target.Length; i++)
@@ -53,9 +55,12 @@ public class GetMapData : MonoBehaviour
     }
 }
 
+/// <summary>タイル情報</summary>
 public struct TileData
 {
+    /// <summary>タイルの種類</summary>
     public TileStatus TileStatus;
+    /// <summary>回転値 </summary>
     public float RotationValue;
 
     public TileData(TileStatus status, float value)

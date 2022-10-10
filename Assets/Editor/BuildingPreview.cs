@@ -16,7 +16,7 @@ public class BuildingPreview : Editor
         return _title;
     }
 
-    public override void OnPreviewGUI(Rect r, GUIStyle background)
+    public override  void OnPreviewGUI(Rect r, GUIStyle background)
     {
         GUI.DrawTexture(r, AssetPreview.GetAssetPreview(_previewObject));
     }

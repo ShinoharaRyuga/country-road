@@ -97,13 +97,8 @@ public class TileCreatorWindow : EditorWindow
                         }
 
                         Debug.Log("読み込み");
-
-                        foreach (var asset in _prefabList)
-                        {
-                            Debug.Log(asset.name);
-                        }
                     }
-
+       
                     GUILayout.EndHorizontal();   
                 }
 
@@ -139,7 +134,7 @@ public class TileCreatorWindow : EditorWindow
                     {
                         _selectBuilding.transform.localScale = _buildingScale;
                     }
-   
+                    
                     GUILayout.EndHorizontal();
                 }
             }
@@ -159,28 +154,20 @@ public class TileCreatorWindow : EditorWindow
     {
         using (GUILayout.ScrollViewScope scroll = new GUILayout.ScrollViewScope(_dataScrollPosition, EditorStyles.helpBox, GUILayout.Width(250)))
         {
+            var root = rootVisualElement;
+           
             _dataScrollPosition = scroll.scrollPosition;
             GUILayout.Label("建物");
 
             foreach (var target in _prefabList)
             {
-                Button newElement = new Button();
-                newElement.style.flexGrow = 1;
-                rootVisualElement.Add(newElement);
 
                 if (GUILayout.Button(target.name))
                 {
                     CreateBuilding(target);
                 }
-
-                rootVisualElement.RegisterCallback<MouseOverEvent>(MouseOver, TrickleDown.TrickleDown);
             }
         }
-    }
-
-    void MouseOver(MouseOverEvent evt)
-    {
-        Debug.Log("hit");
     }
 
     /// <summary>指定されたオブジェクトを生成する</summary>

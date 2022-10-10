@@ -265,6 +265,7 @@ public enum PointStatus
     Start = 7,
 }
 
+/// <summary>ƒ^ƒCƒ‹‚Ìí—Ş </summary>
 public enum TileStatus
 {
     None = 0,
