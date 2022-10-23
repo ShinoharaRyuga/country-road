@@ -8,8 +8,6 @@ public class GetStageInfo : MonoBehaviour
     [StageNumberAttribute(new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" })]
     [SerializeField, Tooltip("各ステージ情報のリスト")] List<TextAsset> _stageInfoList = new List<TextAsset>();
 
-    StageSelectManager _stageManager => GetComponent<StageSelectManager>();
-
     private void Awake()
     {
         BuildStageInfo();
@@ -41,7 +39,7 @@ public class GetStageInfo : MonoBehaviour
 
             //取得したデータを元にステージ情報を作成しリストに追加する
             var stageInfo = new StageInfo(stageName, destinations, life, peopleCount, stageTileNumber, conditions); 
-            _stageManager.StageInfos.Add(stageInfo);
+            GameData.StageInfos.Add(stageInfo);
         }
 
         Debug.Log("finish");

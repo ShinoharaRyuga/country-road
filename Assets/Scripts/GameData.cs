@@ -8,10 +8,15 @@ using UnityEditor;
 //CSVから設定させる為
 public class GameData
 {
+    /// <summary>タイル読み込みに使用するパス </summary>
     const string LOAD_PATH = "Assets/Prefabs/Tiles";
     static Dictionary<StageSelectTiles, GameObject> _stageSelectTiles = new Dictionary<StageSelectTiles, GameObject>();
+    /// <summary>各ステージ情報のリスト </summary>
+    static List<StageInfo> _stageInfos = new List<StageInfo>();
 
     public static Dictionary<StageSelectTiles, GameObject> StageSelectTiles { get => _stageSelectTiles; }
+    /// <summary>各ステージ情報のリスト </summary>
+    public static List<StageInfo> StageInfos { get => _stageInfos; }
 
     /// <summary>タイルを特定のフォルダから取得する </summary>
     public static void GetTiles()

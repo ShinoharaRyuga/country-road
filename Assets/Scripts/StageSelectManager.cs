@@ -42,12 +42,6 @@ public class StageSelectManager : MonoBehaviour
     GameObject _currentStageTile = default;
     /// <summary>各ステージのタイル </summary>
     List<GameObject> _stageTiles = new List<GameObject>();
-    /// <summary>各ステージ情報のリスト </summary>
-    List<StageInfo> _stageInfos = new List<StageInfo>();
-
-
-    /// <summary>各ステージ情報のリスト </summary>
-    public List<StageInfo> StageInfos { get => _stageInfos; set => _stageInfos = value; }
 
     private void Awake()
     {
@@ -58,7 +52,7 @@ public class StageSelectManager : MonoBehaviour
     {
         var tilePosX = 0f;
 
-        foreach (var stageInfo in _stageInfos)  //ステージ選択用タイルを生成
+        foreach (var stageInfo in GameData.StageInfos)  //ステージ選択用タイルを生成
         {
             var targetTile = (StageSelectTiles)stageInfo._stageTile;
             var tile = Instantiate(GameData.StageSelectTiles[targetTile], Vector3.zero, Quaternion.Euler(0, 180, 0));
@@ -73,7 +67,7 @@ public class StageSelectManager : MonoBehaviour
         }
 
         _currentStageTile = _stageTiles[0];
-        _currentStageInfo = _stageInfos[0];
+        _currentStageInfo = GameData.StageInfos[0];
         CurrentTileRotate();
         UIUpdate();
     }
@@ -108,7 +102,7 @@ public class StageSelectManager : MonoBehaviour
         {
             _currentStageNumber++;
             _currentStageTile = _stageTiles[_currentStageNumber];
-            _currentStageInfo = _stageInfos[_currentStageNumber];
+            _currentStageInfo = GameData.StageInfos[_currentStageNumber];
             var cameraPosX = _cameraTransform.position.x + TILE_POSITION_X;
             _cameraTransform.DOMoveX(cameraPosX, CAMERA_MOVE_TIME);
         }
@@ -135,7 +129,7 @@ public class StageSelectManager : MonoBehaviour
         {
             _currentStageNumber--;
             _currentStageTile = _stageTiles[_currentStageNumber];
-            _currentStageInfo = _stageInfos[_currentStageNumber];
+            _currentStageInfo = GameData.StageInfos[_currentStageNumber];
             var cameraPosX = _cameraTransform.position.x - TILE_POSITION_X;
             _cameraTransform.DOMoveX(cameraPosX, CAMERA_MOVE_TIME);
         }
