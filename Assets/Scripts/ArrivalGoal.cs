@@ -7,7 +7,8 @@ public class ArrivalGoal : MonoBehaviour
 
     private void Start()
     {
-        _manager = GameObject.Find("StageManager").GetComponent<StageManager>();
+       //TODO «~‚ß‚é
+      //  _manager = GameObject.Find("StageManager").GetComponent<StageManager>();
     }
 
     private void OnTriggerEnter(Collider other)

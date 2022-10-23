@@ -8,16 +8,18 @@ public class CreateMap : MonoBehaviour
     /// <summary>タイルの大きさ </summary>
     const int TILE_SCALE = 5;
     /// <summary>次タイルを生成するまで時間 </summary>
-    const float NEXT_TILE_WAIT = 0.3f;
+    const float NEXT_TILE_WAIT = 0.2f;
     /// <summary>タイル生成時のY位置 </summary>
     const float FIRST_POSITION_Y = 30;
     /// <summary>ゲーム開始カウントダウンが始まるまでの時間 </summary>
     const float COUNTDOWN_START_TIME = 3f;
-   
+
+    [SerializeField, Header("自動でマップ生成を行う")] bool _autoCreate = false;
     [SerializeField] TileBase[] _tiles;
     [SerializeField] TileBase[] _noneTiles;
     TileBase _startTile = default;
     TileBase _goalTile = default;
+    List<TileData> _tileDataList = new List<TileData>();
     int _row = 0;
     int _col = 0;
 
@@ -25,19 +27,27 @@ public class CreateMap : MonoBehaviour
     public int Col { get => _col; set => _col = value; }
     public TileBase StartTile { get => _startTile; set => _startTile = value; }
     public TileBase GoalTile { get => _goalTile; set => _goalTile = value; }
+    public List<TileData> TileDataList { get => _tileDataList; set => _tileDataList = value; }
 
-    StageManager _manager => GetComponent<StageManager>();
-    Pathfinding _pathfinding => GetComponent<Pathfinding>();
 
-    /// <summary>マップ配置のリストを受け取りマップを生成する </summary>
-    /// <param name="tileDataList">マップ配置リスト</param>
-    public void MapCreate(List<TileData> tileDataList)
+    private void Start()
     {
-        _pathfinding.MapTiles = new TileBase[_row, _col];
+        if (_autoCreate)
+        {
+           MapCreate();
+        }
+    }
+
+    /// <summary>
+    /// マップ配置のリストを受け取りマップを生成する 
+    /// チュートリアルマップのみプレイヤーのタイミングでマップ生成を開始する
+    /// </summary>
+    public void MapCreate()
+    {
         var index = 0;
         var xPos = 0;
         var zPos = _col * TILE_SCALE;
-        var generateTiles = new TileBase[tileDataList.Count];
+        var generateTiles = new TileBase[_tileDataList.Count];
 
         for (var c = 0; c < _col; c++)
         {
@@ -46,7 +56,7 @@ public class CreateMap : MonoBehaviour
 
             for (var r = 0; r < _row; r++)
             {
-                var tileData = tileDataList[index];
+                var tileData = _tileDataList[index];
                 var tileIndex = (int)tileData.TileStatus;
                 var tile = _tiles[0];
 
@@ -73,22 +83,18 @@ public class CreateMap : MonoBehaviour
                 {
                     tile.transform.position = new Vector3(xPos, 0, zPos);
                     _goalTile = tile;
-                    _pathfinding.GoalCol = c;
-                    _pathfinding.GoalRow = r;
                 }
 
                 generateTiles[index] = tile;
-                tile.PathfindingClass = _pathfinding;
                 tile.SetPoint(r, c);
                 index++;
                 xPos += TILE_SCALE;
-                _pathfinding.MapTiles[r, c] = tile;
             }
         }
 
         StartCoroutine(FallTileRamdom(generateTiles));
     }
-
+    
     /// <summary>
     /// タイルをランダムに落としていく
     /// ステージ定位置に移動させる
@@ -111,6 +117,5 @@ public class CreateMap : MonoBehaviour
         }
 
         yield return new WaitForSeconds(COUNTDOWN_START_TIME);
-        _manager.GameStart();
     }
 }

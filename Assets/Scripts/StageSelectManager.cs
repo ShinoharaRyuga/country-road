@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using DG.Tweening;
 
+/// <summary>ステージ選択画面を管理するクラス </summary>
 public class StageSelectManager : MonoBehaviour
 {
     /// <summary>ステージの間隔 </summary>

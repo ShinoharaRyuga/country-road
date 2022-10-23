@@ -10,7 +10,7 @@ using UnityEngine;
 public class TileBase : MonoBehaviour
 {
     /// <summary>マップ作成時の移動速度 </summary>
-    const float FIRST_MOVE_SPEED = 50f;
+    const float FIRST_MOVE_SPEED = 70f;
 
     [SerializeField] TileStatus _currnetStatus = TileStatus.None;
     [SerializeField] AstarStatus _astarStatus = AstarStatus.Empty;

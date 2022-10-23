@@ -6,17 +6,11 @@ using UnityEngine;
 public class GetMapData : MonoBehaviour
 {
     [SerializeField, Header("CSVファイル")] TextAsset _dataTable = default;
-    List<TileData> _tileDataList = new List<TileData>();
     CreateMap _createMap => GetComponent<CreateMap>();
 
     private void Awake()
     {
         BuildTileData();
-    }
-
-    private void Start()
-    {
-        _createMap.MapCreate(_tileDataList);
     }
 
     /// <summary>読み込んだファイルを元にデータを作成する </summary>
@@ -50,7 +44,7 @@ public class GetMapData : MonoBehaviour
             var values = target[i].Split('-');
             var status = (TileStatus)int.Parse(values[0]);
             var tileData = new TileData(status, float.Parse(values[1]));
-            _tileDataList.Add(tileData);
+            _createMap.TileDataList.Add(tileData);
         }
     }
 }

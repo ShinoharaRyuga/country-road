@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 2724653108084307303}
   - component: {fileID: 2724653108084307300}
   - component: {fileID: 2724653108084307301}
-  - component: {fileID: 2724653108084307302}
-  - component: {fileID: 2724653108084307288}
   m_Layer: 0
   m_Name: StageManager
   m_TagString: Untagged
@@ -50,8 +48,12 @@ MonoBehaviour:
   _humanNumber: 3
   _life: 0
   _generateInterval: 5
+  _getCount: 0
+  _resultManager: {fileID: 0}
   _humanPrefab: {fileID: -5162675504550768095, guid: 91e16cc005fc1ee42b02559ba09f1f4d, type: 3}
   _timerText: {fileID: 0}
+  _lifeText: {fileID: 0}
+  _moveCountText: {fileID: 0}
 --- !u!114 &2724653108084307301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,38 +66,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c647770fd8ebc41a5a4f440c049ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tileMoveSpeed: 2
---- !u!114 &2724653108084307302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2724653108084307289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69e267940e5a2ba47bfeffb6957f3f4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tiles:
-  - {fileID: 8659359599962314722, guid: 54a85680bda95e14692e2f6a116c6546, type: 3}
-  - {fileID: 3662057529869650791, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
-  - {fileID: 6707836457158362225, guid: 4b43e1d60e408cf49942f93895964d4e, type: 3}
-  - {fileID: 2689608374618398890, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
-  - {fileID: 613251758740028294, guid: d719ffd6dcecc5a4e8cbeaeaccae4216, type: 3}
-  - {fileID: 6091778155316898247, guid: c897c924e11271740a4ad69c7290ea90, type: 3}
-  - {fileID: 4362677107268669055, guid: 99b1d45302eb0224bac3edadfc167f01, type: 3}
-  - {fileID: 8691179533424286364, guid: 00b3a284901292d4c947d9a28adb2cf9, type: 3}
---- !u!114 &2724653108084307288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2724653108084307289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 557202d7edb66ce4692d5f25ec3506d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dataTable: {fileID: 4900000, guid: 4598f83f51f7cf3468e99ccef0d8c6c1, type: 3}
+  _swapHeight: 4
+  _swapTime: 0.7
