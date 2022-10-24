@@ -9,22 +9,22 @@ public class HumanMove : MonoBehaviour
     const float FIRST_WAIT_TIME = 0.5f;
 
     [SerializeField, Tooltip("移動速度")] float _moveSpeed = 1f;
-    [SerializeField, Tooltip("現在乗っているタイル")] TileBase _currentTile;
+    [SerializeField, Tooltip("現在乗っているタイル")] TileController _currentTile;
     [SerializeField, Tooltip("目的地(ゴール)")] Destination _currentDestination = Destination.None;
     List<RoadPoint> _hitPoints = new List<RoadPoint>();
     /// <summary>前に乗っていたタイル </summary>
-    TileBase _lastTile = default;
+    TileController _lastTile = default;
     int _hitCount = 0;
     bool _isMoving = false;
-    TileBase _startTile = default;
-    TileBase _goalTile = default;
+    TileController _startTile = default;
+    TileController _goalTile = default;
     Rigidbody _rb => GetComponent<Rigidbody>();
     Animator _anime => GetComponent<Animator>();
-    public TileBase CurrentTile { get => _currentTile; set => _currentTile = value; }
+    public TileController CurrentTile { get => _currentTile; set => _currentTile = value; }
     /// <summary>目的地 </summary>
     public Destination CurrentDestination { get => _currentDestination; set => _currentDestination = value; }
-    public TileBase StartTile { get => _startTile; set => _startTile = value; }
-    public TileBase GoalTile { get => _goalTile; set => _goalTile = value; }
+    public TileController StartTile { get => _startTile; set => _startTile = value; }
+    public TileController GoalTile { get => _goalTile; set => _goalTile = value; }
 
     private void Start()
     {
@@ -45,7 +45,7 @@ public class HumanMove : MonoBehaviour
     {
         if (other.TryGetComponent(out RoadPoint roadPoint))
         {
-            if (roadPoint.ParentMapTile.CurrnetStatus == TileStatus.Start) { return; }
+            //if (roadPoint.ParentMapTile.CurrnetStatus == TileID.Start) { return; }
 
             _hitCount++;
             _hitPoints.Add(roadPoint);

@@ -8,7 +8,7 @@ public class RoadPoint : MonoBehaviour
 
     public bool IsMiddle => CurrentStatus == PointStatus.Middle;
     /// <summary>eƒ^ƒCƒ‹ </summary>
-    public TileBase ParentMapTile => transform.parent.GetComponent<TileBase>();
+    public TileController ParentMapTile => transform.parent.GetComponent<TileController>();
 }
 
 

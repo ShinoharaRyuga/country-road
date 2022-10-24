@@ -42,7 +42,7 @@ public class GetMapData : MonoBehaviour
         for (var i = 0; i < target.Length; i++)
         {
             var values = target[i].Split('-');
-            var status = (TileStatus)int.Parse(values[0]);
+            var status = (TileID)int.Parse(values[0]);
             var tileData = new TileData(status, float.Parse(values[1]));
             _createMap.TileDataList.Add(tileData);
         }
@@ -53,11 +53,11 @@ public class GetMapData : MonoBehaviour
 public struct TileData
 {
     /// <summary>ƒ^ƒCƒ‹‚ÌŽí—Þ</summary>
-    public TileStatus TileStatus;
+    public TileID TileStatus;
     /// <summary>‰ñ“]’l </summary>
     public float RotationValue;
 
-    public TileData(TileStatus status, float value)
+    public TileData(TileID status, float value)
     {
         TileStatus = status;
         RotationValue = value;

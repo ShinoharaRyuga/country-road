@@ -84,3 +84,105 @@ public enum GetStarCondition
 }
 
 
+public enum PointStatus
+{
+    First = 0,
+    Second = 1,
+    Third = 2,
+    Fourth = 3,
+    None = 4,
+    Middle = 5,
+    Goal = 6,
+    Start = 7,
+}
+
+/// <summary>スタートタイルまたはゴールタイルであるかどうか </summary>
+public enum TilePoint
+{
+    /// <summary> </summary>
+    None = 0,
+    Start = 1,
+    Goal = 2,
+}
+
+/// <summary>大まかなタイルの種類 </summary>
+public enum TileType
+{
+    /// <summary>道 </summary>
+    Road = 0,
+    /// <summary>建物 </summary>
+    Building = 1,
+    /// <summary>無し </summary>
+    None = 2,
+}
+
+/// <summary>道の種類 </summary>
+public enum RoadType
+{
+    /// <summary>真っ直ぐ </summary>
+    Straight = 0,
+    /// <summary>横道 </summary>
+    Side = 1,
+    /// <summary>曲がり角 </summary>
+    Corner = 2,
+    /// <summary>T字路 </summary>
+    TRoad = 3,
+    /// <summary>十字路 </summary>
+    Cross = 4,
+}
+
+/// <summary>建物の種類 </summary>
+public enum BuildingType
+{
+    /// <summary>家１ </summary>
+    House1 = 0,
+    /// <summary>化学研究所 </summary>
+    Chemical_laboratory = 1,
+    /// <summary>服屋 </summary>
+    Clothing_store = 2,
+    /// <summary>鉱山 </summary>
+    Mine = 3,
+    /// <summary>製薬工場 </summary>
+    Pharmaceutical_factory = 4,
+}
+
+/// <summary>無しタイルの種類 </summary>
+public enum NoneType
+{
+    /// <summary>ベンチ（単体） </summary>
+    Bench = 0,
+    /// <summary>ベンチ（複数） </summary>
+    Benches = 1,
+    /// <summary>木々 </summary>
+    Trees = 2,
+}
+
+/// <summary>タイルのID(種類) </summary>
+public enum TileID
+{
+    /// <summary>道なし　タイル </summary>
+    None = 0,
+    /// <summary>真っ直ぐ </summary>
+    Straight = 1,
+    /// <summary>横道 </summary>
+    Side = 2,
+    /// <summary>曲がり角 </summary>
+    Corner = 3,
+    /// <summary>T字路 </summary>
+    TRoad = 4,
+    /// <summary>十字路 </summary>
+    Cross = 5,
+    /// <summary>学校 </summary>
+    School = 6,
+    /// <summary>家１ </summary>
+    House1 = 7,
+    /// <summary>化学研究所 </summary>
+    Chemical_laboratory = 8,
+    /// <summary>服屋 </summary>
+    Clothing_store = 9,
+    /// <summary>鉱山 </summary>
+    Mine = 10,
+    /// <summary>製薬工場 </summary>
+    Pharmaceutical_factory = 11,
+}
+

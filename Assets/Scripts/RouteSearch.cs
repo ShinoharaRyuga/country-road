@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class RouteSearch : MonoBehaviour
 {
-    [SerializeField] TileBase[] _tiles = default;
-    [SerializeField] TileBase _startTile = default;
-    [SerializeField] TileBase _goalTile = default;
-    [SerializeField] TileBase[] _stageTiles = default;
+    [SerializeField] TileController[] _tiles = default;
+    [SerializeField] TileController _startTile = default;
+    [SerializeField] TileController _goalTile = default;
+    [SerializeField] TileController[] _stageTiles = default;
 
     int _goalRow = 0;
     int _goalCol = 0;
@@ -14,19 +14,19 @@ public class RouteSearch : MonoBehaviour
     bool _isGoal = false;
     bool _isFirst = true;
 
-    List<TileBase> _openTiles = new List<TileBase>();
-    List<TileBase> _goalWay = new List<TileBase>();
+    List<TileController> _openTiles = new List<TileController>();
+    List<TileController> _goalWay = new List<TileController>();
 
-    TileBase _currentTile;
-    TileBase _lastTile;
+    TileController _currentTile;
+    TileController _lastTile;
 
-    TileBase _test;
+    TileController _test;
 
-    TileBase[,] _tileBase;
+    TileController[,] _tileBase;
 
     private void Start()
     {
-        _tileBase = new TileBase[6, 3];
+        _tileBase = new TileController[6, 3];
         var index = 0;
 
         for (var i = 0; i < 6; i++)
@@ -76,7 +76,7 @@ public class RouteSearch : MonoBehaviour
         }
     }
 
-    void OpenAroundTile(TileBase tile, TileBase lastTile)
+    void OpenAroundTile(TileController tile, TileController lastTile)
     {
         if(_isGoal) { return; }
 
@@ -132,7 +132,7 @@ public class RouteSearch : MonoBehaviour
         _lastTile = tile;
     }
 
-    void OpenTile(TileBase tile)
+    void OpenTile(TileController tile)
     {
         if (tile.AstarStatus == AstarStatus.Empty)
         {
@@ -141,12 +141,12 @@ public class RouteSearch : MonoBehaviour
             tile.SetCosts(_moveCost, GetGuessCost(tile.Row, tile.Col));
         }
 
-        if (tile.CurrnetStatus == TileStatus.Goal)
-        {
-            _goalWay.Add(tile);
-            _openTiles.Clear();
-            Debug.Log("Goal");
-        }
+        //if (tile.CurrnetStatus == TileID.Goal)
+        //{
+        //    _goalWay.Add(tile);
+        //    _openTiles.Clear();
+        //    Debug.Log("Goal");
+        //}
     }
 
     void OpenNextTile()
@@ -175,11 +175,11 @@ public class RouteSearch : MonoBehaviour
 
         _openTiles.Clear();
 
-        if (nextTile.CurrnetStatus == TileStatus.Goal)
-        {
-            Debug.Log("Goal");
-            return;
-        }
+        //if (nextTile.CurrnetStatus == TileID.Goal)
+        //{
+        //    Debug.Log("Goal");
+        //    return;
+        //}
 
         _test = nextTile;
 

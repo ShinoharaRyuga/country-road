@@ -5,7 +5,7 @@ public class ConnectingTiles : MonoBehaviour
 {
     [SerializeField] PointStatus _currentStatus = PointStatus.None;
 
-    public TileBase ParentTile => transform.parent.GetComponent<TileBase>();
+    public TileController ParentTile => transform.parent.GetComponent<TileController>();
 
     public PointStatus CurrentStatus { get => _currentStatus; }
 

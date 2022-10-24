@@ -19,7 +19,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] TMP_Text _lifeText = default;
     [SerializeField] TMP_Text _moveCountText = default;
     Transform _spawnPoint = default;
-    TileBase _startTile = default;
+    TileController _startTile = default;
     /// <summary>ステージ上にいる街人数 </summary>
     int _currentHumanNumber = 0;
     /// <summary>現在のライフ </summary>

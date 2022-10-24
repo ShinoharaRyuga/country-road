@@ -9,9 +9,9 @@ public class PlayerInput : MonoBehaviour
     [SerializeField, Header("入れ替え時の高さ")] float _swapHeight = 4f;
     [SerializeField, Header("入れ替えにかかる時間")] float _swapTime = 0.7f;
     /// <summary>交換したいタイル </summary>
-    TileBase _startMapTile = default;
+    TileController _startMapTile = default;
     /// <summary>交換先のタイル </summary>
-    TileBase _endMapTile = default;
+    TileController _endMapTile = default;
     Vector3 _startPoint = default;
     Vector3 _endPoint = default;
     Pathfinding _pathfinding => GetComponent<Pathfinding>();
@@ -30,7 +30,7 @@ public class PlayerInput : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Tile") && _startMapTile == null && !_isSwap)
                 {
-                    _startMapTile = hit.collider.gameObject.GetComponent<TileBase>();
+                    _startMapTile = hit.collider.gameObject.GetComponent<TileController>();
                     _startPoint = _startMapTile.transform.position;
                 }
             }
@@ -44,9 +44,9 @@ public class PlayerInput : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Tile") && !_isSwap)
                 {
-                    if (_startMapTile != hit.collider.gameObject.GetComponent<TileBase>())
+                    if (_startMapTile != hit.collider.gameObject.GetComponent<TileController>())
                     {
-                        _endMapTile = hit.collider.gameObject.GetComponent<TileBase>();
+                        _endMapTile = hit.collider.gameObject.GetComponent<TileController>();
                         _endPoint = _endMapTile.transform.position;
                     }
                 }
@@ -77,7 +77,7 @@ public class PlayerInput : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Tile"))
                 {
-                    var target = hit.collider.gameObject.GetComponent<TileBase>();
+                    var target = hit.collider.gameObject.GetComponent<TileController>();
                     Debug.Log(target.name);
  
                     foreach (var tile in target.ConnectingTiles)

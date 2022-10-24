@@ -10,20 +10,20 @@ public class Pathfinding : MonoBehaviour
     int _goalRow = 0;
     int _goalCol = 0;
     int _moveCost = 0;
-    TileBase[,] _mapTiles = default;
-    TileBase _startTile = default;
-    TileBase _goalTile = default;
-    List<TileBase> _openTiles = new List<TileBase>();
+    TileController[,] _mapTiles = default;
+    TileController _startTile = default;
+    TileController _goalTile = default;
+    List<TileController> _openTiles = new List<TileController>();
 
     StageManager _manager => GetComponent<StageManager>();  
     public int GoalRow { get => _goalRow; set => _goalRow = value; }
     public int GoalCol { get => _goalCol; set => _goalCol = value; }
-    public TileBase StartTile { get => _startTile; set => _startTile = value; }
-    public TileBase[,] MapTiles { get => _mapTiles; set => _mapTiles = value; }
+    public TileController StartTile { get => _startTile; set => _startTile = value; }
+    public TileController[,] MapTiles { get => _mapTiles; set => _mapTiles = value; }
 
 
     /// <summary>”z—ñ“à‚Ìƒ^ƒCƒ‹‚ð“ü‚ê‘Ö‚¦‚é </summary>
-    public void SwapTile(TileBase start, TileBase end)
+    public void SwapTile(TileController start, TileController end)
     {
         var startTile = _mapTiles[start.Row, start.Col];
         var endTile = _mapTiles[end.Row, end.Col];
@@ -32,7 +32,7 @@ public class Pathfinding : MonoBehaviour
         _mapTiles[startTile.Row, startTile.Col] = endTile;
     }
 
-    void OpenAroundTile(TileBase currentTile)
+    void OpenAroundTile(TileController currentTile)
     {
         if (currentTile.ConnectingTiles.ContainsKey(PointStatus.First))
         {
@@ -80,7 +80,7 @@ public class Pathfinding : MonoBehaviour
         }
     }
 
-    void OpenTile(TileBase tile)
+    void OpenTile(TileController tile)
     {
         if (tile.AstarStatus == AstarStatus.Empty)
         {

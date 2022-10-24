@@ -304,7 +304,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8838808051548155424}
-  - component: {fileID: 6707836457158362225}
+  - component: {fileID: -3292165628488082742}
   - component: {fileID: 8838808051548155431}
   - component: {fileID: 8838808051548155430}
   - component: {fileID: 8838808051548155429}
@@ -338,7 +338,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &6707836457158362225
+--- !u!114 &-3292165628488082742
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -347,14 +347,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8838808051548155428}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc3276e7b942b5449b1e4cb23b1e5d54, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c21328db3fdd6a45a2d621a22da7960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currnetStatus: 2
-  _astarStatus: 0
-  _realCost: 0
-  _guessCost: 0
-  _score: 0
+  _tileType: 0
+  _roadType: 0
+  _buildingType: 0
+  _noneType: 0
 --- !u!33 &8838808051548155431
 MeshFilter:
   m_ObjectHideFlags: 0

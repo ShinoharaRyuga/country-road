@@ -15,18 +15,18 @@ public class CreateMap : MonoBehaviour
     const float COUNTDOWN_START_TIME = 3f;
 
     [SerializeField, Header("自動でマップ生成を行う")] bool _autoCreate = false;
-    [SerializeField] TileBase[] _tiles;
-    [SerializeField] TileBase[] _noneTiles;
-    TileBase _startTile = default;
-    TileBase _goalTile = default;
+    [SerializeField] TileController[] _tiles;
+    [SerializeField] TileController[] _noneTiles;
+    TileController _startTile = default;
+    TileController _goalTile = default;
     List<TileData> _tileDataList = new List<TileData>();
     int _row = 0;
     int _col = 0;
 
     public int Row { get => _row; set => _row = value; }
     public int Col { get => _col; set => _col = value; }
-    public TileBase StartTile { get => _startTile; set => _startTile = value; }
-    public TileBase GoalTile { get => _goalTile; set => _goalTile = value; }
+    public TileController StartTile { get => _startTile; set => _startTile = value; }
+    public TileController GoalTile { get => _goalTile; set => _goalTile = value; }
     public List<TileData> TileDataList { get => _tileDataList; set => _tileDataList = value; }
 
 
@@ -47,7 +47,7 @@ public class CreateMap : MonoBehaviour
         var index = 0;
         var xPos = 0;
         var zPos = _col * TILE_SCALE;
-        var generateTiles = new TileBase[_tileDataList.Count];
+        var generateTiles = new TileController[_tileDataList.Count];
 
         for (var c = 0; c < _col; c++)
         {
@@ -62,11 +62,11 @@ public class CreateMap : MonoBehaviour
 
                 switch (tileData.TileStatus)    //タイルを作成
                 {
-                    case TileStatus.None:
+                    case TileID.None:
                         var rand = Random.Range(0, _noneTiles.Length);
                         tile = Instantiate(_noneTiles[rand], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.identity);
                         break;
-                    case TileStatus.Side:
+                    case TileID.Side:
                         tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.Euler(0, 90, 0));
                         break;
                     default:
@@ -74,16 +74,16 @@ public class CreateMap : MonoBehaviour
                         break;
                 }
 
-                if (tileData.TileStatus == TileStatus.Start)
-                {
-                    tile.transform.position = new Vector3(xPos, 0, zPos);
-                    _startTile = tile;
-                }
-                else if (tileData.TileStatus == TileStatus.Goal)
-                {
-                    tile.transform.position = new Vector3(xPos, 0, zPos);
-                    _goalTile = tile;
-                }
+                //if (tileData.TileStatus == TileID.Start)
+                //{
+                //    tile.transform.position = new Vector3(xPos, 0, zPos);
+                //    _startTile = tile;
+                //}
+                //else if (tileData.TileStatus == TileID.Goal)
+                //{
+                //    tile.transform.position = new Vector3(xPos, 0, zPos);
+                //    _goalTile = tile;
+                //}
 
                 generateTiles[index] = tile;
                 tile.SetPoint(r, c);
@@ -100,7 +100,7 @@ public class CreateMap : MonoBehaviour
     /// ステージ定位置に移動させる
     /// </summary>
     /// <param name="tileBases">生成されたタイル</param>
-    IEnumerator FallTileRamdom(TileBase[] tileBases)
+    IEnumerator FallTileRamdom(TileController[] tileBases)
     {
         var selectedNumbers = new List<int>();
         for (var i = 0; i < tileBases.Length;)

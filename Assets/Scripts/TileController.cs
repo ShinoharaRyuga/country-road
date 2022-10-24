@@ -7,29 +7,34 @@ using UnityEngine;
 /// タイルの基底クラス
 /// 　T字路や曲がり角などを派生させて作成する  
 /// </summary>
-public class TileBase : MonoBehaviour
+public class TileController : MonoBehaviour
 {
     /// <summary>マップ作成時の移動速度 </summary>
     const float FIRST_MOVE_SPEED = 70f;
 
-    [SerializeField] TileStatus _currnetStatus = TileStatus.None;
-    [SerializeField] AstarStatus _astarStatus = AstarStatus.Empty;
+    [SerializeField, Header("タイルの位置情報")] TilePoint _tilePoint = TilePoint.None;
+    [SerializeField, Header("タイルの種類")] TileType _tileType = TileType.None;
+    [SerializeField, HideInInspector ,Tooltip("道の種類")] RoadType _roadType = RoadType.Straight;
+    [SerializeField, HideInInspector ,Tooltip("建物の種類")] BuildingType _buildingType = BuildingType.House1;
+    [SerializeField, HideInInspector ,Tooltip("無しタイルの種類")] NoneType _noneType = NoneType.Bench;
+   
+    AstarStatus _astarStatus = AstarStatus.Empty;
     /// <summary>タイルに乗っている街人のリスト </summary>
     List<HumanMove> _onHumans = new List<HumanMove>();
     /// <summary>街人を誘導するためポイントリスト </summary>
     List<RoadPoint> _roadPoints = new List<RoadPoint>();
     /// <summary>繋がっているタイル </summary>
-    Dictionary<PointStatus, TileBase> _connectingTiles = new Dictionary<PointStatus, TileBase>();
+    Dictionary<PointStatus, TileController> _connectingTiles = new Dictionary<PointStatus, TileController>();
 
     Pathfinding _pathfinding;
     int _row = 0;
     int _col = 0;
-    public int _realCost = 0;
-    public int _guessCost = 0;
-    public int _score = 0;
+    int _realCost = 0;
+    int _guessCost = 0;
+    int _score = 0;
     public List<HumanMove> OnHumans { get => _onHumans; set => _onHumans = value; }
-    public Dictionary<PointStatus, TileBase> ConnectingTiles { get => _connectingTiles; set => _connectingTiles = value; }
-    public TileStatus CurrnetStatus { get => _currnetStatus; set => _currnetStatus = value; }
+    public Dictionary<PointStatus, TileController> ConnectingTiles { get => _connectingTiles; set => _connectingTiles = value; }
+    public TileType TileType { get => _tileType; }
     public int Col { get => _col; }
     public int Row { get => _row; }
     public int RealCost { get => _realCost; set => _realCost = value; }
@@ -37,6 +42,9 @@ public class TileBase : MonoBehaviour
     public int Score { get => _score; set => _score = value; }
     public AstarStatus AstarStatus { get => _astarStatus; set => _astarStatus = value; }
     public Pathfinding PathfindingClass { get => _pathfinding; set => _pathfinding = value; }
+    public RoadType RoadType { get => _roadType; set => _roadType = value; }
+    public BuildingType BuildingType { get => _buildingType; set => _buildingType = value; }
+    public NoneType NoneType { get => _noneType; set => _noneType = value; }
 
     void Start()
     {
@@ -60,7 +68,7 @@ public class TileBase : MonoBehaviour
     }
 
     /// <summary>接続されたタイルを_connectingTilesに追加する </summary>
-    public void AddConnectedTile(PointStatus key, TileBase tile)
+    public void AddConnectedTile(PointStatus key, TileController tile)
     {
         if (_connectingTiles.ContainsKey(key))
         {
@@ -87,7 +95,7 @@ public class TileBase : MonoBehaviour
         return nextPoint.transform.position;
     }
 
-    public Vector3 GetNextPoint(TileBase nextTile, List<RoadPoint> hitPoints)
+    public Vector3 GetNextPoint(TileController nextTile, List<RoadPoint> hitPoints)
     {
         var targetPoints = new List<RoadPoint>();
         var nextPoint = _roadPoints[0];
@@ -117,7 +125,7 @@ public class TileBase : MonoBehaviour
     /// <summary>指定された出口にタイルが繋がっているか調べる </summary>
     /// <param name="key">指定した出口</param>
     /// <returns>繋がっていたらそのタイルを返す</returns>
-    public TileBase GetNextTile(PointStatus key)
+    public TileController GetNextTile(PointStatus key)
     {
         if (_connectingTiles.ContainsKey(key))
         {
@@ -127,7 +135,7 @@ public class TileBase : MonoBehaviour
         return null;
     }
 
-    public TileBase GetNextTile(TileBase lastTile)
+    public TileController GetNextTile(TileController lastTile)
     {                                       
         var nextTile = _connectingTiles[0]; 
         var minGuessCost = 99;              
@@ -253,27 +261,4 @@ public class TileBase : MonoBehaviour
     }
 }
 
-public enum PointStatus
-{
-    First = 0,
-    Second = 1,
-    Third = 2,
-    Fourth = 3,
-    None = 4,
-    Middle = 5,
-    Goal = 6,
-    Start = 7,
-}
 
-/// <summary>タイルの種類 </summary>
-public enum TileStatus
-{
-    None = 0,
-    Straight = 1,
-    Side = 2,
-    Corner = 3,
-    TRoad = 4,
-    Cross = 5,
-    Start = 6,
-    Goal = 7,
-}
