@@ -54,7 +54,7 @@ public class StageSelectManager : MonoBehaviour
 
         foreach (var stageInfo in GameData.StageInfos)  //ステージ選択用タイルを生成
         {
-            var targetTile = (StageSelectTiles)stageInfo._stageTile;
+            var targetTile = (BuildingType)stageInfo._stageTile;
             var tile = Instantiate(GameData.StageSelectTiles[targetTile], Vector3.zero, Quaternion.Euler(0, 180, 0));
             tile.transform.GetChild(1).gameObject.SetActive(false);
 

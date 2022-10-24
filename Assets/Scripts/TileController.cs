@@ -15,7 +15,7 @@ public class TileController : MonoBehaviour
     [SerializeField, Header("タイルの位置情報")] TilePoint _tilePoint = TilePoint.None;
     [SerializeField, Header("タイルの種類")] TileType _tileType = TileType.None;
     [SerializeField, HideInInspector ,Tooltip("道の種類")] RoadType _roadType = RoadType.Straight;
-    [SerializeField, HideInInspector ,Tooltip("建物の種類")] BuildingType _buildingType = BuildingType.House1;
+    [SerializeField, HideInInspector ,Tooltip("建物の種類")] BuildingType _buildingType = BuildingType.House_1;
     [SerializeField, HideInInspector ,Tooltip("無しタイルの種類")] NoneType _noneType = NoneType.Bench;
    
     AstarStatus _astarStatus = AstarStatus.Empty;
@@ -64,6 +64,28 @@ public class TileController : MonoBehaviour
             {
                 _roadPoints.Add(point);
             }
+        }
+    }
+
+    private void OnValidate()
+    {
+        ChangeTag();
+    }
+
+    /// <summary>タイルの位置情報に応じてタグを変更する </summary>
+    void ChangeTag()
+    {
+        switch (_tilePoint)
+        {
+            case TilePoint.Goal:
+                gameObject.tag = "GoalTile";
+                break;
+            case TilePoint.Start:
+                gameObject.tag = "StartTile";
+                break;
+            case TilePoint.None:
+                gameObject.tag = "Tile";
+                break;
         }
     }
 

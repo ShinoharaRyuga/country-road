@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 public class TileCreatorWindow : EditorWindow
 {
     /// <summary>タイルの保存先のパス </summary>
-    const string SAVE_FOLDER_PATH = "Assets/Prefabs/Tiles/";
+    const string SAVE_FOLDER_PATH = "Assets/Prefabs/BuildingTiles/";
     const string LOAD_FOLDER_PATH = "Assets/BuildingPrefabs/";
 
     GameObject _targetTile = default;
