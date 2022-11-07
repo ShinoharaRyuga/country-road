@@ -10,10 +10,7 @@ public class GameData
 {
     /// <summary>タイル読み込みに使用するパス </summary>
     const string LOAD_PATH = "Assets/Prefabs/BuildingTiles";
-    static Dictionary<BuildingType, GameObject> _stageSelectTiles = new Dictionary<BuildingType, GameObject>();
-
-    public static Dictionary<BuildingType, GameObject> StageSelectTiles { get => _stageSelectTiles; }
-
+   
     /// <summary>タイルを特定のフォルダから取得する </summary>
     public static void GetTiles()
     {
@@ -30,26 +27,6 @@ public class GameData
                 tmpDictionary.Add(tile.name, tile);
             }
         }
-
-        SortTiles(tmpDictionary);
-        Debug.Log("end");
-    }
-
-    /// <summary>StageSelectTilesの順番に並べる(Dictionaryを作成) </summary>
-    static void SortTiles(Dictionary<string, GameObject> dictionary)
-    {
-        for (var i = 0; i < Enum.GetNames(typeof(BuildingType)).Length; i++)
-        {
-            var stageSelectTileName = (BuildingType)i;
-
-            foreach (var tilename in dictionary.Keys)
-            {
-                if (tilename.Contains(stageSelectTileName.ToString(), StringComparison.OrdinalIgnoreCase))
-                {
-                    _stageSelectTiles.Add((BuildingType)i, dictionary[tilename]);
-                }
-            }
-        }
     }
 }
 
@@ -63,7 +40,6 @@ public enum GetStarCondition
     /// <summary>○手以内にクリア </summary>
     MoveCountLess = 2,
 }
-
 
 public enum PointStatus
 {
@@ -86,86 +62,31 @@ public enum TilePoint
     Goal = 2,
 }
 
-/// <summary>大まかなタイルの種類 </summary>
-public enum TileType
-{
-    /// <summary>道 </summary>
-    Road = 0,
-    /// <summary>建物 </summary>
-    Building = 1,
-    /// <summary>無し </summary>
-    None = 2,
-}
-
-/// <summary>道の種類 </summary>
-public enum RoadType
-{
-    /// <summary>真っ直ぐ </summary>
-    Straight = 0,
-    /// <summary>横道 </summary>
-    Side = 1,
-    /// <summary>曲がり角 </summary>
-    Corner = 2,
-    /// <summary>T字路 </summary>
-    TRoad = 3,
-    /// <summary>十字路 </summary>
-    Cross = 4,
-}
-
-/// <summary>建物の種類 </summary>
-public enum BuildingType
-{
-    /// <summary>家１ </summary>
-    House_1 = 0,
-    /// <summary>化学研究所 </summary>
-    Chemical_laboratory = 1,
-    /// <summary>服屋 </summary>
-    Clothing_store = 2,
-    /// <summary>鉱山 </summary>
-    Mine = 3,
-    /// <summary>製薬工場 </summary>
-    Pharmaceutical_factory = 4,
-    /// <summary>学校 </summary>
-    School = 5,
-}
-
-/// <summary>無しタイルの種類 </summary>
-public enum NoneType
-{
-    /// <summary>ベンチ（単体） </summary>
-    Bench = 0,
-    /// <summary>ベンチ（複数） </summary>
-    Benches = 1,
-    /// <summary>木々 </summary>
-    Trees = 2,
-}
-
-/// <summary>タイルのID(種類) </summary>
+/// <summary>道を構成する為に必要タイルのID </summary>
 public enum TileID
 {
-    /// <summary>道なし　タイル </summary>
-    None = 0,
+    ///=====道タイル=====
     /// <summary>真っ直ぐ </summary>
-    Straight = 1,
-    /// <summary>横道 </summary>
-    Side = 2,
+    Straight = 0,
     /// <summary>曲がり角 </summary>
-    Corner = 3,
+    Corner = 1,
     /// <summary>T字路 </summary>
-    TRoad = 4,
+    TRoad = 2,
     /// <summary>十字路 </summary>
-    Cross = 5,
-    /// <summary>学校 </summary>
-    School = 6,
-    /// <summary>家１ </summary>
-    House1 = 7,
-    /// <summary>化学研究所 </summary>
-    Chemical_laboratory = 8,
-    /// <summary>服屋 </summary>
-    Clothing_store = 9,
-    /// <summary>鉱山 </summary>
-    Mine = 10,
-    /// <summary>製薬工場 </summary>
-    Pharmaceutical_factory = 11,
+    Cross = 3,
+
+    ///=====道なしタイル=====
+    /// <summary>空タイル </summary>
+    None = 4,
+    /// <summary>木タイル </summary>
+    NoneTrees = 5,
+    /// <summary>ベンチタイル(複数) </summary>
+    NoneBenches = 6,
+    /// <summary>ベンチタイル(単体) </summary>
+    NoneBench = 7,
+
+    ///=====スタート・ゴールタイル=====
+    StartTile = 8,
+    GoalTile = 9,
 }
 

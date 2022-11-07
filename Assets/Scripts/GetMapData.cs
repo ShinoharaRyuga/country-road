@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>CSVファイルを読みマップデータを作成するクラス</summary>
@@ -39,13 +37,13 @@ public class GetMapData : MonoBehaviour
     /// <summary>受け取ったデータを元にTileDataの構造体を作成する </summary>
     void CreateTileData(string[] target)
     {
-        //for (var i = 0; i < target.Length; i++)
-        //{
-        //    var values = target[i].Split('-');
-        //    var status = (TileID)int.Parse(values[0]);
-        //    var tileData = new TileData(status, float.Parse(values[1]));
-        //    _createMap.TileDataList.Add(tileData);
-        //}
+        for (var i = 0; i < target.Length; i++)
+        {
+            var values = target[i].Split('-');
+            var status = (TileID)int.Parse(values[0]);
+            var tileData = new TileData(status, float.Parse(values[1]));
+            _createMap.TileDataList.Add(tileData);
+        }
     }
 }
 
@@ -53,13 +51,13 @@ public class GetMapData : MonoBehaviour
 public struct TileData
 {
     /// <summary>タイルの種類</summary>
-   // public TileID TileStatus;
+    public TileID TileStatus;
     /// <summary>回転値 </summary>
     public float RotationValue;
 
-    //public TileData(TileID status, float value)
-    //{
-    //  //  TileStatus = status;
-    //    RotationValue = value;
-    //}
+    public TileData(TileID status, float value)
+    {
+        TileStatus = status;
+        RotationValue = value;
+    }
 }

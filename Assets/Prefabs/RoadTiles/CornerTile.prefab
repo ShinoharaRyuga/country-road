@@ -116,10 +116,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tilePoint: 0
-  _tileType: 0
-  _roadType: 0
-  _buildingType: 3
-  _noneType: 0
 --- !u!33 &4519952399914716034
 MeshFilter:
   m_ObjectHideFlags: 0

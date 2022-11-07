@@ -16,7 +16,8 @@ public class CreateMap : MonoBehaviour
 
     [SerializeField, Header("自動でマップ生成を行う")] bool _autoCreate = false;
     [SerializeField] TileController[] _tiles;
-    [SerializeField] TileController[] _noneTiles;
+    [SerializeField] TileController[] _startTiles = default;
+    [SerializeField] TileController[] _goalTiles = default;
     TileController _startTile = default;
     TileController _goalTile = default;
     List<TileData> _tileDataList = new List<TileData>();
@@ -29,12 +30,11 @@ public class CreateMap : MonoBehaviour
     public TileController GoalTile { get => _goalTile; set => _goalTile = value; }
     public List<TileData> TileDataList { get => _tileDataList; set => _tileDataList = value; }
 
-
     private void Start()
     {
         if (_autoCreate)
         {
-           MapCreate();
+            MapCreate();
         }
     }
 
@@ -44,57 +44,47 @@ public class CreateMap : MonoBehaviour
     /// </summary>
     public void MapCreate()
     {
-        //var index = 0;
-        //var xPos = 0;
-        //var zPos = _col * TILE_SCALE;
-        //var generateTiles = new TileController[_tileDataList.Count];
+        var index = 0;
+        var xPos = 0;
+        var zPos = _col * TILE_SCALE;
+        var generateTiles = new TileController[_tileDataList.Count];
 
-        //for (var c = 0; c < _col; c++)
-        //{
-        //    zPos -= TILE_SCALE;
-        //    xPos = 0;
+        for (var c = 0; c < _col; c++)
+        {
+            zPos -= TILE_SCALE;
+            xPos = 0;
 
-        //    for (var r = 0; r < _row; r++)
-        //    {
-        //        var tileData = _tileDataList[index];
-        //        var tileIndex = (int)tileData.TileStatus;
-        //        var tile = _tiles[0];
+            for (var r = 0; r < _row; r++)
+            {
+                var tileData = _tileDataList[index];
+                var tileIndex = (int)tileData.TileStatus;
+                var tile = _tiles[0];
 
-        //        //switch (tileData.TileStatus)    //タイルを作成
-        //        //{
-        //        //    case TileID.None:
-        //        //        var rand = Random.Range(0, _noneTiles.Length);
-        //        //        tile = Instantiate(_noneTiles[rand], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.identity);
-        //        //        break;
-        //        //    case TileID.Side:
-        //        //        tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.Euler(0, 90, 0));
-        //        //        break;
-        //        //    default:
-        //        //        tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.Euler(0, tileData.RotationValue, 0));
-        //        //        break;
-        //        //}
 
-        //        //if (tileData.TileStatus == TileID.Start)
-        //        //{
-        //        //    tile.transform.position = new Vector3(xPos, 0, zPos);
-        //        //    _startTile = tile;
-        //        //}
-        //        //else if (tileData.TileStatus == TileID.Goal)
-        //        //{
-        //        //    tile.transform.position = new Vector3(xPos, 0, zPos);
-        //        //    _goalTile = tile;
-        //        //}
+                switch (tileData.TileStatus)
+                {
+                    case TileID.StartTile:
+                        tile = Instantiate(_startTiles[0], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.Euler(0, tileData.RotationValue, 0));
+                        _startTile = tile;
+                        break;
+                    case TileID.GoalTile:
+                        tile = Instantiate(_goalTiles[0], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.Euler(0, tileData.RotationValue, 0));
+                        break;
+                        default:
+                        tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.Euler(0, tileData.RotationValue, 0));
+                        break;
+                }
 
-        //        generateTiles[index] = tile;
-        //        tile.SetPoint(r, c);
-        //        index++;
-        //        xPos += TILE_SCALE;
-        //    }
-        //}
+                generateTiles[index] = tile;
+                tile.SetPoint(r, c);
+                index++;
+                xPos += TILE_SCALE;
+            }
+        }
 
-        //StartCoroutine(FallTileRamdom(generateTiles));
+        StartCoroutine(FallTileRamdom(generateTiles));
     }
-    
+
     /// <summary>
     /// タイルをランダムに落としていく
     /// ステージ定位置に移動させる

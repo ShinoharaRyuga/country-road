@@ -13,10 +13,6 @@ public class TileController : MonoBehaviour
     const float FIRST_MOVE_SPEED = 70f;
 
     [SerializeField, Header("タイルの位置情報")] TilePoint _tilePoint = TilePoint.None;
-    [SerializeField, Header("タイルの種類")] TileType _tileType = TileType.None;
-    [SerializeField, HideInInspector ,Tooltip("道の種類")] RoadType _roadType = RoadType.Straight;
-    [SerializeField, HideInInspector ,Tooltip("建物の種類")] BuildingType _buildingType = BuildingType.House_1;
-    [SerializeField, HideInInspector ,Tooltip("無しタイルの種類")] NoneType _noneType = NoneType.Bench;
    
     AstarStatus _astarStatus = AstarStatus.Empty;
     /// <summary>タイルに乗っている街人のリスト </summary>
@@ -34,7 +30,6 @@ public class TileController : MonoBehaviour
     int _score = 0;
     public List<HumanMove> OnHumans { get => _onHumans; set => _onHumans = value; }
     public Dictionary<PointStatus, TileController> ConnectingTiles { get => _connectingTiles; set => _connectingTiles = value; }
-    public TileType TileType { get => _tileType; }
     public int Col { get => _col; }
     public int Row { get => _row; }
     public int RealCost { get => _realCost; set => _realCost = value; }
@@ -42,10 +37,7 @@ public class TileController : MonoBehaviour
     public int Score { get => _score; set => _score = value; }
     public AstarStatus AstarStatus { get => _astarStatus; set => _astarStatus = value; }
     public Pathfinding PathfindingClass { get => _pathfinding; set => _pathfinding = value; }
-    public RoadType RoadType { get => _roadType; set => _roadType = value; }
-    public BuildingType BuildingType { get => _buildingType; set => _buildingType = value; }
-    public NoneType NoneType { get => _noneType; set => _noneType = value; }
-
+  
     void Start()
     {
         //各出入りと繋がっているタイルを結びつける

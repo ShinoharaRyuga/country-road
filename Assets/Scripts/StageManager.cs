@@ -9,7 +9,7 @@ public class StageManager : MonoBehaviour
     const float TIMER_TEXT_ACTIVE_TIME = 1;
     const float START_TIME = 0.5f;
 
-    [SerializeField] StageParameter _stageParameter = default;
+    [SerializeField, Header("ステージ情報")] StageParameter _stageParameter = default;
     [SerializeField, Header("生成間隔")] float _generateInterval = 0;
     [SerializeField] ResultManager _resultManager = default; 
     [SerializeField] HumanMove _humanPrefab = default;
