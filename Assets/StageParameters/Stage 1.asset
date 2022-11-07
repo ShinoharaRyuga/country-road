@@ -17,11 +17,9 @@ MonoBehaviour:
   _destinationName: "\u81EA\u5B85"
   _life: 3
   _peopleCount: 10
+  _starGetCount: 0
   _stageSelectTile: {fileID: 6363872084380096196, guid: d60f798c6d8440246ab486417dbd9b34, type: 3}
-  _startTiles:
-  - {fileID: 6363872084380096196, guid: 4dab94e1d5afe8545a7c99505b084cc5, type: 3}
-  _goalTiles:
-  - {fileID: 6363872084380096196, guid: d60f798c6d8440246ab486417dbd9b34, type: 3}
   _firstCondition: 0
   _secondCondition: 1
   _thirdCondition: 2
+  _readSceneName: Stage 1

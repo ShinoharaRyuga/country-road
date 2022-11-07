@@ -168,33 +168,6 @@ public class StageSelectManager : MonoBehaviour
     /// <summary>ゲームシーンに遷移する </summary>
     public void TransitionGameScene()
     {
-        SceneManager.LoadScene("DemoScene");
-    }
-}
-
-/// <summary>ステージ情報 </summary>
-public struct StageInfo
-{
-    /// <summary>ステージ名 </summary>
-    public string _stageName;
-    /// <summary>目的地 </summary>
-    public string[] _destinationsName;
-    /// <summary>ライフ </summary>
-    public int _life;
-    /// <summary>登場街人数 </summary>
-    public int _peopleCount;
-    /// <summary>ステージセレクト画面で表示するタイル </summary>
-    public int _stageTile;
-    /// <summary>星獲得条件 </summary>
-    public int[] getStarConditions;
-
-    public StageInfo(string stageName, string[] destinations, int life, int people, int stageTile, int[] conditions)
-    {
-        _stageName = stageName;
-        _destinationsName = destinations;
-        _life = life;
-        _peopleCount = people;
-        _stageTile = stageTile;
-        getStarConditions = conditions;
+        SceneManager.LoadScene(_currentStageParameter.ReadSceneName);
     }
 }

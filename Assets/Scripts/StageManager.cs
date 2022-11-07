@@ -9,10 +9,8 @@ public class StageManager : MonoBehaviour
     const float TIMER_TEXT_ACTIVE_TIME = 1;
     const float START_TIME = 0.5f;
 
-    [SerializeField, Header("“oêl”")] int _humanNumber = 0;
-    [SerializeField, Header("ƒ‰ƒCƒt")] int _life = 0;
+    [SerializeField] StageParameter _stageParameter = default;
     [SerializeField, Header("¶¬ŠÔŠu")] float _generateInterval = 0;
-    [SerializeField, Header("¯Šl“¾ğŒ‰ñ”")] int _getCount = 0;
     [SerializeField] ResultManager _resultManager = default; 
     [SerializeField] HumanMove _humanPrefab = default;
     [SerializeField] TMP_Text _timerText = default;
@@ -36,14 +34,14 @@ public class StageManager : MonoBehaviour
 
     CreateMap _createMap => GetComponent<CreateMap>();
     public int CurrentHumanNumber { get => _currentHumanNumber; set => _currentHumanNumber = value; }
-    public bool IsPerfect => _currentLife == _life;
+    public bool IsPerfect => _currentLife == _stageParameter.Life;
     public bool IsStageClear { get => _isStageClear; }
     public int MoveCount { get => _moveCount; set => _moveCount = value; }
 
     void Start()
     {
-        _currentHumanNumber = _humanNumber;
-        _currentLife = _life;
+        _currentHumanNumber = _stageParameter.PeopleCount;
+        _currentLife = _stageParameter.Life;
         _timer = COUNTDOWN_TIME;
         _lifeText.text = _currentLife.ToString();
     }
@@ -69,7 +67,7 @@ public class StageManager : MonoBehaviour
     public void StageClear()
     {
         Debug.Log($"‰ñ” {_moveCount}");
-        if (_moveCount <= _getCount)
+        if (_moveCount <= _stageParameter.StarGetCount)
         {
             _thirdCondition = true;
         }
@@ -80,7 +78,7 @@ public class StageManager : MonoBehaviour
         var resultCanvas =  Instantiate(_resultManager);
         var array = new bool[] { _isStageClear, IsPerfect, _thirdCondition };
         resultCanvas.SetResult(array);
-        resultCanvas.ChangeThirdText(_getCount);
+        resultCanvas.ChangeThirdText(_stageParameter.StarGetCount);
     }
 
     /// <summary>ˆê’èŠÔ‚²‚Æ‚ÉŠXl‚ğ¶¬‚·‚é </summary>
@@ -94,7 +92,7 @@ public class StageManager : MonoBehaviour
             human.CurrentTile = _startTile;
             human.transform.forward = _spawnPoint.forward;
 
-            if (_humanNumber <= count)
+            if (_stageParameter.PeopleCount <= count)
             {
                 break;
             }

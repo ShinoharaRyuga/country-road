@@ -36,10 +36,6 @@ public class GetStageInfo : MonoBehaviour
 
             var conditionsData = sr.ReadLine().Split(','); //星獲得条件を取得
             var conditions = GetConditions(conditionsData);
-
-            //取得したデータを元にステージ情報を作成しリストに追加する
-            var stageInfo = new StageInfo(stageName, destinations, life, peopleCount, stageTileNumber, conditions); 
-            GameData.StageInfos.Add(stageInfo);
         }
 
         Debug.Log("finish");
