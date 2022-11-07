@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e3ab2afebe89974fa47ca098b1ca072, type: 3}
+  m_Name: TutorialStage
+  m_EditorClassIdentifier: 
+  _stageNumber: 0
+  _stageName: "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB!!"
+  _destinationName: "\u81EA\u5B85"
+  _life: 2
+  _peopleCount: 1
+  _stageSelectTile: {fileID: 6363872084380096196, guid: 558cadb2c9ff0be4d82fb029d21f11cd, type: 3}
+  _startTiles:
+  - {fileID: 6363872084380096196, guid: e9c8b8ac632a7674680c861cf3387a64, type: 3}
+  _goalTiles:
+  - {fileID: 6363872084380096196, guid: 558cadb2c9ff0be4d82fb029d21f11cd, type: 3}
+  _firstCondition: 0
+  _secondCondition: 1
+  _thirdCondition: 2

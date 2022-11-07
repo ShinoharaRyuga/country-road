@@ -32,12 +32,14 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField, Tooltip("二つ目")] TMP_Text _secondConditionText = default;
     [SerializeField, Tooltip("三つ目")] TMP_Text _thirdConditionText = default;
 
+    [SerializeField, Header("各ステージ情報")] StageParameter[] _stageParameters = default;
+
     /// <summary>現在のステージ </summary>
     int _currentStageNumber = 0;
     /// <summary>星獲得条件のキャンバスを表示しているかどうか </summary>
     bool _isStarCanvas = false;
     /// <summary>現在のステージ情報 </summary>
-    StageInfo _currentStageInfo = default;
+    StageParameter _currentStageParameter = default;
     /// <summary>現在のステージタイル</summary>
     GameObject _currentStageTile = default;
     /// <summary>各ステージのタイル </summary>
@@ -52,10 +54,10 @@ public class StageSelectManager : MonoBehaviour
     {
         var tilePosX = 0f;
 
-        foreach (var stageInfo in GameData.StageInfos)  //ステージ選択用タイルを生成
+        foreach (var stage in _stageParameters) //ステージ選択用タイルを生成
         {
-            var targetTile = (BuildingType)stageInfo._stageTile;
-            var tile = Instantiate(GameData.StageSelectTiles[targetTile], Vector3.zero, Quaternion.Euler(0, 180, 0));
+            var targetTile = stage.StageSelectTile;
+            var tile = Instantiate(targetTile, Vector3.zero, Quaternion.Euler(0, 180, 0));
             tile.transform.GetChild(1).gameObject.SetActive(false);
 
             //位置、回転、大きさの調整
@@ -63,11 +65,11 @@ public class StageSelectManager : MonoBehaviour
             tile.transform.rotation = Quaternion.Euler(0, 180, 0);
             tile.transform.localScale = new Vector3(3, 0.6f, 3);
             tilePosX += TILE_POSITION_X;
-            _stageTiles.Add(tile);
+            _stageTiles.Add(targetTile.gameObject);
         }
 
         _currentStageTile = _stageTiles[0];
-        _currentStageInfo = GameData.StageInfos[0];
+        _currentStageParameter = _stageParameters[0];
         CurrentTileRotate();
         UIUpdate();
     }
@@ -85,14 +87,11 @@ public class StageSelectManager : MonoBehaviour
     /// <summary>UIを更新する </summary>
     void UIUpdate()
     {
-        var destinationsText = "";
-        Array.ForEach(_currentStageInfo._destinationsName, s => destinationsText += $"{s} ");
-
-        _stageNumberText.text = _currentStageNumber.ToString();     //ステージ数
-        _stageNameText.text = _currentStageInfo._stageName;         //ステージ名
-        _destinationsText.text = destinationsText;                  //目的地
-        _lifeText.text = _currentStageInfo._life.ToString();        //ライフ
-        _peopleCountText.text = _currentStageInfo._peopleCount.ToString();  //登場街人数
+        _stageNumberText.text = _currentStageParameter.StageNumber.ToString();  //ステージ数
+        _stageNameText.text = _currentStageParameter.StageName;                 //ステージ名
+        _destinationsText.text = _currentStageParameter.DestinationName;        //目的地
+        _lifeText.text = $"{_currentStageParameter.Life}個";                //ライフ
+        _peopleCountText.text = $"{_currentStageParameter.PeopleCount}人";  //登場街人数
     }
 
     /// <summary>次ステージに移動する </summary>
@@ -102,7 +101,7 @@ public class StageSelectManager : MonoBehaviour
         {
             _currentStageNumber++;
             _currentStageTile = _stageTiles[_currentStageNumber];
-            _currentStageInfo = GameData.StageInfos[_currentStageNumber];
+            _currentStageParameter = _stageParameters[_currentStageNumber];
             var cameraPosX = _cameraTransform.position.x + TILE_POSITION_X;
             _cameraTransform.DOMoveX(cameraPosX, CAMERA_MOVE_TIME);
         }
@@ -129,7 +128,7 @@ public class StageSelectManager : MonoBehaviour
         {
             _currentStageNumber--;
             _currentStageTile = _stageTiles[_currentStageNumber];
-            _currentStageInfo = GameData.StageInfos[_currentStageNumber];
+            _currentStageParameter = _stageParameters[_currentStageNumber];
             var cameraPosX = _cameraTransform.position.x - TILE_POSITION_X;
             _cameraTransform.DOMoveX(cameraPosX, CAMERA_MOVE_TIME);
         }

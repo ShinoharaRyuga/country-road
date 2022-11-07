@@ -50,11 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c21328db3fdd6a45a2d621a22da7960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currnetStatus: 0
-  _astarStatus: 0
-  _realCost: 0
-  _guessCost: 0
-  _score: 0
+  _tilePoint: 0
+  _tileType: 2
+  _roadType: 0
+  _buildingType: 0
+  _noneType: 0
 --- !u!33 &4484428848508904505
 MeshFilter:
   m_ObjectHideFlags: 0

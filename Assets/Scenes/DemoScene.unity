@@ -894,12 +894,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed97a194c5e713c45948d60065e398d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _autoCreate: 1
   _tiles:
   - {fileID: 8659359599962314722, guid: 54a85680bda95e14692e2f6a116c6546, type: 3}
-  - {fileID: 3662057529869650791, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
-  - {fileID: 6707836457158362225, guid: 4b43e1d60e408cf49942f93895964d4e, type: 3}
-  - {fileID: 2689608374618398890, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
-  - {fileID: 613251758740028294, guid: d719ffd6dcecc5a4e8cbeaeaccae4216, type: 3}
+  - {fileID: -5263937380544867230, guid: d620d6dd70985d54ca4a97dcba9d7116, type: 3}
+  - {fileID: 6159976788266357700, guid: c897c924e11271740a4ad69c7290ea90, type: 3}
+  - {fileID: 4420082760929832078, guid: f53c9d57fccc51749abce6b415bbe5d8, type: 3}
+  - {fileID: 742607354242347108, guid: d719ffd6dcecc5a4e8cbeaeaccae4216, type: 3}
   - {fileID: 6091778155316898247, guid: c897c924e11271740a4ad69c7290ea90, type: 3}
   - {fileID: 4362677107268669055, guid: 99b1d45302eb0224bac3edadfc167f01, type: 3}
   - {fileID: 3458788844286568971, guid: 3e489014b9516bf419de9b643e99aa1d, type: 3}

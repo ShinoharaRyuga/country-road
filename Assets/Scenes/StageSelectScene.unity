@@ -4212,6 +4212,10 @@ MonoBehaviour:
   _firstConditionText: {fileID: 1033668685}
   _secondConditionText: {fileID: 817151899}
   _thirdConditionText: {fileID: 1455296461}
+  _stageParameters:
+  - {fileID: 11400000, guid: 5687a5df923a2e4438c61802f7215a9c, type: 2}
+  - {fileID: 11400000, guid: dfae74e3c88d4544bae873ff8252d788, type: 2}
+  - {fileID: 11400000, guid: 33dc7052f790713498e3bb9e82709c3a, type: 2}
 --- !u!4 &2089784709
 Transform:
   m_ObjectHideFlags: 0

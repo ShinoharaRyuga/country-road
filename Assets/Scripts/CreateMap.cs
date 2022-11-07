@@ -44,55 +44,55 @@ public class CreateMap : MonoBehaviour
     /// </summary>
     public void MapCreate()
     {
-        var index = 0;
-        var xPos = 0;
-        var zPos = _col * TILE_SCALE;
-        var generateTiles = new TileController[_tileDataList.Count];
+        //var index = 0;
+        //var xPos = 0;
+        //var zPos = _col * TILE_SCALE;
+        //var generateTiles = new TileController[_tileDataList.Count];
 
-        for (var c = 0; c < _col; c++)
-        {
-            zPos -= TILE_SCALE;
-            xPos = 0;
+        //for (var c = 0; c < _col; c++)
+        //{
+        //    zPos -= TILE_SCALE;
+        //    xPos = 0;
 
-            for (var r = 0; r < _row; r++)
-            {
-                var tileData = _tileDataList[index];
-                var tileIndex = (int)tileData.TileStatus;
-                var tile = _tiles[0];
+        //    for (var r = 0; r < _row; r++)
+        //    {
+        //        var tileData = _tileDataList[index];
+        //        var tileIndex = (int)tileData.TileStatus;
+        //        var tile = _tiles[0];
 
-                switch (tileData.TileStatus)    //タイルを作成
-                {
-                    case TileID.None:
-                        var rand = Random.Range(0, _noneTiles.Length);
-                        tile = Instantiate(_noneTiles[rand], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.identity);
-                        break;
-                    case TileID.Side:
-                        tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.Euler(0, 90, 0));
-                        break;
-                    default:
-                        tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.Euler(0, tileData.RotationValue, 0));
-                        break;
-                }
+        //        //switch (tileData.TileStatus)    //タイルを作成
+        //        //{
+        //        //    case TileID.None:
+        //        //        var rand = Random.Range(0, _noneTiles.Length);
+        //        //        tile = Instantiate(_noneTiles[rand], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.identity);
+        //        //        break;
+        //        //    case TileID.Side:
+        //        //        tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.Euler(0, 90, 0));
+        //        //        break;
+        //        //    default:
+        //        //        tile = Instantiate(_tiles[tileIndex], new Vector3(xPos, FIRST_POSITION_Y, zPos), Quaternion.Euler(0, tileData.RotationValue, 0));
+        //        //        break;
+        //        //}
 
-                //if (tileData.TileStatus == TileID.Start)
-                //{
-                //    tile.transform.position = new Vector3(xPos, 0, zPos);
-                //    _startTile = tile;
-                //}
-                //else if (tileData.TileStatus == TileID.Goal)
-                //{
-                //    tile.transform.position = new Vector3(xPos, 0, zPos);
-                //    _goalTile = tile;
-                //}
+        //        //if (tileData.TileStatus == TileID.Start)
+        //        //{
+        //        //    tile.transform.position = new Vector3(xPos, 0, zPos);
+        //        //    _startTile = tile;
+        //        //}
+        //        //else if (tileData.TileStatus == TileID.Goal)
+        //        //{
+        //        //    tile.transform.position = new Vector3(xPos, 0, zPos);
+        //        //    _goalTile = tile;
+        //        //}
 
-                generateTiles[index] = tile;
-                tile.SetPoint(r, c);
-                index++;
-                xPos += TILE_SCALE;
-            }
-        }
+        //        generateTiles[index] = tile;
+        //        tile.SetPoint(r, c);
+        //        index++;
+        //        xPos += TILE_SCALE;
+        //    }
+        //}
 
-        StartCoroutine(FallTileRamdom(generateTiles));
+        //StartCoroutine(FallTileRamdom(generateTiles));
     }
     
     /// <summary>
